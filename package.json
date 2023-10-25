@@ -1,0 +1,23 @@
+{
+  "name": "inter-iit-scoreboard-server",
+  "version": "1.0.0",
+  "description": "This is the server for the scoreboard for the Inter-IIT-sports-meet",
+  "main": "index.ts",
+  "author": "Karan-Gandhi",
+  "license": "MIT",
+  "private": false,
+  "scripts": {
+    "start": "node dist/index.js",
+    "dev": "concurrently \"tsc -w\" \"nodemon dist/index.js\"",
+    "build": "tsc -p ."
+  },
+  "dependencies": {
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2",
+    "nodemon": "^3.0.1",
+    "tsc": "^2.0.4"
+  }
+}
