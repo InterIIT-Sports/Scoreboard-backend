@@ -8,6 +8,6 @@ const refreshTokenSchema = new Schema<RefreshToken>({
   },
 });
 
-const RefreshTokenSchema = model("RefreshTokens", refreshTokenSchema);
+const RefreshTokenModel = model("RefreshTokens", refreshTokenSchema);
 
-export default RefreshTokenSchema;
+export default RefreshTokenModel;

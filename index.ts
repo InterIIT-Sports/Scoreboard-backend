@@ -4,6 +4,7 @@ import { config } from "dotenv";
 
 import { connectToDatabase } from "./utils/DatabaseUtils";
 import { CorsConfig } from "./config/CorsConfig";
+import AuthRoutes from "./routes/AuthRoutes";
 
 config();
 connectToDatabase();
@@ -17,5 +18,7 @@ app.use(cors(CorsConfig));
 app.get("/", (req, res) => {
   res.send("Hello");
 });
+
+app.use("/auth", AuthRoutes);
 
 const server = app.listen(PORT, () => console.log("[S] Server started at port: " + PORT));
