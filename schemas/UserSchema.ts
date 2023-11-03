@@ -1,0 +1,20 @@
+import { Schema, model } from "mongoose";
+import { User } from "../types/User";
+
+const userSchema = new Schema<User>({
+  name: {
+    type: String,
+    required: true,
+  },
+  username: {
+    type: String,
+    required: true,
+  },
+  password: {
+    type: String,
+    required: true,
+  },
+});
+
+const UserSchema = model<User>("Users", userSchema);
+export default UserSchema;

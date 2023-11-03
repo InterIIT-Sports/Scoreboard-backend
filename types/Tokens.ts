@@ -10,4 +10,6 @@ export interface AccessToken {
   accessToken: Token;
 }
 
-export type RefreshToken = Token;
+export interface RefreshToken {
+  refreshToken: Token;
+}
