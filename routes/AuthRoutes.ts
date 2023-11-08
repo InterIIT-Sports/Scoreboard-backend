@@ -22,8 +22,8 @@ router.post("/loginWithUsernameAndPassword", async (req, res) => {
   const { username, password } = req.body;
 
   try {
-    const tokens = await loginWithUsernameAndPassword(username, password);
-    res.json(tokens);
+    const data = await loginWithUsernameAndPassword(username, password);
+    res.json(data);
   } catch (error: any) {
     res.status(403);
     res.send({ message: error.message });
@@ -67,7 +67,7 @@ router.delete("/logout", (req, res) => {
   res.sendStatus(204);
 });
 
-// protected route
+// protected route TODO: Move this to users
 router.delete("/user", (req, res) => {
   if (!req.headers.authorization) return res.sendStatus(401);
 
@@ -79,8 +79,6 @@ router.delete("/user", (req, res) => {
     // req.user = user as User;
     const { username } = req.body;
     user = user as User;
-
-    console.log(user);
 
     if (user.role === UserRole.ADMIN) {
       await deleteUser(username);
