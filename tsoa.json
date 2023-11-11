@@ -1,6 +1,6 @@
 {
   "routes": {
-    "controllerPathGlobs": ["./src/utils/*.ts"]
+    "controllerPathGlobs": ["./routes/*.ts"]
   },
   "entryFile": "index.ts",
   "noImplicitAdditionalProperties": "throw-on-extras",

@@ -5,7 +5,22 @@
 		"parameters": {},
 		"requestBodies": {},
 		"responses": {},
-		"schemas": {},
+		"schemas": {
+			"AccessTokenTypes": {
+				"enum": [
+					"Basic",
+					"Bearer"
+				],
+				"type": "string"
+			},
+			"UserRole": {
+				"enum": [
+					"Admin",
+					"ScoreEditor"
+				],
+				"type": "string"
+			}
+		},
 		"securitySchemes": {}
 	},
 	"info": {
@@ -21,23 +36,77 @@
 	},
 	"openapi": "3.0.0",
 	"paths": {
-		"/Something": {
-			"get": {
-				"operationId": "GetMessage",
+		"/auth/loginWithUsernameAndPassword": {
+			"post": {
+				"operationId": "LoginWithUsernameAndPassword",
 				"responses": {
 					"200": {
 						"description": "Ok",
 						"content": {
 							"application/json": {
 								"schema": {
-									"type": "string"
+									"properties": {
+										"user": {
+											"properties": {
+												"role": {
+													"$ref": "#/components/schemas/UserRole"
+												},
+												"name": {
+													"type": "string"
+												}
+											},
+											"required": [
+												"role",
+												"name"
+											],
+											"type": "object"
+										},
+										"accessToken": {
+											"type": "string"
+										},
+										"type": {
+											"$ref": "#/components/schemas/AccessTokenTypes"
+										},
+										"refreshToken": {
+											"type": "string"
+										}
+									},
+									"required": [
+										"user",
+										"accessToken",
+										"type",
+										"refreshToken"
+									],
+									"type": "object"
 								}
 							}
 						}
 					}
 				},
 				"security": [],
-				"parameters": []
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"properties": {
+									"password": {
+										"type": "string"
+									},
+									"username": {
+										"type": "string"
+									}
+								},
+								"required": [
+									"password",
+									"username"
+								],
+								"type": "object"
+							}
+						}
+					}
+				}
 			}
 		}
 	},

@@ -3,7 +3,7 @@ import express from "express";
 import { deleteUser } from "../utils/AuthUtils";
 import { User } from "../types/User";
 import { UserRole } from "../types/UserRole";
-import AuthenticatedRequest from "../types/AuthenticatedRequest";
+import AuthenticatedRequest from "../requests/AuthenticatedRequest";
 
 const router = express.Router();
 

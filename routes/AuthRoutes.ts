@@ -20,10 +20,9 @@ router.get("/", (_, res) => {
 });
 
 router.post("/loginWithUsernameAndPassword", async (req, res) => {
-  const { username, password } = req.body;
   const authController = new AuthController();
   try {
-    const data = await authController.loginWithUsernameAndPassword(username, password);
+    const data = await authController.loginWithUsernameAndPassword(req.body);
     res.json(data);
   } catch (error: any) {
     res.status(403);
