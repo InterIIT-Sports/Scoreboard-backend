@@ -11,6 +11,7 @@ import {
 import RefreshTokenModel from "../schemas/RefreshTokenModel";
 import { User } from "../types/User";
 import { UserRole } from "../types/UserRole";
+import AuthController from "../controllers/AuthController";
 
 const router = express.Router();
 
@@ -20,9 +21,9 @@ router.get("/", (_, res) => {
 
 router.post("/loginWithUsernameAndPassword", async (req, res) => {
   const { username, password } = req.body;
-
+  const authController = new AuthController();
   try {
-    const data = await loginWithUsernameAndPassword(username, password);
+    const data = await authController.loginWithUsernameAndPassword(username, password);
     res.json(data);
   } catch (error: any) {
     res.status(403);

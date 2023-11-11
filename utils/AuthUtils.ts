@@ -13,7 +13,10 @@ export const loginWithUsernameAndPassword = async (username: string, password: s
   if (!user) throw InvalidUsernameOrPassword;
 
   return {
-    ...user,
+    user: {
+      name: user.name,
+      role: user.role,
+    },
     ...getAccessToken({ username: user.username, password: user.password, name: user.name, role: user.role }),
     refreshToken: (
       await getRefreshToken({ username: user.username, password: user.password, name: user.name, role: user.role })
@@ -35,7 +38,14 @@ export const createUserWithUsernameAndPassword = async (
   const newUser = new UserModel(user);
   await newUser.save();
 
-  return { ...user, ...getAccessToken(user), refreshToken: (await getRefreshToken(user)).refreshToken };
+  return {
+    user: {
+      name: user.name,
+      role: user.role,
+    },
+    ...getAccessToken(user),
+    refreshToken: (await getRefreshToken(user)).refreshToken,
+  };
 };
 
 export const getAccessToken = (user: User): AccessToken => {

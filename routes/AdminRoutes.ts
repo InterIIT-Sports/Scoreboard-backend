@@ -28,7 +28,7 @@ router.use((error: Error, _: express.Request, res: express.Response, next: expre
 });
 
 router.get("/", (_, res) => {
-  res.send("Hello world from api");
+  res.send("Hello world from Admin");
 });
 
 router.delete("/user", async (req: AuthenticatedRequest, res) => {
