@@ -172,6 +172,28 @@
 					}
 				}
 			}
+		},
+		"/auth/logout": {
+			"delete": {
+				"operationId": "Logout",
+				"responses": {
+					"204": {
+						"description": "No content"
+					}
+				},
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/accessTokenRequest"
+							}
+						}
+					}
+				}
+			}
 		}
 	},
 	"servers": [
