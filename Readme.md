@@ -3,7 +3,7 @@
 If you are running this for the first time run:
 
 ```
-./runFirstTime.sh
+./scripts/runFirstTime.sh
 ```
 
 If you have already run the above command run:

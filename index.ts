@@ -9,7 +9,7 @@ import AdminRoutes from "./routes/AdminRoutes";
 import { connectToDatabase } from "./utils/DatabaseUtils";
 import { CorsConfig } from "./config/CorsConfig";
 
-import swaggerConfig from "./swagger.json";
+import swaggerConfig from "./config/swagger.json";
 
 config();
 connectToDatabase();
@@ -17,10 +17,9 @@ connectToDatabase();
 const PORT = process.env.PORT || 5000;
 const app = express();
 
-app.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerConfig));
-
 app.use(express.json());
 app.use(cors(CorsConfig));
+app.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerConfig));
 
 app.get("/", (req, res) => {
   res.send("Hello");
