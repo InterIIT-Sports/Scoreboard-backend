@@ -1,6 +1,6 @@
 import * as jwt from "jsonwebtoken";
 import express from "express";
-import { deleteUser } from "../utils/AuthUtils";
+import { createUserWithUsernameAndPassword, deleteUser } from "../utils/AuthUtils";
 import { User } from "../types/User";
 import { UserRole } from "../types/UserRole";
 import AuthenticatedRequest from "../requests/AuthenticatedRequest";
@@ -17,6 +17,7 @@ router.use((req: AuthenticatedRequest, res, next) => {
     user = user as User;
     delete user?.iat;
     delete user?.exp;
+    if (user.role !== UserRole.ADMIN) res.sendStatus(403);
     if (!!user) req.user = user as User;
     next();
   });
@@ -33,13 +34,18 @@ router.get("/", (_, res) => {
 
 router.delete("/user", async (req: AuthenticatedRequest, res) => {
   const { username } = req.body;
+  await deleteUser(username);
+  res.sendStatus(204);
+});
 
-  if (!!req.user && req.user.role === UserRole.ADMIN) {
-    await deleteUser(username);
-
-    res.sendStatus(204);
-  } else {
-    res.sendStatus(403);
+router.post("/createUserWithUsernameAndPassword", async (req, res) => {
+  const { name, username, password, role } = req.body;
+  try {
+    const tokens = await createUserWithUsernameAndPassword(name, username, password, role);
+    res.json(tokens);
+  } catch (error: any) {
+    res.status(403);
+    res.send({ message: error.message });
   }
 });
 

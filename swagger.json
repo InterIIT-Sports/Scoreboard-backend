@@ -19,6 +19,37 @@
 					"ScoreEditor"
 				],
 				"type": "string"
+			},
+			"loginWithUsernameAndPasswordRequest": {
+				"properties": {
+					"username": {
+						"type": "string"
+					},
+					"password": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"username",
+					"password"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"Token": {
+				"type": "string"
+			},
+			"accessTokenRequest": {
+				"properties": {
+					"refreshToken": {
+						"$ref": "#/components/schemas/Token"
+					}
+				},
+				"required": [
+					"refreshToken"
+				],
+				"type": "object",
+				"additionalProperties": false
 			}
 		},
 		"securitySchemes": {}
@@ -90,19 +121,52 @@
 					"content": {
 						"application/json": {
 							"schema": {
-								"properties": {
-									"password": {
-										"type": "string"
+								"$ref": "#/components/schemas/loginWithUsernameAndPasswordRequest"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/auth/accessToken": {
+			"post": {
+				"operationId": "AccessToken",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"properties": {
+										"accessToken": {
+											"type": "string"
+										},
+										"type": {
+											"$ref": "#/components/schemas/AccessTokenTypes"
+										},
+										"refreshToken": {
+											"type": "string"
+										}
 									},
-									"username": {
-										"type": "string"
-									}
-								},
-								"required": [
-									"password",
-									"username"
-								],
-								"type": "object"
+									"required": [
+										"accessToken",
+										"type",
+										"refreshToken"
+									],
+									"type": "object"
+								}
+							}
+						}
+					}
+				},
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/accessTokenRequest"
 							}
 						}
 					}
