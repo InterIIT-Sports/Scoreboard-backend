@@ -2,7 +2,7 @@ import * as jwt from "jsonwebtoken";
 import loginWithUsernameAndPasswordRequest from "../requests/loginWithUsernameAndPasswordRequest";
 import accessTokenRequest from "../requests/accessTokenRequest";
 import RefreshTokenModel from "../schemas/RefreshTokenModel";
-import { Body, Controller, Delete, Example, Post, Route, Tags } from "tsoa";
+import { Body, Controller, Delete, Example, Post, Response, Route, Tags } from "tsoa";
 import { getAccessToken, getRefreshToken, loginWithUsernameAndPassword, revokeRefreshToken } from "../utils/AuthUtils";
 import { Unauthorised } from "../utils/AuthErrors";
 import { User } from "../types/User";
@@ -15,6 +15,7 @@ export class AuthController extends Controller {
    * @param {loginWithUsernameAndPasswordRequest} request - The request object containing the username and password.
    */
   @Post("loginWithUsernameAndPassword")
+  @Response(403, "Invalid username or password")
   @Example({
     user: {
       name: "TestUser",
@@ -36,6 +37,7 @@ export class AuthController extends Controller {
    * @throws {Unauthorised} - If the provided refresh token is invalid.
    */
   @Post("accessToken")
+  @Response(403, "Invalid Refresh token")
   @Example({
     refreshToken:
       "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc3QiLCJwYXNzd29yZCI6InRlc3QiLCJuYW1lIjoiS2FyYW4iLCJyb2xlIjoiQWRtaW4iLCJpYXQiOjE2OTk3NDA1NDl9.SX3TDJipA621FrpHBEJKnyKKEVbrbxbLziOHn8xIJUc",

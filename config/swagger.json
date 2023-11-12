@@ -125,6 +125,9 @@
 								}
 							}
 						}
+					},
+					"403": {
+						"description": "Invalid username or password"
 					}
 				},
 				"description": "Logs in a user with their username and password.",
