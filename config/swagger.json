@@ -56,6 +56,30 @@
 				],
 				"type": "string"
 			},
+			"CreateUserWithUsernameAndPasswordRequest": {
+				"properties": {
+					"name": {
+						"type": "string"
+					},
+					"username": {
+						"type": "string"
+					},
+					"password": {
+						"type": "string"
+					},
+					"role": {
+						"$ref": "#/components/schemas/UserRole"
+					}
+				},
+				"required": [
+					"name",
+					"username",
+					"password",
+					"role"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
 			"LoginWithUsernameAndPasswordRequest": {
 				"properties": {
 					"username": {
@@ -76,6 +100,18 @@
 				"type": "string"
 			},
 			"AccessTokenRequest": {
+				"properties": {
+					"refreshToken": {
+						"$ref": "#/components/schemas/Token"
+					}
+				},
+				"required": [
+					"refreshToken"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"LogoutRequest": {
 				"properties": {
 					"refreshToken": {
 						"$ref": "#/components/schemas/Token"
@@ -122,7 +158,6 @@
 					}
 				},
 				"tags": [
-					"Authentication",
 					"Admin"
 				],
 				"security": [],
@@ -138,7 +173,6 @@
 					}
 				},
 				"tags": [
-					"Authentication",
 					"Admin"
 				],
 				"security": [],
@@ -149,6 +183,73 @@
 						"application/json": {
 							"schema": {
 								"$ref": "#/components/schemas/DeleteUserRequest"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/admin/createUserWithUsernameAndPassword": {
+			"post": {
+				"operationId": "CreateUserWithUsernameAndPassword",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"properties": {
+										"user": {
+											"properties": {
+												"role": {
+													"$ref": "#/components/schemas/UserRole"
+												},
+												"name": {
+													"type": "string"
+												}
+											},
+											"required": [
+												"role",
+												"name"
+											],
+											"type": "object"
+										},
+										"accessToken": {
+											"type": "string"
+										},
+										"type": {
+											"$ref": "#/components/schemas/AccessTokenTypes"
+										},
+										"refreshToken": {
+											"type": "string"
+										}
+									},
+									"required": [
+										"user",
+										"accessToken",
+										"type",
+										"refreshToken"
+									],
+									"type": "object"
+								}
+							}
+						}
+					},
+					"403": {
+						"description": "Username already exists"
+					}
+				},
+				"tags": [
+					"Admin"
+				],
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/CreateUserWithUsernameAndPasswordRequest"
 							}
 						}
 					}
@@ -294,7 +395,7 @@
 					"content": {
 						"application/json": {
 							"schema": {
-								"$ref": "#/components/schemas/AccessTokenRequest"
+								"$ref": "#/components/schemas/LogoutRequest"
 							}
 						}
 					}
