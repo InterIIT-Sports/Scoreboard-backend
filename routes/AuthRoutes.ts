@@ -11,7 +11,7 @@ import {
 import RefreshTokenModel from "../schemas/RefreshTokenModel";
 import { User } from "../types/User";
 import { UserRole } from "../types/UserRole";
-import AuthController from "../controllers/AuthController";
+import { AuthController } from "../controllers/AuthController";
 
 const router = express.Router();
 

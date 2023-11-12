@@ -1,11 +1,12 @@
 {
-  "routes": {
-    "controllerPathGlobs": ["./contorllers/*.ts"]
-  },
-  "entryFile": "index.ts",
+  "entryFile": "./index.ts",
+  "controllerPathGlobs": ["./controllers/*.ts"],
   "noImplicitAdditionalProperties": "throw-on-extras",
   "spec": {
     "outputDirectory": "./config",
     "specVersion": 3
+  },
+  "routes": {
+    "routesDir": "config"
   }
 }
