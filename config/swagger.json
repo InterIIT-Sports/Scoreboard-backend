@@ -6,13 +6,6 @@
 		"requestBodies": {},
 		"responses": {},
 		"schemas": {
-			"AccessTokenTypes": {
-				"enum": [
-					"Basic",
-					"Bearer"
-				],
-				"type": "string"
-			},
 			"UserRole": {
 				"enum": [
 					"Admin",
@@ -20,7 +13,50 @@
 				],
 				"type": "string"
 			},
-			"loginWithUsernameAndPasswordRequest": {
+			"User": {
+				"properties": {
+					"name": {
+						"type": "string"
+					},
+					"username": {
+						"type": "string"
+					},
+					"password": {
+						"type": "string"
+					},
+					"role": {
+						"$ref": "#/components/schemas/UserRole"
+					}
+				},
+				"required": [
+					"name",
+					"username",
+					"password",
+					"role"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"DeleteUserRequest": {
+				"properties": {
+					"username": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"username"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"AccessTokenTypes": {
+				"enum": [
+					"Basic",
+					"Bearer"
+				],
+				"type": "string"
+			},
+			"LoginWithUsernameAndPasswordRequest": {
 				"properties": {
 					"username": {
 						"type": "string"
@@ -39,7 +75,7 @@
 			"Token": {
 				"type": "string"
 			},
-			"accessTokenRequest": {
+			"AccessTokenRequest": {
 				"properties": {
 					"refreshToken": {
 						"$ref": "#/components/schemas/Token"
@@ -57,7 +93,7 @@
 	"info": {
 		"title": "inter-iit-scoreboard-server",
 		"version": "1.0.0",
-		"description": "This is the server for the scoreboard for the Inter-IIT-sports-meet",
+		"description": "This is the server for the scoreboard for the Inter-IIT-sports-meet made by Karan Gandhi",
 		"license": {
 			"name": "MIT"
 		},
@@ -67,6 +103,58 @@
 	},
 	"openapi": "3.0.0",
 	"paths": {
+		"/admin/users": {
+			"get": {
+				"operationId": "GetUsers",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"items": {
+										"$ref": "#/components/schemas/User"
+									},
+									"type": "array"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Authentication",
+					"Admin"
+				],
+				"security": [],
+				"parameters": []
+			}
+		},
+		"/admin/user": {
+			"delete": {
+				"operationId": "DeleteUser",
+				"responses": {
+					"204": {
+						"description": "No content"
+					}
+				},
+				"tags": [
+					"Authentication",
+					"Admin"
+				],
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/DeleteUserRequest"
+							}
+						}
+					}
+				}
+			}
+		},
 		"/auth/loginWithUsernameAndPassword": {
 			"post": {
 				"operationId": "LoginWithUsernameAndPassword",
@@ -109,19 +197,6 @@
 										"refreshToken"
 									],
 									"type": "object"
-								},
-								"examples": {
-									"Example 1": {
-										"value": {
-											"user": {
-												"name": "TestUser",
-												"role": "Admin"
-											},
-											"accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc3QiLCJwYXNzd29yZCI6InRlc3QiLCJuYW1lIjoiS2FyYW4iLCJyb2xlIjoiQWRtaW4iLCJpYXQiOjE2OTk3ODIzMzcsImV4cCI6MTY5OTc4MjkzN30.fjakJ978Ps_QvAeGFuM71h_bRiX1vNon4712O5yHi3k",
-											"type": "Bearer",
-											"refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc3QiLCJwYXNzd29yZCI6InRlc3QiLCJuYW1lIjoiS2FyYW4iLCJyb2xlIjoiQWRtaW4iLCJpYXQiOjE2OTk3ODIzMzd9.PEMFsfQLK4wjQ_Pf3_HxBH-RBZsCLuf72I57peEv1mM"
-										}
-									}
 								}
 							}
 						}
@@ -141,7 +216,7 @@
 					"content": {
 						"application/json": {
 							"schema": {
-								"$ref": "#/components/schemas/loginWithUsernameAndPasswordRequest"
+								"$ref": "#/components/schemas/LoginWithUsernameAndPasswordRequest"
 							}
 						}
 					}
@@ -174,16 +249,12 @@
 										"refreshToken"
 									],
 									"type": "object"
-								},
-								"examples": {
-									"Example 1": {
-										"value": {
-											"refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc3QiLCJwYXNzd29yZCI6InRlc3QiLCJuYW1lIjoiS2FyYW4iLCJyb2xlIjoiQWRtaW4iLCJpYXQiOjE2OTk3NDA1NDl9.SX3TDJipA621FrpHBEJKnyKKEVbrbxbLziOHn8xIJUc"
-										}
-									}
 								}
 							}
 						}
+					},
+					"403": {
+						"description": "Invalid Refresh token"
 					}
 				},
 				"description": "Generates a new access and refresh token using the provided refresh token.",
@@ -197,7 +268,7 @@
 					"content": {
 						"application/json": {
 							"schema": {
-								"$ref": "#/components/schemas/accessTokenRequest"
+								"$ref": "#/components/schemas/AccessTokenRequest"
 							}
 						}
 					}
@@ -223,7 +294,7 @@
 					"content": {
 						"application/json": {
 							"schema": {
-								"$ref": "#/components/schemas/accessTokenRequest"
+								"$ref": "#/components/schemas/AccessTokenRequest"
 							}
 						}
 					}

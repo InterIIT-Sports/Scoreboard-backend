@@ -1,9 +1,10 @@
 import * as jwt from "jsonwebtoken";
 import express from "express";
-import { createUserWithUsernameAndPassword, deleteUser } from "../utils/AuthUtils";
+
+import AuthenticatedRequest from "../requests/AuthenticatedRequest";
 import { User } from "../types/User";
 import { UserRole } from "../types/UserRole";
-import AuthenticatedRequest from "../requests/AuthenticatedRequest";
+import { AdminController } from "../controllers/AdminController";
 
 const router = express.Router();
 
@@ -32,17 +33,21 @@ router.get("/", (_, res) => {
   res.send("Hello world from Admin");
 });
 
+router.get("/users", async (req: AuthenticatedRequest, res) => {
+  const adminController = new AdminController();
+  res.json(await adminController.getUsers());
+});
+
 router.delete("/user", async (req: AuthenticatedRequest, res) => {
-  const { username } = req.body;
-  await deleteUser(username);
+  const adminController = new AdminController();
+  adminController.deleteUser(req.body);
   res.sendStatus(204);
 });
 
 router.post("/createUserWithUsernameAndPassword", async (req, res) => {
-  const { name, username, password, role } = req.body;
   try {
-    const tokens = await createUserWithUsernameAndPassword(name, username, password, role);
-    res.json(tokens);
+    const adminController = new AdminController();
+    res.json(await adminController.createUserWithUsernameAndPassword(req.body));
   } catch (error: any) {
     res.status(403);
     res.send({ message: error.message });

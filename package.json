@@ -1,7 +1,7 @@
 {
   "name": "inter-iit-scoreboard-server",
   "version": "1.0.0",
-  "description": "This is the server for the scoreboard for the Inter-IIT-sports-meet",
+  "description": "This is the server for the scoreboard for the Inter-IIT-sports-meet made by Karan Gandhi",
   "main": "index.ts",
   "author": "Karan-Gandhi",
   "license": "MIT",

@@ -80,3 +80,7 @@ export const revokeRefreshToken = async (refreshToken: RefreshToken) => {
 export const verifyAccessToken = (token: Token, callback: jwt.VerifyCallback) => {
   jwt.verify(token, process.env.ACCESS_TOKEN_SECRET as string, callback);
 };
+
+export const getAllUsers = async () => {
+  return await UserModel.find<User>();
+};

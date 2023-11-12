@@ -3,23 +3,44 @@
 // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
 import { Controller, ValidationService, FieldErrors, ValidateError, TsoaRoute, HttpStatusCodeLiteral, TsoaResponse, fetchMiddlewares } from '@tsoa/runtime';
 // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+import { AdminController } from './../controllers/AdminController';
+// WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
 import { AuthController } from './../controllers/AuthController';
 import type { RequestHandler, Router } from 'express';
 
 // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
 
 const models: TsoaRoute.Models = {
-    "AccessTokenTypes": {
-        "dataType": "refEnum",
-        "enums": ["Basic","Bearer"],
-    },
-    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
     "UserRole": {
         "dataType": "refEnum",
         "enums": ["Admin","ScoreEditor"],
     },
     // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
-    "loginWithUsernameAndPasswordRequest": {
+    "User": {
+        "dataType": "refObject",
+        "properties": {
+            "name": {"dataType":"string","required":true},
+            "username": {"dataType":"string","required":true},
+            "password": {"dataType":"string","required":true},
+            "role": {"ref":"UserRole","required":true},
+        },
+        "additionalProperties": false,
+    },
+    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+    "DeleteUserRequest": {
+        "dataType": "refObject",
+        "properties": {
+            "username": {"dataType":"string","required":true},
+        },
+        "additionalProperties": false,
+    },
+    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+    "AccessTokenTypes": {
+        "dataType": "refEnum",
+        "enums": ["Basic","Bearer"],
+    },
+    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+    "LoginWithUsernameAndPasswordRequest": {
         "dataType": "refObject",
         "properties": {
             "username": {"dataType":"string","required":true},
@@ -33,7 +54,7 @@ const models: TsoaRoute.Models = {
         "type": {"dataType":"string","validators":{}},
     },
     // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
-    "accessTokenRequest": {
+    "AccessTokenRequest": {
         "dataType": "refObject",
         "properties": {
             "refreshToken": {"ref":"Token","required":true},
@@ -51,13 +72,62 @@ export function RegisterRoutes(app: Router) {
     //  NOTE: If you do not see routes for all of your controllers in this file, then you might not have informed tsoa of where to look
     //      Please look into the "controllerPathGlobs" config option described in the readme: https://github.com/lukeautry/tsoa
     // ###########################################################################################################
+        app.get('/admin/users',
+            ...(fetchMiddlewares<RequestHandler>(AdminController)),
+            ...(fetchMiddlewares<RequestHandler>(AdminController.prototype.getUsers)),
+
+            function AdminController_getUsers(request: any, response: any, next: any) {
+            const args = {
+            };
+
+            // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+
+            let validatedArgs: any[] = [];
+            try {
+                validatedArgs = getValidatedArgs(args, request, response);
+
+                const controller = new AdminController();
+
+
+              const promise = controller.getUsers.apply(controller, validatedArgs as any);
+              promiseHandler(controller, promise, response, undefined, next);
+            } catch (err) {
+                return next(err);
+            }
+        });
+        // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+        app.delete('/admin/user',
+            ...(fetchMiddlewares<RequestHandler>(AdminController)),
+            ...(fetchMiddlewares<RequestHandler>(AdminController.prototype.deleteUser)),
+
+            function AdminController_deleteUser(request: any, response: any, next: any) {
+            const args = {
+                    undefined: {"in":"body","required":true,"ref":"DeleteUserRequest"},
+            };
+
+            // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+
+            let validatedArgs: any[] = [];
+            try {
+                validatedArgs = getValidatedArgs(args, request, response);
+
+                const controller = new AdminController();
+
+
+              const promise = controller.deleteUser.apply(controller, validatedArgs as any);
+              promiseHandler(controller, promise, response, undefined, next);
+            } catch (err) {
+                return next(err);
+            }
+        });
+        // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
         app.post('/auth/loginWithUsernameAndPassword',
             ...(fetchMiddlewares<RequestHandler>(AuthController)),
             ...(fetchMiddlewares<RequestHandler>(AuthController.prototype.loginWithUsernameAndPassword)),
 
             function AuthController_loginWithUsernameAndPassword(request: any, response: any, next: any) {
             const args = {
-                    undefined: {"in":"body","required":true,"ref":"loginWithUsernameAndPasswordRequest"},
+                    undefined: {"in":"body","required":true,"ref":"LoginWithUsernameAndPasswordRequest"},
             };
 
             // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
@@ -82,7 +152,7 @@ export function RegisterRoutes(app: Router) {
 
             function AuthController_accessToken(request: any, response: any, next: any) {
             const args = {
-                    undefined: {"in":"body","required":true,"ref":"accessTokenRequest"},
+                    undefined: {"in":"body","required":true,"ref":"AccessTokenRequest"},
             };
 
             // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
@@ -107,7 +177,7 @@ export function RegisterRoutes(app: Router) {
 
             function AuthController_logout(request: any, response: any, next: any) {
             const args = {
-                    undefined: {"in":"body","required":true,"ref":"accessTokenRequest"},
+                    undefined: {"in":"body","required":true,"ref":"AccessTokenRequest"},
             };
 
             // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa

@@ -1,5 +1,5 @@
 import { Token } from "../types/Tokens";
 
-export default interface AccessTokenRequest {
+export default interface LogoutRequest {
   refreshToken: Token;
 }
