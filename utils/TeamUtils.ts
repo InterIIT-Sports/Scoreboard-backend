@@ -8,8 +8,8 @@ export const addTeam = async (name: string) => {
   await newTeam.save();
 };
 
-export const deleteTeam = async (id: mongoose.ObjectId) => {
-  await TeamModel.deleteOne({ _id: id });
+export const deleteTeam = async (id: string) => {
+  await TeamModel.findByIdAndDelete(id);
 };
 
 export const getAllTeams = async () => {

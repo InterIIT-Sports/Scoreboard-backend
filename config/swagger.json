@@ -122,6 +122,30 @@
 				],
 				"type": "object",
 				"additionalProperties": false
+			},
+			"Team": {
+				"properties": {
+					"name": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"name"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"CreateTeamRequest": {
+				"properties": {
+					"name": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"name"
+				],
+				"type": "object",
+				"additionalProperties": false
 			}
 		},
 		"securitySchemes": {}
@@ -157,6 +181,7 @@
 						}
 					}
 				},
+				"description": "Retrieves all users from the database.",
 				"tags": [
 					"Admin"
 				],
@@ -172,6 +197,7 @@
 						"description": "No content"
 					}
 				},
+				"description": "Deletes a user with the given username.",
 				"tags": [
 					"Admin"
 				],
@@ -239,6 +265,7 @@
 						"description": "Username already exists"
 					}
 				},
+				"description": "Creates a new user with the given name, username, password, and role.",
 				"tags": [
 					"Admin"
 				],
@@ -400,6 +427,78 @@
 						}
 					}
 				}
+			}
+		},
+		"/admin/teams": {
+			"get": {
+				"operationId": "GetAllTeams",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"items": {
+										"$ref": "#/components/schemas/Team"
+									},
+									"type": "array"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Teams"
+				],
+				"security": [],
+				"parameters": []
+			},
+			"post": {
+				"operationId": "AddTeam",
+				"responses": {
+					"204": {
+						"description": "No content"
+					}
+				},
+				"tags": [
+					"Teams"
+				],
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/CreateTeamRequest"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/admin/teams/{id}": {
+			"delete": {
+				"operationId": "DeleteTeam",
+				"responses": {
+					"204": {
+						"description": "No content"
+					}
+				},
+				"tags": [
+					"Teams"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
 			}
 		}
 	},

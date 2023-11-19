@@ -7,5 +7,5 @@ export default interface Event {
   isStarted: boolean;
   startTime: Date;
   endTime: Date;
-  teams: mongoose.ObjectId[]; // list of teams who are compeating
+  teams: mongoose.ObjectId; // list of teams who are compeating
 }
