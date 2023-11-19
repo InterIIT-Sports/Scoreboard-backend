@@ -5,6 +5,8 @@ import AuthenticatedRequest from "../requests/AuthenticatedRequest";
 import { User } from "../types/User";
 import { UserRole } from "../types/UserRole";
 import { AdminController } from "../controllers/AdminController";
+import ScheduleRoutes from "./ScheduleRoutes";
+import TeamRoutes from "./TeamRoutes";
 
 const router = express.Router();
 
@@ -32,6 +34,9 @@ router.use((error: Error, _: express.Request, res: express.Response, next: expre
 router.get("/", (_, res) => {
   res.send("Hello world from Admin");
 });
+
+router.use("/schedule", ScheduleRoutes);
+router.use("/teams", TeamRoutes);
 
 router.get("/users", async (req: AuthenticatedRequest, res) => {
   const adminController = new AdminController();
