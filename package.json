@@ -10,7 +10,8 @@
     "start": "node dist/index.js",
     "dev": "concurrently \"tsc -w\" \"nodemon dist/index.js\"",
     "build": "tsc -p . && tsoa spec-and-routes",
-    "swagger": "tsoa spec-and-routes"
+    "swagger": "tsoa spec-and-routes",
+    "test": "ts-jest"
   },
   "dependencies": {
     "@types/cors": "^2.8.15",
@@ -27,8 +28,11 @@
     "swagger-ui-express": "^5.0.0"
   },
   "devDependencies": {
+    "@jest/globals": "^29.7.0",
     "concurrently": "^8.2.2",
+    "jest": "^29.7.0",
     "nodemon": "^3.0.1",
+    "ts-jest": "^29.1.1",
     "tsoa": "^5.1.1",
     "typescript": "^5.2.2"
   }
