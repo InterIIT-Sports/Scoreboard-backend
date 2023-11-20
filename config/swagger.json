@@ -447,6 +447,7 @@
 						}
 					}
 				},
+				"description": "Retrieves all teams.",
 				"tags": [
 					"Teams"
 				],
@@ -460,6 +461,7 @@
 						"description": "No content"
 					}
 				},
+				"description": "Adds a team.",
 				"tags": [
 					"Teams"
 				],
@@ -485,12 +487,14 @@
 						"description": "No content"
 					}
 				},
+				"description": "Deletes a team.",
 				"tags": [
 					"Teams"
 				],
 				"security": [],
 				"parameters": [
 					{
+						"description": "- The ID of the team to be deleted.",
 						"in": "path",
 						"name": "id",
 						"required": true,
