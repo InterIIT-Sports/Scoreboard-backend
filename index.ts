@@ -12,7 +12,6 @@ import { CorsConfig } from "./config/CorsConfig";
 import swaggerConfig from "./config/swagger.json";
 
 config();
-connectToDatabase();
 
 const PORT = process.env.PORT || 5000;
 const app = express();
@@ -28,4 +27,5 @@ app.get("/", (req, res) => {
 app.use("/auth", AuthRoutes);
 app.use("/admin", AdminRoutes);
 
-const server = app.listen(PORT, () => console.log("[S] Server started at port: " + PORT));
+connectToDatabase().then(() => app.listen(PORT, () => console.log("[S] Server started at port: " + PORT)));
+// const server = app.listen(PORT, () => console.log("[S] Server started at port: " + PORT));
