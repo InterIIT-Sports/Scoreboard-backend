@@ -8,6 +8,7 @@
   "private": false,
   "scripts": {
     "start": "node index.js",
+    "postbuild": "yarn install",
     "dev": "concurrently \"tsc -w\" \"nodemon dist/index.js\"",
     "build": "tsc -p . && tsoa spec-and-routes",
     "swagger": "tsoa spec-and-routes",
