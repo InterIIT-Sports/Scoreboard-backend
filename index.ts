@@ -10,6 +10,8 @@ import { connectToDatabase } from "./utils/DatabaseUtils";
 import { CorsConfig } from "./config/CorsConfig";
 
 import swaggerConfig from "./config/swagger.json";
+import { createUserWithUsernameAndPassword } from "./utils/AuthUtils";
+import { UserRole } from "./types/UserRole";
 
 config();
 
@@ -28,4 +30,5 @@ app.use("/auth", AuthRoutes);
 app.use("/admin", AdminRoutes);
 
 connectToDatabase().then(() => app.listen(PORT, () => console.log("[S] Server started at port: " + PORT)));
+// createUserWithUsernameAndPassword("Karan Gandhi", "Karan_Gandhi", "test", UserRole.ADMIN);
 // const server = app.listen(PORT, () => console.log("[S] Server started at port: " + PORT));
