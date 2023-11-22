@@ -1,10 +1,10 @@
 import * as jwt from "jsonwebtoken";
 import UserModel from "../schemas/UserModel";
+import RefreshTokenModel from "../schemas/RefreshTokenModel";
 import { InvalidUsernameOrPassword, UsernameAlreadyExistError } from "./AuthErrors";
 import { User } from "../types/User";
 import { UserRole } from "../types/UserRole";
 import { AccessToken, AccessTokenTypes, RefreshToken, Token } from "../types/Tokens";
-import RefreshTokenModel from "../schemas/RefreshTokenModel";
 
 const ACCESS_TOKEN_EXPIRY_TIME = "10m";
 

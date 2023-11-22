@@ -2,16 +2,12 @@ import express from "express";
 import cors from "cors";
 import swaggerUi from "swagger-ui-express";
 import { config } from "dotenv";
-import { Route, Get } from "tsoa";
 
 import AuthRoutes from "./routes/AuthRoutes";
 import AdminRoutes from "./routes/AdminRoutes";
 import { connectToDatabase } from "./utils/DatabaseUtils";
 import { CorsConfig } from "./config/CorsConfig";
-
 import swaggerConfig from "./config/swagger.json";
-import { createUserWithUsernameAndPassword } from "./utils/AuthUtils";
-import { UserRole } from "./types/UserRole";
 
 config();
 
@@ -30,5 +26,3 @@ app.use("/auth", AuthRoutes);
 app.use("/admin", AdminRoutes);
 
 connectToDatabase().then(() => app.listen(PORT, () => console.log("[S] Server started at port: " + PORT)));
-// createUserWithUsernameAndPassword("Karan Gandhi", "Karan_Gandhi", "test", UserRole.ADMIN);
-// const server = app.listen(PORT, () => console.log("[S] Server started at port: " + PORT));

@@ -6,6 +6,24 @@ const teamSchema = new Schema<Team>({
     type: String,
     required: true,
   },
+  medals: {
+    gold: {
+      type: Number,
+      required: true,
+    },
+    silver: {
+      type: Number,
+      required: true,
+    },
+    bronze: {
+      type: Number,
+      required: true,
+    },
+  },
+  points: {
+    type: Number,
+    required: true,
+  },
 });
 
 const TeamModel = model<Team>("Teams", teamSchema);
