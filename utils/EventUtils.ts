@@ -11,7 +11,7 @@ export const addEvent = async <T extends Event>(eventCatogory: EventCatagories, 
 };
 
 export const readEvents = async () => {
-  return await EventModel.find<AllEvents>().populate("teams");
+  return (await EventModel.find<AllEvents>().populate("teams")).map(elt => elt as any);
 };
 
 export const deleteEvent = async (eventID: string) => {

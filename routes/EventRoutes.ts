@@ -28,8 +28,8 @@ router.use((error: Error, _: express.Request, res: express.Response, next: expre
   res.sendStatus(500);
 });
 
-router.get("/", (_, res) => {
-  res.send("Hello world from Events");
+router.get("/", async (_, res) => {
+  res.json(await new EventController().getAllEvents());
 });
 
 router.use("/football", FootballRoutes);

@@ -502,6 +502,50 @@
 				]
 			}
 		},
+		"/events": {
+			"get": {
+				"operationId": "GetAllEvents",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"items": {},
+									"type": "array"
+								},
+								"examples": {
+									"Example 1": {
+										"value": [
+											{
+												"title": "Test football match",
+												"endTime": 1700682925540,
+												"startTime": 1700682925540,
+												"event": "Football",
+												"isStarted": true,
+												"roomID": "Football",
+												"teams": [
+													null,
+													null
+												],
+												"teamA_score": 0,
+												"teamB_score": 0,
+												"__v": 0
+											}
+										]
+									}
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Events"
+				],
+				"security": [],
+				"parameters": []
+			}
+		},
 		"/events/football/{id}": {
 			"put": {
 				"operationId": "UpdateScore",
