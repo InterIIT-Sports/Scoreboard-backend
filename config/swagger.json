@@ -123,6 +123,24 @@
 				"type": "object",
 				"additionalProperties": false
 			},
+			"FootballScoreUpdateRequest": {
+				"properties": {
+					"teamA_score": {
+						"type": "number",
+						"format": "double"
+					},
+					"teamB_score": {
+						"type": "number",
+						"format": "double"
+					}
+				},
+				"required": [
+					"teamA_score",
+					"teamB_score"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
 			"Team": {
 				"properties": {
 					"_id": {
@@ -460,7 +478,31 @@
 				}
 			}
 		},
-		"/events/football": {
+		"/events/toggleLive/{id}": {
+			"patch": {
+				"operationId": "ToggleLive",
+				"responses": {
+					"204": {
+						"description": "No content"
+					}
+				},
+				"tags": [
+					"Events"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/events/football/{id}": {
 			"put": {
 				"operationId": "UpdateScore",
 				"responses": {
@@ -473,7 +515,26 @@
 					"Football"
 				],
 				"security": [],
-				"parameters": []
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/FootballScoreUpdateRequest"
+							}
+						}
+					}
+				}
 			}
 		},
 		"/admin/teams": {

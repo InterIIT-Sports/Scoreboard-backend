@@ -3,6 +3,7 @@ import express from "express";
 import FootballRoutes from "./FootballRoutes";
 import AuthenticatedRequest from "../requests/AuthenticatedRequest";
 import { User } from "../types/User";
+import { EventController } from "../controllers/EventController";
 
 const router = express.Router();
 
@@ -32,5 +33,10 @@ router.get("/", (_, res) => {
 });
 
 router.use("/football", FootballRoutes);
+
+router.patch("/toggleLive/:id", async (req, res) => {
+  await new EventController().toggleLive(req.params.id);
+  res.sendStatus(204);
+});
 
 export default router;

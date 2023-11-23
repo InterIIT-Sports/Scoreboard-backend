@@ -7,7 +7,9 @@ import { AdminController } from './../controllers/AdminController';
 // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
 import { AuthController } from './../controllers/AuthController';
 // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
-import { AdminController } from './../controllers/FootballController';
+import { EventController } from './../controllers/EventController';
+// WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+import { FootballController } from './../controllers/FootballController';
 // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
 import { TeamControllers } from './../controllers/TeamController';
 import type { RequestHandler, Router } from 'express';
@@ -81,6 +83,15 @@ const models: TsoaRoute.Models = {
         "dataType": "refObject",
         "properties": {
             "refreshToken": {"ref":"Token","required":true},
+        },
+        "additionalProperties": false,
+    },
+    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+    "FootballScoreUpdateRequest": {
+        "dataType": "refObject",
+        "properties": {
+            "teamA_score": {"dataType":"double","required":true},
+            "teamB_score": {"dataType":"double","required":true},
         },
         "additionalProperties": false,
     },
@@ -263,12 +274,13 @@ export function RegisterRoutes(app: Router) {
             }
         });
         // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
-        app.put('/events/football',
-            ...(fetchMiddlewares<RequestHandler>(AdminController)),
-            ...(fetchMiddlewares<RequestHandler>(AdminController.prototype.updateScore)),
+        app.patch('/events/toggleLive/:id',
+            ...(fetchMiddlewares<RequestHandler>(EventController)),
+            ...(fetchMiddlewares<RequestHandler>(EventController.prototype.toggleLive)),
 
-            function AdminController_updateScore(request: any, response: any, next: any) {
+            function EventController_toggleLive(request: any, response: any, next: any) {
             const args = {
+                    id: {"in":"path","name":"id","required":true,"dataType":"string"},
             };
 
             // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
@@ -277,7 +289,33 @@ export function RegisterRoutes(app: Router) {
             try {
                 validatedArgs = getValidatedArgs(args, request, response);
 
-                const controller = new AdminController();
+                const controller = new EventController();
+
+
+              const promise = controller.toggleLive.apply(controller, validatedArgs as any);
+              promiseHandler(controller, promise, response, undefined, next);
+            } catch (err) {
+                return next(err);
+            }
+        });
+        // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+        app.put('/events/football/:id',
+            ...(fetchMiddlewares<RequestHandler>(FootballController)),
+            ...(fetchMiddlewares<RequestHandler>(FootballController.prototype.updateScore)),
+
+            function FootballController_updateScore(request: any, response: any, next: any) {
+            const args = {
+                    id: {"in":"path","name":"id","required":true,"dataType":"string"},
+                    score: {"in":"body","name":"score","required":true,"ref":"FootballScoreUpdateRequest"},
+            };
+
+            // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+
+            let validatedArgs: any[] = [];
+            try {
+                validatedArgs = getValidatedArgs(args, request, response);
+
+                const controller = new FootballController();
 
 
               const promise = controller.updateScore.apply(controller, validatedArgs as any);
