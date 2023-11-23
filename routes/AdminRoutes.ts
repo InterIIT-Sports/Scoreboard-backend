@@ -7,7 +7,6 @@ import { UserRole } from "../types/UserRole";
 import { AdminController } from "../controllers/AdminController";
 import ScheduleRoutes from "./ScheduleRoutes";
 import TeamRoutes from "./TeamRoutes";
-import EventRoutes from "./EventRoutes";
 
 const router = express.Router();
 
@@ -38,7 +37,6 @@ router.get("/", (_, res) => {
 
 router.use("/schedule", ScheduleRoutes);
 router.use("/teams", TeamRoutes);
-router.use("/events", EventRoutes);
 
 router.get("/users", async (req: AuthenticatedRequest, res) => {
   const adminController = new AdminController();

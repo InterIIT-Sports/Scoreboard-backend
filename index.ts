@@ -15,6 +15,7 @@ import EventCatagories from "./types/EventCategories";
 import FootballEvent from "./types/FootballEvent";
 import { addSocketEvents } from "./utils/SocketUtils";
 import { createAndStartServer } from "./utils/ServerUtils";
+import EventRoutes from "./routes/EventRoutes";
 
 config();
 
@@ -30,6 +31,7 @@ app.get("/", (req, res) => {
 
 app.use("/auth", AuthRoutes);
 app.use("/admin", AdminRoutes);
+app.use("/events", EventRoutes);
 
 createAndStartServer(app);
 // .then(liveEvents => createSocketForEvents(liveEvents));
