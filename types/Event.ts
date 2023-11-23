@@ -10,4 +10,5 @@ export default interface Event {
   endTime: number;
   teams: mongoose.Types.ObjectId[]; // list of teams who are compeating
   roomID: EventCatagories; // event is the roomID for socketIO
+  score: {};
 }

@@ -7,6 +7,8 @@ import { AdminController } from './../controllers/AdminController';
 // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
 import { AuthController } from './../controllers/AuthController';
 // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+import { AdminController } from './../controllers/FootballController';
+// WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
 import { TeamControllers } from './../controllers/TeamController';
 import type { RequestHandler, Router } from 'express';
 
@@ -86,7 +88,10 @@ const models: TsoaRoute.Models = {
     "Team": {
         "dataType": "refObject",
         "properties": {
+            "_id": {"dataType":"string"},
             "name": {"dataType":"string","required":true},
+            "medals": {"dataType":"nestedObjectLiteral","nestedProperties":{"bronze":{"dataType":"double","required":true},"silver":{"dataType":"double","required":true},"gold":{"dataType":"double","required":true}},"required":true},
+            "points": {"dataType":"double","required":true},
         },
         "additionalProperties": false,
     },
@@ -252,6 +257,30 @@ export function RegisterRoutes(app: Router) {
 
 
               const promise = controller.logout.apply(controller, validatedArgs as any);
+              promiseHandler(controller, promise, response, undefined, next);
+            } catch (err) {
+                return next(err);
+            }
+        });
+        // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+        app.put('/events/football',
+            ...(fetchMiddlewares<RequestHandler>(AdminController)),
+            ...(fetchMiddlewares<RequestHandler>(AdminController.prototype.updateScore)),
+
+            function AdminController_updateScore(request: any, response: any, next: any) {
+            const args = {
+            };
+
+            // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+
+            let validatedArgs: any[] = [];
+            try {
+                validatedArgs = getValidatedArgs(args, request, response);
+
+                const controller = new AdminController();
+
+
+              const promise = controller.updateScore.apply(controller, validatedArgs as any);
               promiseHandler(controller, promise, response, undefined, next);
             } catch (err) {
                 return next(err);

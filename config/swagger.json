@@ -125,12 +125,43 @@
 			},
 			"Team": {
 				"properties": {
+					"_id": {
+						"type": "string"
+					},
 					"name": {
 						"type": "string"
+					},
+					"medals": {
+						"properties": {
+							"bronze": {
+								"type": "number",
+								"format": "double"
+							},
+							"silver": {
+								"type": "number",
+								"format": "double"
+							},
+							"gold": {
+								"type": "number",
+								"format": "double"
+							}
+						},
+						"required": [
+							"bronze",
+							"silver",
+							"gold"
+						],
+						"type": "object"
+					},
+					"points": {
+						"type": "number",
+						"format": "double"
 					}
 				},
 				"required": [
-					"name"
+					"name",
+					"medals",
+					"points"
 				],
 				"type": "object",
 				"additionalProperties": false
@@ -427,6 +458,22 @@
 						}
 					}
 				}
+			}
+		},
+		"/events/football": {
+			"put": {
+				"operationId": "UpdateScore",
+				"responses": {
+					"204": {
+						"description": "No content"
+					}
+				},
+				"tags": [
+					"Events",
+					"Football"
+				],
+				"security": [],
+				"parameters": []
 			}
 		},
 		"/admin/teams": {

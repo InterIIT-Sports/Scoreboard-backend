@@ -1,11 +1,13 @@
-import { Body, Delete, Get, Post, Put, Route, Tags } from "tsoa";
-import CreateUserWithUsernameAndPasswordRequest from "../requests/CreateUserWithUsernameAndPasswordRequest";
-import DeleteUserRequest from "../requests/DeleteUserRequest";
-import { getAllUsers, deleteUser, createUserWithUsernameAndPassword } from "../utils/AuthUtils";
+import { Body, Path, Put, Response, Route, Tags } from "tsoa";
+import FootballScoreUpdateRequest from "../requests/FootballScoreUpdateRequest";
+import { updateScore } from "../utils/EventUtils";
 
 @Route("events/football")
 @Tags("Events", "Football")
-export class AdminController {
-  @Put("/")
-  public updateScore() {}
+export class FootballController {
+  @Put("/:id")
+  @Response(204)
+  public async updateScore(@Path("id") id: string, @Body() score: FootballScoreUpdateRequest) {
+    return await updateScore(id, score);
+  }
 }

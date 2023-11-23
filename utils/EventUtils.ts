@@ -2,6 +2,7 @@ import EventCatagories from "../types/EventCategories";
 import EventModel from "../schemas/EventModel";
 import AllEvents from "../types/AllEvents";
 import Event from "../types/Event";
+import { SocketServer } from "../types/SocketServer";
 
 export const addEvent = async <T extends Event>(eventCatogory: EventCatagories, eventData: T) => {
   const eventModel = await EventModel.create<T>(eventData);
@@ -28,4 +29,10 @@ export const getEventByID = async <T extends Event>(id: string) => {
 export const toggleEventStarted = async (id: string) => {
   const event = await getEventByID<AllEvents>(id);
   return await EventModel.findByIdAndUpdate(id, { isStarted: !event?.isStarted });
+};
+
+export const updateScore = async (id: string, score: any) => {
+  const event = await getEventByID(id);
+  if (event) SocketServer.io.sockets.in(event.roomID).emit("scoreUpdate", JSON.stringify(score));
+  await EventModel.findByIdAndUpdate(id, { score });
 };
