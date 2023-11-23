@@ -33,6 +33,7 @@ export const toggleEventStarted = async (id: string) => {
 
 export const updateScore = async (id: string, score: any) => {
   const event = await getEventByID(id);
-  if (event && event.isStarted) SocketServer.io.sockets.in(event.roomID).emit("scoreUpdate", JSON.stringify(score));
+  if (event && event.isStarted)
+    SocketServer.io.sockets.in(event.roomID).emit(`scoreUpdate/${event.roomID}`, JSON.stringify(score));
   await EventModel.findByIdAndUpdate(id, { score });
 };
