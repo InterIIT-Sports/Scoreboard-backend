@@ -3,15 +3,25 @@ import EventModel from "../schemas/EventModel";
 import AllEvents from "../types/AllEvents";
 import Event from "../types/Event";
 import { SocketServer } from "../types/SocketServer";
+import mongoose from "mongoose";
 
 export const addEvent = async <T extends Event>(eventCatogory: EventCatagories, eventData: T) => {
-  const eventModel = await EventModel.create<T>(eventData);
+  const eventModel = await EventModel.create<T>({
+    ...eventData,
+    teams: eventData.teams.map(team => new mongoose.Types.ObjectId(team)),
+  });
   await eventModel.save();
   return eventModel;
 };
 
 export const readEvents = async () => {
-  return (await EventModel.find<AllEvents>().populate("teams")).map(elt => elt as any);
+  return (await EventModel.find<AllEvents>().populate("teams")).map(
+    elt =>
+      ({
+        ...elt,
+        teams: elt.teams.map(team => team.toString()),
+      } as AllEvents)
+  );
 };
 
 export const deleteEvent = async (eventID: string) => {

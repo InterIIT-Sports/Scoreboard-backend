@@ -123,6 +123,88 @@
 				"type": "object",
 				"additionalProperties": false
 			},
+			"FootballScore": {
+				"properties": {
+					"teamA_score": {
+						"type": "number",
+						"format": "double"
+					},
+					"teamB_score": {
+						"type": "number",
+						"format": "double"
+					}
+				},
+				"required": [
+					"teamA_score",
+					"teamB_score"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"EventCatagories": {
+				"enum": [
+					"Cricket",
+					"Football",
+					"Squash_men",
+					"Chess",
+					"Squash_women",
+					"Tennis_women",
+					"Tennis_men",
+					"Athletics"
+				],
+				"type": "string"
+			},
+			"AllEvents": {
+				"properties": {
+					"_id": {
+						"type": "string"
+					},
+					"title": {
+						"type": "string"
+					},
+					"event": {
+						"$ref": "#/components/schemas/EventCatagories"
+					},
+					"isStarted": {
+						"type": "boolean"
+					},
+					"startTime": {
+						"type": "number",
+						"format": "double"
+					},
+					"endTime": {
+						"type": "number",
+						"format": "double"
+					},
+					"teams": {
+						"items": {
+							"type": "string"
+						},
+						"type": "array"
+					},
+					"roomID": {
+						"$ref": "#/components/schemas/EventCatagories"
+					},
+					"score": {
+						"$ref": "#/components/schemas/FootballScore"
+					},
+					"winner": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"title",
+					"event",
+					"isStarted",
+					"startTime",
+					"endTime",
+					"teams",
+					"roomID",
+					"score"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
 			"FootballScoreUpdateRequest": {
 				"properties": {
 					"teamA_score": {
@@ -511,29 +593,10 @@
 						"content": {
 							"application/json": {
 								"schema": {
-									"items": {},
+									"items": {
+										"$ref": "#/components/schemas/AllEvents"
+									},
 									"type": "array"
-								},
-								"examples": {
-									"Example 1": {
-										"value": [
-											{
-												"title": "Test football match",
-												"endTime": 1700682925540,
-												"startTime": 1700682925540,
-												"event": "Football",
-												"isStarted": true,
-												"roomID": "Football",
-												"teams": [
-													null,
-													null
-												],
-												"teamA_score": 0,
-												"teamB_score": 0,
-												"__v": 0
-											}
-										]
-									}
 								}
 							}
 						}

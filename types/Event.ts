@@ -8,7 +8,7 @@ export default interface Event {
   isStarted: boolean;
   startTime: number;
   endTime: number;
-  teams: mongoose.Types.ObjectId[]; // list of teams who are compeating
+  teams: string[]; // list of teamIDs who are compeating
   roomID: EventCatagories; // event is the roomID for socketIO
   score: {};
 }
