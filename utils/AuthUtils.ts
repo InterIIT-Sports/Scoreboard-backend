@@ -6,7 +6,7 @@ import { User } from "../types/User";
 import { UserRole } from "../types/UserRole";
 import { AccessToken, AccessTokenTypes, RefreshToken, Token } from "../types/Tokens";
 
-const ACCESS_TOKEN_EXPIRY_TIME = "10m";
+const ACCESS_TOKEN_EXPIRY_TIME = "30m";
 
 export const loginWithUsernameAndPassword = async (username: string, password: string) => {
   const user = await UserModel.findOne({ username, password });
