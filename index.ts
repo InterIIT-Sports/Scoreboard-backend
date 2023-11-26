@@ -16,6 +16,7 @@ import FootballEvent from "./types/FootballEvent";
 import { addSocketEvents } from "./utils/SocketUtils";
 import { createAndStartServer } from "./utils/ServerUtils";
 import EventRoutes from "./routes/EventRoutes";
+import mongoose from "mongoose";
 
 config();
 
@@ -42,12 +43,11 @@ createAndStartServer(app);
 //   event: EventCatagories.FOOTBALL,
 //   roomID: EventCatagories.FOOTBALL,
 //   isStarted: false,
-//   teamA_score: 0,
-//   teamB_score: 0,
-//   teams: [
-//     new mongoose.Types.ObjectId("655e4dbdbddc0c9ed41ad774"),
-//     new mongoose.Types.ObjectId("655e4dc8992db97369908276"),
-//   ],
+//   score: {
+//     teamA_score: 0,
+//     teamB_score: 0,
+//   },
+//   teams: ["655e4dbdbddc0c9ed41ad774", "655e4dc8992db97369908276"],
 //   title: "Test football match",
 // });
 

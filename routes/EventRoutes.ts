@@ -9,7 +9,7 @@ const router = express.Router();
 
 router.use((req: AuthenticatedRequest, res, next) => {
   // needs to be either admin or score editor
-  if (req.baseUrl === "/events") return next();
+  if (req.url === "/") return next();
   if (!req.headers.authorization) return res.sendStatus(401);
   const [type, token] = req.headers.authorization.split(" ");
   if (!token) return res.sendStatus(401);
