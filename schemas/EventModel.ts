@@ -10,6 +10,7 @@ const eventSchema = new mongoose.Schema<AllEvents>({
   roomID: { type: String, required: true },
   teams: [{ type: mongoose.SchemaTypes.ObjectId, ref: "Teams" }],
 
+  subtitle: String,
   score: {
     // Football
     teamA_score: Number,

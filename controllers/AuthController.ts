@@ -2,7 +2,7 @@ import * as jwt from "jsonwebtoken";
 import LoginWithUsernameAndPasswordRequest from "../requests/LoginWithUsernameAndPasswordRequest";
 import AccessTokenRequest from "../requests/AccessTokenRequest";
 import RefreshTokenModel from "../schemas/RefreshTokenModel";
-import { Body, Controller, Delete, Post, Response, Route, Tags } from "tsoa";
+import { Body, Delete, Post, Response, Route, Tags } from "tsoa";
 import { getAccessToken, getRefreshToken, loginWithUsernameAndPassword, revokeRefreshToken } from "../utils/AuthUtils";
 import { Unauthorised } from "../utils/AuthErrors";
 import { User } from "../types/User";
@@ -47,7 +47,7 @@ export class AuthController {
    * @param refreshToken - The refresh token to revoke.
    */
   @Delete("logout")
-  public logout(@Body() { refreshToken }: LogoutRequest) {
-    revokeRefreshToken({ refreshToken });
+  public async logout(@Body() { refreshToken }: LogoutRequest) {
+    await revokeRefreshToken({ refreshToken });
   }
 }

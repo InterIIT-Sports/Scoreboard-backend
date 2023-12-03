@@ -32,6 +32,10 @@ export const getEventByID = async <T extends Event>(id: string) => {
 
 export const toggleEventStarted = async (id: string) => {
   const event = await getEventByID<AllEvents>(id);
+  SocketServer.io.sockets.emit(
+    "eventStartOrEnd",
+    JSON.stringify({ eventID: event?._id, isStarted: !event?.isStarted })
+  );
   return await EventModel.findByIdAndUpdate(id, { isStarted: !event?.isStarted });
 };
 

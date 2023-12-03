@@ -1,22 +1,14 @@
 import express from "express";
 import cors from "cors";
-import swaggerUi from "swagger-ui-express";
-import { Server } from "socket.io";
 import { config } from "dotenv";
+import swaggerUi from "swagger-ui-express";
 
 import AuthRoutes from "./routes/AuthRoutes";
 import AdminRoutes from "./routes/AdminRoutes";
-import { SocketServer } from "./types/SocketServer";
-import { connectToDatabase } from "./utils/DatabaseUtils";
 import { CorsConfig } from "./config/CorsConfig";
 import swaggerConfig from "./config/swagger.json";
-import { addEvent, getLiveEvents, readEvents, toggleEventStarted } from "./utils/EventUtils";
-import EventCatagories from "./types/EventCategories";
-import FootballEvent from "./types/FootballEvent";
-import { addSocketEvents } from "./utils/SocketUtils";
 import { createAndStartServer } from "./utils/ServerUtils";
 import EventRoutes from "./routes/EventRoutes";
-import mongoose from "mongoose";
 
 config();
 

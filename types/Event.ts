@@ -3,6 +3,7 @@ import EventCatagories from "./EventCategories";
 
 export default interface Event {
   _id?: string;
+  subtitle: string;
   title: string;
   event: EventCatagories;
   isStarted: boolean;
