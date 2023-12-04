@@ -26,6 +26,7 @@ const HistoryItemSchema = new mongoose.Schema<HistoryItem<AllScores>>({
 
   timestamp: {
     type: Number,
+    immutable: true,
     default: () => Date.now(),
   },
 });
