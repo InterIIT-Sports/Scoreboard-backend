@@ -32,18 +32,12 @@ export const getEventByID = async <T extends Event<U>, U extends Score>(id: stri
 
 export const toggleEventStarted = async (id: string) => {
   const event = await getEventByID<AllEvents, AllScores>(id);
-  SocketServer.io.sockets.emit(
-    "eventStartOrEnd",
-    JSON.stringify({ eventID: event?._id, isStarted: !event?.isStarted })
-  );
+  SocketServer.io.sockets.emit("eventStartOrEnd", JSON.stringify({ eventID: event?._id, isStarted: !event?.isStarted }));
   return await EventModel.findByIdAndUpdate(id, { isStarted: !event?.isStarted });
 };
 
 export const updateScore = async (id: string, score: any) => {
   const event = await getEventByID<AllEvents, AllScores>(id);
-  if (event && event.isStarted)
-    SocketServer.io.sockets.in(event.roomID).emit(`scoreUpdate/${event.roomID}`, JSON.stringify(score));
+  if (event && event.isStarted) SocketServer.io.sockets.in(event.roomID).emit(`scoreUpdate/${event.roomID}`, JSON.stringify(score));
   await EventModel.findByIdAndUpdate(id, { score });
 };
-
-export const saveHistory = async (eventID: string, prevScore: any, currentScore: any, userID: string) => {};

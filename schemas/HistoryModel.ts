@@ -1,12 +1,13 @@
 import mongoose from "mongoose";
 import HistoryItem from "../types/HistoryItem";
+import { AllScores } from "../types/AllEvents";
 
-const HistoryItemSchema = new mongoose.Schema<HistoryItem<any>>({
+const HistoryItemSchema = new mongoose.Schema<HistoryItem<AllScores>>({
   eventID: {
     type: String,
     required: true,
   },
-  userID: {
+  userName: {
     type: String,
     required: true,
   },
@@ -21,4 +22,13 @@ const HistoryItemSchema = new mongoose.Schema<HistoryItem<any>>({
     teamA_score: Number,
     teamB_score: Number,
   },
+
+  timestamp: {
+    type: Number,
+    default: () => Date.now(),
+  },
 });
+
+const HistoryModel = mongoose.model("ScoreUpdateHistory", HistoryItemSchema);
+
+export default HistoryModel;
