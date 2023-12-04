@@ -101,10 +101,11 @@ const models: TsoaRoute.Models = {
         "enums": ["Cricket","Football","Squash_men","Chess","Squash_women","Tennis_women","Tennis_men","Athletics"],
     },
     // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
-    "AllEvents": {
+    "FootballEvent": {
         "dataType": "refObject",
         "properties": {
             "_id": {"dataType":"string"},
+            "subtitle": {"dataType":"string","required":true},
             "title": {"dataType":"string","required":true},
             "event": {"ref":"EventCatagories","required":true},
             "isStarted": {"dataType":"boolean","required":true},
@@ -116,6 +117,38 @@ const models: TsoaRoute.Models = {
             "winner": {"dataType":"string"},
         },
         "additionalProperties": false,
+    },
+    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+    "ChessScore": {
+        "dataType": "refObject",
+        "properties": {
+            "teamA_score": {"dataType":"double","required":true},
+            "teamB_score": {"dataType":"double","required":true},
+        },
+        "additionalProperties": false,
+    },
+    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+    "ChessEvent": {
+        "dataType": "refObject",
+        "properties": {
+            "_id": {"dataType":"string"},
+            "subtitle": {"dataType":"string","required":true},
+            "title": {"dataType":"string","required":true},
+            "event": {"ref":"EventCatagories","required":true},
+            "isStarted": {"dataType":"boolean","required":true},
+            "startTime": {"dataType":"double","required":true},
+            "endTime": {"dataType":"double","required":true},
+            "teams": {"dataType":"array","array":{"dataType":"string"},"required":true},
+            "roomID": {"ref":"EventCatagories","required":true},
+            "score": {"ref":"ChessScore","required":true},
+            "winner": {"dataType":"string"},
+        },
+        "additionalProperties": false,
+    },
+    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+    "AllEvents": {
+        "dataType": "refAlias",
+        "type": {"dataType":"union","subSchemas":[{"ref":"FootballEvent"},{"ref":"ChessEvent"}],"validators":{}},
     },
     // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
     "FootballScoreUpdateRequest": {

@@ -154,9 +154,12 @@
 				],
 				"type": "string"
 			},
-			"AllEvents": {
+			"FootballEvent": {
 				"properties": {
 					"_id": {
+						"type": "string"
+					},
+					"subtitle": {
 						"type": "string"
 					},
 					"title": {
@@ -193,6 +196,7 @@
 					}
 				},
 				"required": [
+					"subtitle",
 					"title",
 					"event",
 					"isStarted",
@@ -204,6 +208,89 @@
 				],
 				"type": "object",
 				"additionalProperties": false
+			},
+			"ChessScore": {
+				"properties": {
+					"teamA_score": {
+						"type": "number",
+						"format": "double"
+					},
+					"teamB_score": {
+						"type": "number",
+						"format": "double"
+					}
+				},
+				"required": [
+					"teamA_score",
+					"teamB_score"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"ChessEvent": {
+				"properties": {
+					"_id": {
+						"type": "string"
+					},
+					"subtitle": {
+						"type": "string"
+					},
+					"title": {
+						"type": "string"
+					},
+					"event": {
+						"$ref": "#/components/schemas/EventCatagories"
+					},
+					"isStarted": {
+						"type": "boolean"
+					},
+					"startTime": {
+						"type": "number",
+						"format": "double"
+					},
+					"endTime": {
+						"type": "number",
+						"format": "double"
+					},
+					"teams": {
+						"items": {
+							"type": "string"
+						},
+						"type": "array"
+					},
+					"roomID": {
+						"$ref": "#/components/schemas/EventCatagories"
+					},
+					"score": {
+						"$ref": "#/components/schemas/ChessScore"
+					},
+					"winner": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"subtitle",
+					"title",
+					"event",
+					"isStarted",
+					"startTime",
+					"endTime",
+					"teams",
+					"roomID",
+					"score"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"AllEvents": {
+				"anyOf": [
+					{
+						"$ref": "#/components/schemas/FootballEvent"
+					},
+					{
+						"$ref": "#/components/schemas/ChessEvent"
+					}
+				]
 			},
 			"FootballScoreUpdateRequest": {
 				"properties": {

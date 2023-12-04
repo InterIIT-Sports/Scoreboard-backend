@@ -9,7 +9,7 @@
   "scripts": {
     "start": "node dist/index.js",
     "dev": "concurrently \"tsc -w\" \"nodemon dist/index.js\"",
-    "build": "tsc -p . && tsoa spec-and-routes && mv node_modules ./dist",
+    "build": "tsc -p . && tsoa spec-and-routes",
     "swagger": "tsoa spec-and-routes",
     "test": "ts-jest"
   },

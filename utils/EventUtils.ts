@@ -1,11 +1,11 @@
 import EventCatagories from "../types/EventCategories";
 import EventModel from "../schemas/EventModel";
-import AllEvents from "../types/AllEvents";
-import Event from "../types/Event";
+import AllEvents, { AllScores } from "../types/AllEvents";
+import Event, { Score } from "../types/Event";
 import { SocketServer } from "../types/SocketServer";
 import mongoose from "mongoose";
 
-export const addEvent = async <T extends Event>(eventCatogory: EventCatagories, eventData: T) => {
+export const addEvent = async <T extends Event<U>, U extends Score>(eventCatogory: EventCatagories, eventData: T) => {
   const eventModel = await EventModel.create<T>({
     ...eventData,
     teams: eventData.teams.map(team => new mongoose.Types.ObjectId(team)),
@@ -15,7 +15,7 @@ export const addEvent = async <T extends Event>(eventCatogory: EventCatagories, 
 };
 
 export const readEvents = async () => {
-  return await EventModel.find<AllEvents>().populate("teams");
+  return (await EventModel.find<AllEvents>().populate("teams")).map(event => event as AllEvents);
 };
 
 export const deleteEvent = async (eventID: string) => {
@@ -26,12 +26,12 @@ export const getLiveEvents = async () => {
   return await EventModel.find<AllEvents>().where("isStarted").equals(true);
 };
 
-export const getEventByID = async <T extends Event>(id: string) => {
+export const getEventByID = async <T extends Event<U>, U extends Score>(id: string) => {
   return await EventModel.findById<T>(id);
 };
 
 export const toggleEventStarted = async (id: string) => {
-  const event = await getEventByID<AllEvents>(id);
+  const event = await getEventByID<AllEvents, AllScores>(id);
   SocketServer.io.sockets.emit(
     "eventStartOrEnd",
     JSON.stringify({ eventID: event?._id, isStarted: !event?.isStarted })
@@ -40,8 +40,10 @@ export const toggleEventStarted = async (id: string) => {
 };
 
 export const updateScore = async (id: string, score: any) => {
-  const event = await getEventByID(id);
+  const event = await getEventByID<AllEvents, AllScores>(id);
   if (event && event.isStarted)
     SocketServer.io.sockets.in(event.roomID).emit(`scoreUpdate/${event.roomID}`, JSON.stringify(score));
   await EventModel.findByIdAndUpdate(id, { score });
 };
+
+export const saveHistory = async (eventID: string, prevScore: any, currentScore: any, userID: string) => {};

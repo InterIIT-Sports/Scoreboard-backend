@@ -1,3 +1,8 @@
-import FootballEvent from "./FootballEvent";
+import ChessEvent, { ChessScore } from "./ChessEvent";
+import FootballEvent, { FootballScore } from "./FootballEvent";
 
-export default interface AllEvents extends FootballEvent {}
+type AllEvents = FootballEvent | ChessEvent;
+
+export type AllScores = FootballScore | ChessScore;
+
+export default AllEvents;

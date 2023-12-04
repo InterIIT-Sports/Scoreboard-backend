@@ -9,6 +9,7 @@ import { CorsConfig } from "./config/CorsConfig";
 import swaggerConfig from "./config/swagger.json";
 import { createAndStartServer } from "./utils/ServerUtils";
 import EventRoutes from "./routes/EventRoutes";
+import { readEvents } from "./utils/EventUtils";
 
 config();
 
@@ -26,8 +27,7 @@ app.use("/auth", AuthRoutes);
 app.use("/admin", AdminRoutes);
 app.use("/events", EventRoutes);
 
-createAndStartServer(app);
-// .then(liveEvents => createSocketForEvents(liveEvents));
+createAndStartServer(app).then(async () => console.log(await readEvents()));
 
 // addEvent<FootballEvent>(EventCatagories.FOOTBALL, {
 //   endTime: Date.now(),

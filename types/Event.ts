@@ -1,7 +1,6 @@
-import mongoose from "mongoose";
 import EventCatagories from "./EventCategories";
 
-export default interface Event {
+export default interface Event<T extends Score> {
   _id?: string;
   subtitle: string;
   title: string;
@@ -11,5 +10,7 @@ export default interface Event {
   endTime: number;
   teams: string[]; // list of teamIDs who are compeating
   roomID: EventCatagories; // event is the roomID for socketIO
-  score: {};
+  score: T;
 }
+
+export interface Score {}

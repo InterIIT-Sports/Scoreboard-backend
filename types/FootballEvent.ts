@@ -1,7 +1,6 @@
-import mongoose from "mongoose";
 import Event from "./Event";
 
-export default interface FootballEvent extends Event {
+export default interface FootballEvent extends Event<FootballScore> {
   winner?: string;
   score: FootballScore;
 }

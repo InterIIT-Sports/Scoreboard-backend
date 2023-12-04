@@ -1,6 +1,5 @@
-import { Example, Get, Patch, Path, Response, Route, Tags } from "tsoa";
+import { Get, Patch, Path, Response, Route, Tags } from "tsoa";
 import { readEvents, toggleEventStarted } from "../utils/EventUtils";
-import mongoose from "mongoose";
 
 @Route("events")
 @Tags("Events")
