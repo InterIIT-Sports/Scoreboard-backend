@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+
 import AllEvents from "../types/AllEvents";
 
 const eventSchema = new mongoose.Schema<AllEvents>({

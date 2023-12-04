@@ -1,6 +1,6 @@
 import HistoryModel from "../schemas/HistoryModel";
-import { Score } from "../types/Event";
 import HistoryItem from "../types/HistoryItem";
+import { Score } from "../types/Event";
 
 export const saveHistory = async <T extends Score>(eventID: string, prevScore: T, currentScore: T, userName: string) => {
   const historyItem: HistoryItem<T> = { eventID, userName, prevScore, currentScore };

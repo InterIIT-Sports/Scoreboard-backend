@@ -1,9 +1,10 @@
+import mongoose from "mongoose";
+
 import EventCatagories from "../types/EventCategories";
 import EventModel from "../schemas/EventModel";
 import AllEvents, { AllScores } from "../types/AllEvents";
 import Event, { Score } from "../types/Event";
 import { SocketServer } from "../types/SocketServer";
-import mongoose from "mongoose";
 
 export const addEvent = async <T extends Event<U>, U extends Score>(eventCatogory: EventCatagories, eventData: T) => {
   const eventModel = await EventModel.create<T>({

@@ -3,10 +3,11 @@ import LoginWithUsernameAndPasswordRequest from "../requests/LoginWithUsernameAn
 import AccessTokenRequest from "../requests/AccessTokenRequest";
 import RefreshTokenModel from "../schemas/RefreshTokenModel";
 import { Body, Delete, Post, Response, Route, Tags } from "tsoa";
+
+import LogoutRequest from "../requests/LogoutRequest";
 import { getAccessToken, getRefreshToken, loginWithUsernameAndPassword, revokeRefreshToken } from "../utils/AuthUtils";
 import { Unauthorised } from "../utils/AuthErrors";
 import { User } from "../types/User";
-import LogoutRequest from "../requests/LogoutRequest";
 
 @Route("auth")
 @Tags("Authentication")

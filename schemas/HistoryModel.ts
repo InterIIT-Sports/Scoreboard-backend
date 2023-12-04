@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+
 import HistoryItem from "../types/HistoryItem";
 import { AllScores } from "../types/AllEvents";
 

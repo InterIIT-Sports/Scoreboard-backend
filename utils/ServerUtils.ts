@@ -1,6 +1,7 @@
 import { Express } from "express";
-import { connectToDatabase } from "./DatabaseUtils";
 import { Server } from "socket.io";
+
+import { connectToDatabase } from "./DatabaseUtils";
 import { addSocketEvents } from "./SocketUtils";
 import { SocketServer } from "../types/SocketServer";
 import { CorsConfig } from "../config/CorsConfig";

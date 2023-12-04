@@ -1,4 +1,5 @@
 import { Body, Path, Put, Response, Route, Tags } from "tsoa";
+
 import FootballScoreUpdateRequest from "../requests/FootballScoreUpdateRequest";
 import { updateScore } from "../utils/EventUtils";
 

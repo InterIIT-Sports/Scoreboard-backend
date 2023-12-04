@@ -1,4 +1,5 @@
 import { Get, Patch, Path, Response, Route, Tags } from "tsoa";
+
 import { readEvents, toggleEventStarted } from "../utils/EventUtils";
 
 @Route("events")

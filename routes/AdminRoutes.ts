@@ -2,11 +2,11 @@ import * as jwt from "jsonwebtoken";
 import express from "express";
 
 import AuthenticatedRequest from "../requests/AuthenticatedRequest";
+import ScheduleRoutes from "./ScheduleRoutes";
+import TeamRoutes from "./TeamRoutes";
 import { User } from "../types/User";
 import { UserRole } from "../types/UserRole";
 import { AdminController } from "../controllers/AdminController";
-import ScheduleRoutes from "./ScheduleRoutes";
-import TeamRoutes from "./TeamRoutes";
 
 const router = express.Router();
 

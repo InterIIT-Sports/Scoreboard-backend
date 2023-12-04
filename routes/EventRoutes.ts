@@ -1,5 +1,6 @@
 import * as jwt from "jsonwebtoken";
 import express from "express";
+
 import FootballRoutes from "./FootballRoutes";
 import AuthenticatedRequest from "../requests/AuthenticatedRequest";
 import { User } from "../types/User";

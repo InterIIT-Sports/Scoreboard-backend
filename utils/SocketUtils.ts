@@ -1,5 +1,3 @@
-import { Server } from "socket.io";
-import { DefaultEventsMap } from "socket.io/dist/typed-events";
 import { SocketServer } from "../types/SocketServer";
 
 export const addSocketEvents = () =>

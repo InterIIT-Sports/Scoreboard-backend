@@ -1,6 +1,7 @@
-import { Body, Delete, Get, Header, Middlewares, Path, Post, Route, Tags } from "tsoa";
-import { addTeam, deleteTeam, getAllTeams } from "../utils/TeamUtils";
+import { Body, Delete, Get, Path, Post, Route, Tags } from "tsoa";
+
 import CreateTeamRequest from "../requests/CreateTeamRequest";
+import { addTeam, deleteTeam, getAllTeams } from "../utils/TeamUtils";
 
 @Route("admin/teams")
 @Tags("Teams")

@@ -30,9 +30,7 @@ export class AdminController {
    */
   @Post("createUserWithUsernameAndPassword")
   @Response(403, "Username already exists")
-  public async createUserWithUsernameAndPassword(
-    @Body() { name, username, password, role }: CreateUserWithUsernameAndPasswordRequest
-  ) {
+  public async createUserWithUsernameAndPassword(@Body() { name, username, password, role }: CreateUserWithUsernameAndPasswordRequest) {
     return await createUserWithUsernameAndPassword(name, username, password, role);
   }
 }

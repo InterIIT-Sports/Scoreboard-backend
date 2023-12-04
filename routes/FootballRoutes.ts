@@ -1,9 +1,10 @@
 import express from "express";
+
+import AuthenticatedRequest from "../requests/AuthenticatedRequest";
+import FootballEvent, { FootballScore } from "../types/FootballEvent";
 import { FootballController } from "../controllers/FootballController";
 import { saveHistory } from "../utils/HistoryUtils";
-import AuthenticatedRequest from "../requests/AuthenticatedRequest";
 import { getEventByID } from "../utils/EventUtils";
-import FootballEvent, { FootballScore } from "../types/FootballEvent";
 
 const router = express.Router();
 
