@@ -66,6 +66,7 @@ export const getNotCompletedEvents = async () => await EventModel.find().where("
 
 export const updateExistingEvents = async (events: AllEvents[]) => {
   await deleteNotCompletedEvents();
+  console.log(await getTeamID("IIT GN"));
   events.forEach(async event => addEvent(event.event, { ...event, teams: await Promise.all(event.teams.map(async team => await getTeamID(team))) }));
 };
 
