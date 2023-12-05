@@ -185,9 +185,6 @@
 						},
 						"type": "array"
 					},
-					"roomID": {
-						"$ref": "#/components/schemas/EventCatagories"
-					},
 					"score": {
 						"$ref": "#/components/schemas/FootballScore"
 					},
@@ -215,8 +212,7 @@
 					"event",
 					"startTime",
 					"endTime",
-					"teams",
-					"roomID"
+					"teams"
 				],
 				"type": "object",
 				"additionalProperties": false
@@ -270,9 +266,6 @@
 						},
 						"type": "array"
 					},
-					"roomID": {
-						"$ref": "#/components/schemas/EventCatagories"
-					},
 					"score": {
 						"$ref": "#/components/schemas/ChessScore"
 					},
@@ -300,8 +293,7 @@
 					"event",
 					"startTime",
 					"endTime",
-					"teams",
-					"roomID"
+					"teams"
 				],
 				"type": "object",
 				"additionalProperties": false
@@ -330,6 +322,34 @@
 				"required": [
 					"teamA_score",
 					"teamB_score"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"FlattenMaps_T_": {
+				"properties": {},
+				"type": "object"
+			},
+			"Document_any.any.any_": {
+				"$ref": "#/components/schemas/FlattenMaps_T_",
+				"description": "Generic types for Document:\n*  T - the type of _id\n*  TQueryHelpers - Object with any helpers that should be mixed into the Query type\n*  DocType - the type of the actual Document created"
+			},
+			"Required_any_": {
+				"properties": {},
+				"type": "object",
+				"description": "Make all properties in T required"
+			},
+			"UpdateExistingEventsRequest": {
+				"properties": {
+					"events": {
+						"items": {
+							"$ref": "#/components/schemas/AllEvents"
+						},
+						"type": "array"
+					}
+				},
+				"required": [
+					"events"
 				],
 				"type": "object",
 				"additionalProperties": false
@@ -749,6 +769,84 @@
 						"application/json": {
 							"schema": {
 								"$ref": "#/components/schemas/FootballScoreUpdateRequest"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/admin/schedule": {
+			"get": {
+				"operationId": "GetNotCompletedEvents",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"items": {
+										"allOf": [
+											{
+												"$ref": "#/components/schemas/Document_any.any.any_"
+											},
+											{
+												"anyOf": [
+													{
+														"allOf": [
+															{
+																"$ref": "#/components/schemas/FootballEvent"
+															},
+															{
+																"$ref": "#/components/schemas/Required_any_"
+															}
+														]
+													},
+													{
+														"allOf": [
+															{
+																"$ref": "#/components/schemas/ChessEvent"
+															},
+															{
+																"$ref": "#/components/schemas/Required_any_"
+															}
+														]
+													}
+												]
+											}
+										]
+									},
+									"type": "array"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Admin",
+					"Schedule"
+				],
+				"security": [],
+				"parameters": []
+			},
+			"patch": {
+				"operationId": "UpdateExistingEvents",
+				"responses": {
+					"204": {
+						"description": "No content"
+					}
+				},
+				"tags": [
+					"Admin",
+					"Schedule"
+				],
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/UpdateExistingEventsRequest"
 							}
 						}
 					}

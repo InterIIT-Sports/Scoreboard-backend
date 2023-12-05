@@ -11,6 +11,8 @@ import { EventController } from './../controllers/EventController';
 // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
 import { FootballController } from './../controllers/FootballController';
 // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+import { ScheduleController } from './../controllers/ScheduleController';
+// WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
 import { TeamControllers } from './../controllers/TeamController';
 import type { RequestHandler, Router } from 'express';
 
@@ -112,7 +114,6 @@ const models: TsoaRoute.Models = {
             "startTime": {"dataType":"double","required":true},
             "endTime": {"dataType":"double","required":true},
             "teams": {"dataType":"array","array":{"dataType":"string"},"required":true},
-            "roomID": {"ref":"EventCatagories","required":true},
             "score": {"ref":"FootballScore"},
             "isCompleted": {"dataType":"boolean"},
             "winner": {"dataType":"nestedObjectLiteral","nestedProperties":{"participant":{"dataType":"string","required":true},"team":{"dataType":"string","required":true}}},
@@ -140,7 +141,6 @@ const models: TsoaRoute.Models = {
             "startTime": {"dataType":"double","required":true},
             "endTime": {"dataType":"double","required":true},
             "teams": {"dataType":"array","array":{"dataType":"string"},"required":true},
-            "roomID": {"ref":"EventCatagories","required":true},
             "score": {"ref":"ChessScore"},
             "isCompleted": {"dataType":"boolean"},
             "winner": {"dataType":"nestedObjectLiteral","nestedProperties":{"participant":{"dataType":"string","required":true},"team":{"dataType":"string","required":true}}},
@@ -158,6 +158,29 @@ const models: TsoaRoute.Models = {
         "properties": {
             "teamA_score": {"dataType":"double","required":true},
             "teamB_score": {"dataType":"double","required":true},
+        },
+        "additionalProperties": false,
+    },
+    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+    "FlattenMaps_T_": {
+        "dataType": "refAlias",
+        "type": {"dataType":"nestedObjectLiteral","nestedProperties":{},"validators":{}},
+    },
+    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+    "Document_any.any.any_": {
+        "dataType": "refAlias",
+        "type": {"ref":"FlattenMaps_T_","validators":{}},
+    },
+    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+    "Required_any_": {
+        "dataType": "refAlias",
+        "type": {"dataType":"nestedObjectLiteral","nestedProperties":{},"validators":{}},
+    },
+    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+    "UpdateExistingEventsRequest": {
+        "dataType": "refObject",
+        "properties": {
+            "events": {"dataType":"array","array":{"dataType":"refAlias","ref":"AllEvents"},"required":true},
         },
         "additionalProperties": false,
     },
@@ -409,6 +432,55 @@ export function RegisterRoutes(app: Router) {
 
 
               const promise = controller.updateScore.apply(controller, validatedArgs as any);
+              promiseHandler(controller, promise, response, undefined, next);
+            } catch (err) {
+                return next(err);
+            }
+        });
+        // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+        app.get('/admin/schedule',
+            ...(fetchMiddlewares<RequestHandler>(ScheduleController)),
+            ...(fetchMiddlewares<RequestHandler>(ScheduleController.prototype.getNotCompletedEvents)),
+
+            function ScheduleController_getNotCompletedEvents(request: any, response: any, next: any) {
+            const args = {
+            };
+
+            // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+
+            let validatedArgs: any[] = [];
+            try {
+                validatedArgs = getValidatedArgs(args, request, response);
+
+                const controller = new ScheduleController();
+
+
+              const promise = controller.getNotCompletedEvents.apply(controller, validatedArgs as any);
+              promiseHandler(controller, promise, response, undefined, next);
+            } catch (err) {
+                return next(err);
+            }
+        });
+        // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+        app.patch('/admin/schedule',
+            ...(fetchMiddlewares<RequestHandler>(ScheduleController)),
+            ...(fetchMiddlewares<RequestHandler>(ScheduleController.prototype.updateExistingEvents)),
+
+            function ScheduleController_updateExistingEvents(request: any, response: any, next: any) {
+            const args = {
+                    undefined: {"in":"body","required":true,"ref":"UpdateExistingEventsRequest"},
+            };
+
+            // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+
+            let validatedArgs: any[] = [];
+            try {
+                validatedArgs = getValidatedArgs(args, request, response);
+
+                const controller = new ScheduleController();
+
+
+              const promise = controller.updateExistingEvents.apply(controller, validatedArgs as any);
               promiseHandler(controller, promise, response, undefined, next);
             } catch (err) {
                 return next(err);

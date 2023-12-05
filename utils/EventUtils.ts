@@ -63,7 +63,7 @@ export const deleteNotCompletedEvents = async () => await EventModel.deleteMany(
 
 export const getNotCompletedEvents = async () => await EventModel.find().where("isCompleted").equals(false);
 
-export const addNewEvents = async (events: AllEvents[]) => {
+export const updateExistingEvents = async (events: AllEvents[]) => {
   await deleteNotCompletedEvents();
   events.forEach(async event => addEvent(event.event, event));
 };
