@@ -9,7 +9,6 @@ const eventSchema = new mongoose.Schema<AllEvents>({
   event: { type: String, required: true },
   isStarted: { type: Boolean, required: true },
   isCompleted: { type: Boolean, required: true },
-  roomID: { type: String, required: true },
   teams: [{ type: mongoose.SchemaTypes.ObjectId, ref: "Teams" }],
 
   subtitle: String,

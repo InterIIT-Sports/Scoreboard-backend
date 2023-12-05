@@ -123,6 +123,19 @@
 				"type": "object",
 				"additionalProperties": false
 			},
+			"EventCatagories": {
+				"enum": [
+					"Cricket",
+					"Football",
+					"Squash_men",
+					"Chess",
+					"Squash_women",
+					"Tennis_women",
+					"Tennis_men",
+					"Athletics"
+				],
+				"type": "string"
+			},
 			"FootballScore": {
 				"properties": {
 					"teamA_score": {
@@ -140,19 +153,6 @@
 				],
 				"type": "object",
 				"additionalProperties": false
-			},
-			"EventCatagories": {
-				"enum": [
-					"Cricket",
-					"Football",
-					"Squash_men",
-					"Chess",
-					"Squash_women",
-					"Tennis_women",
-					"Tennis_men",
-					"Athletics"
-				],
-				"type": "string"
 			},
 			"FootballEvent": {
 				"properties": {
@@ -191,38 +191,50 @@
 					"score": {
 						"$ref": "#/components/schemas/FootballScore"
 					},
+					"isCompleted": {
+						"type": "boolean"
+					},
 					"winner": {
-						"type": "string"
+						"properties": {
+							"participant": {
+								"type": "string"
+							},
+							"team": {
+								"type": "string"
+							}
+						},
+						"required": [
+							"participant",
+							"team"
+						],
+						"type": "object"
 					}
 				},
 				"required": [
-					"subtitle",
 					"title",
 					"event",
-					"isStarted",
 					"startTime",
 					"endTime",
 					"teams",
-					"roomID",
-					"score"
+					"roomID"
 				],
 				"type": "object",
 				"additionalProperties": false
 			},
 			"ChessScore": {
 				"properties": {
-					"teamA_score": {
+					"teamA_points": {
 						"type": "number",
 						"format": "double"
 					},
-					"teamB_score": {
+					"teamB_points": {
 						"type": "number",
 						"format": "double"
 					}
 				},
 				"required": [
-					"teamA_score",
-					"teamB_score"
+					"teamA_points",
+					"teamB_points"
 				],
 				"type": "object",
 				"additionalProperties": false
@@ -264,20 +276,32 @@
 					"score": {
 						"$ref": "#/components/schemas/ChessScore"
 					},
+					"isCompleted": {
+						"type": "boolean"
+					},
 					"winner": {
-						"type": "string"
+						"properties": {
+							"participant": {
+								"type": "string"
+							},
+							"team": {
+								"type": "string"
+							}
+						},
+						"required": [
+							"participant",
+							"team"
+						],
+						"type": "object"
 					}
 				},
 				"required": [
-					"subtitle",
 					"title",
 					"event",
-					"isStarted",
 					"startTime",
 					"endTime",
 					"teams",
-					"roomID",
-					"score"
+					"roomID"
 				],
 				"type": "object",
 				"additionalProperties": false

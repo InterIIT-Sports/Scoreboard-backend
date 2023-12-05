@@ -65,7 +65,7 @@ export const markEventAsCompleted = async (id: string) => {
 
 export const updateScore = async (id: string, score: any) => {
   const event = await getEventByID<AllEvents, AllScores>(id);
-  if (event && event.isStarted) SocketServer.io.sockets.in(event.roomID).emit(`scoreUpdate/${event.roomID}`, JSON.stringify(score));
+  if (event && event.isStarted) SocketServer.io.sockets.in(event._id!.toString()).emit(`scoreUpdate/${event._id!.toString()}`, JSON.stringify(score));
   await EventModel.findByIdAndUpdate(id, { score });
 };
 

@@ -87,6 +87,11 @@ const models: TsoaRoute.Models = {
         "additionalProperties": false,
     },
     // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+    "EventCatagories": {
+        "dataType": "refEnum",
+        "enums": ["Cricket","Football","Squash_men","Chess","Squash_women","Tennis_women","Tennis_men","Athletics"],
+    },
+    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
     "FootballScore": {
         "dataType": "refObject",
         "properties": {
@@ -96,25 +101,21 @@ const models: TsoaRoute.Models = {
         "additionalProperties": false,
     },
     // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
-    "EventCatagories": {
-        "dataType": "refEnum",
-        "enums": ["Cricket","Football","Squash_men","Chess","Squash_women","Tennis_women","Tennis_men","Athletics"],
-    },
-    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
     "FootballEvent": {
         "dataType": "refObject",
         "properties": {
             "_id": {"dataType":"string"},
-            "subtitle": {"dataType":"string","required":true},
+            "subtitle": {"dataType":"string"},
             "title": {"dataType":"string","required":true},
             "event": {"ref":"EventCatagories","required":true},
-            "isStarted": {"dataType":"boolean","required":true},
+            "isStarted": {"dataType":"boolean"},
             "startTime": {"dataType":"double","required":true},
             "endTime": {"dataType":"double","required":true},
             "teams": {"dataType":"array","array":{"dataType":"string"},"required":true},
             "roomID": {"ref":"EventCatagories","required":true},
-            "score": {"ref":"FootballScore","required":true},
-            "winner": {"dataType":"string"},
+            "score": {"ref":"FootballScore"},
+            "isCompleted": {"dataType":"boolean"},
+            "winner": {"dataType":"nestedObjectLiteral","nestedProperties":{"participant":{"dataType":"string","required":true},"team":{"dataType":"string","required":true}}},
         },
         "additionalProperties": false,
     },
@@ -122,8 +123,8 @@ const models: TsoaRoute.Models = {
     "ChessScore": {
         "dataType": "refObject",
         "properties": {
-            "teamA_score": {"dataType":"double","required":true},
-            "teamB_score": {"dataType":"double","required":true},
+            "teamA_points": {"dataType":"double","required":true},
+            "teamB_points": {"dataType":"double","required":true},
         },
         "additionalProperties": false,
     },
@@ -132,16 +133,17 @@ const models: TsoaRoute.Models = {
         "dataType": "refObject",
         "properties": {
             "_id": {"dataType":"string"},
-            "subtitle": {"dataType":"string","required":true},
+            "subtitle": {"dataType":"string"},
             "title": {"dataType":"string","required":true},
             "event": {"ref":"EventCatagories","required":true},
-            "isStarted": {"dataType":"boolean","required":true},
+            "isStarted": {"dataType":"boolean"},
             "startTime": {"dataType":"double","required":true},
             "endTime": {"dataType":"double","required":true},
             "teams": {"dataType":"array","array":{"dataType":"string"},"required":true},
             "roomID": {"ref":"EventCatagories","required":true},
-            "score": {"ref":"ChessScore","required":true},
-            "winner": {"dataType":"string"},
+            "score": {"ref":"ChessScore"},
+            "isCompleted": {"dataType":"boolean"},
+            "winner": {"dataType":"nestedObjectLiteral","nestedProperties":{"participant":{"dataType":"string","required":true},"team":{"dataType":"string","required":true}}},
         },
         "additionalProperties": false,
     },

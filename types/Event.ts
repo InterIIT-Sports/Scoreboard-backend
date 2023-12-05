@@ -9,7 +9,6 @@ export default interface Event<T extends Score> {
   startTime: number;
   endTime: number;
   teams: string[]; // list of teamIDs who are compeating
-  roomID: EventCatagories; // event is the roomID for socketIO
   score?: T;
   isCompleted?: boolean;
 }
