@@ -7,6 +7,7 @@ import Event, { Score } from "../types/Event";
 import { SocketServer } from "../types/SocketServer";
 import { createFootballDefaultScore } from "../types/FootballEvent";
 import { createChessDefaultScore } from "../types/ChessEvent";
+import { getTeamID } from "./TeamUtils";
 
 export const getEventDefaultScore = (eventCatagory: EventCatagories) => {
   switch (eventCatagory) {
@@ -65,7 +66,7 @@ export const getNotCompletedEvents = async () => await EventModel.find().where("
 
 export const updateExistingEvents = async (events: AllEvents[]) => {
   await deleteNotCompletedEvents();
-  events.forEach(async event => addEvent(event.event, event));
+  events.forEach(async event => addEvent(event.event, { ...event, teams: await Promise.all(event.teams.map(async team => await getTeamID(team))) }));
 };
 
 export const setWinner = async (eventID: string, winningTeamID: string, participant?: string) =>

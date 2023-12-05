@@ -7,10 +7,8 @@ export const addTeam = async (name: string) => {
   await newTeam.save();
 };
 
-export const deleteTeam = async (id: string) => {
-  await TeamModel.findByIdAndDelete<Team>(id);
-};
+export const deleteTeam = async (id: string) => await TeamModel.findByIdAndDelete<Team>(id);
 
-export const getAllTeams = async () => {
-  return await TeamModel.find<Team>();
-};
+export const getAllTeams = async () => await TeamModel.find<Team>();
+
+export const getTeamID = async (name: string) => (await TeamModel.find({ name })).toString();
