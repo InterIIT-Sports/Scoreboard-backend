@@ -36,21 +36,13 @@ export const addEvent = async <T extends Event<U>, U extends Score>(eventCatogor
   return eventModel;
 };
 
-export const readEvents = async () => {
-  return (await EventModel.find<AllEvents>().populate("teams")).map(event => event as AllEvents);
-};
+export const readEvents = async () => (await EventModel.find<AllEvents>().populate("teams").populate("winner.team")).map(event => event as AllEvents);
 
-export const deleteEvent = async (eventID: string) => {
-  await EventModel.findByIdAndDelete(eventID);
-};
+export const deleteEvent = async (eventID: string) => await EventModel.findByIdAndDelete(eventID);
 
-export const getLiveEvents = async () => {
-  return await EventModel.find<AllEvents>().where("isStarted").equals(true);
-};
+export const getLiveEvents = async () => await EventModel.find<AllEvents>().where("isStarted").equals(true);
 
-export const getEventByID = async <T extends Event<U>, U extends Score>(id: string) => {
-  return await EventModel.findById<T>(id);
-};
+export const getEventByID = async <T extends Event<U>, U extends Score>(id: string) => await EventModel.findById<T>(id);
 
 export const toggleEventStarted = async (id: string) => {
   const event = await getEventByID<AllEvents, AllScores>(id);
@@ -59,9 +51,7 @@ export const toggleEventStarted = async (id: string) => {
   return await EventModel.findByIdAndUpdate(id, { isStarted: !event?.isStarted });
 };
 
-export const markEventAsCompleted = async (id: string) => {
-  return await EventModel.findByIdAndUpdate(id, { isCompleted: true });
-};
+export const markEventAsCompleted = async (id: string) => await EventModel.findByIdAndUpdate(id, { isCompleted: true });
 
 export const updateScore = async (id: string, score: any) => {
   const event = await getEventByID<AllEvents, AllScores>(id);
@@ -69,10 +59,14 @@ export const updateScore = async (id: string, score: any) => {
   await EventModel.findByIdAndUpdate(id, { score });
 };
 
-export const deleteNotCompletedEvents = async () => {
-  return await EventModel.deleteMany({ isCompleted: false });
-};
+export const deleteNotCompletedEvents = async () => await EventModel.deleteMany({ isCompleted: false });
+
+export const getNotCompletedEvents = async () => await EventModel.find().where("isCompleted").equals(false);
 
 export const addNewEvents = async (events: AllEvents[]) => {
+  await deleteNotCompletedEvents();
   events.forEach(async event => addEvent(event.event, event));
 };
+
+export const setWinner = async (eventID: string, winningTeamID: string, participant?: string) =>
+  EventModel.findByIdAndUpdate(eventID, { winner: { team: new mongoose.Types.ObjectId(winningTeamID), participant } });
