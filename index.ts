@@ -9,7 +9,9 @@ import { CorsConfig } from "./config/CorsConfig";
 import swaggerConfig from "./config/swagger.json";
 import { createAndStartServer } from "./utils/ServerUtils";
 import EventRoutes from "./routes/EventRoutes";
-import { readEvents } from "./utils/EventUtils";
+import { addEvent, readEvents } from "./utils/EventUtils";
+import FootballEvent, { FootballScore, createFootballDefaultScore } from "./types/FootballEvent";
+import EventCatagories from "./types/EventCategories";
 
 config();
 
@@ -29,16 +31,11 @@ app.use("/events", EventRoutes);
 
 createAndStartServer(app).then(async () => console.log(await readEvents()));
 
-// addEvent<FootballEvent>(EventCatagories.FOOTBALL, {
+// addEvent<FootballEvent, FootballScore>(EventCatagories.FOOTBALL, {
 //   endTime: Date.now(),
 //   startTime: Date.now(),
 //   event: EventCatagories.FOOTBALL,
 //   roomID: EventCatagories.FOOTBALL,
-//   isStarted: false,
-//   score: {
-//     teamA_score: 0,
-//     teamB_score: 0,
-//   },
 //   teams: ["655e4dbdbddc0c9ed41ad774", "655e4dc8992db97369908276"],
 //   title: "Test football match",
 // });

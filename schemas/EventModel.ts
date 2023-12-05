@@ -8,6 +8,7 @@ const eventSchema = new mongoose.Schema<AllEvents>({
   startTime: { type: Number, required: true },
   event: { type: String, required: true },
   isStarted: { type: Boolean, required: true },
+  isCompleted: { type: Boolean, required: true },
   roomID: { type: String, required: true },
   teams: [{ type: mongoose.SchemaTypes.ObjectId, ref: "Teams" }],
 
@@ -16,8 +17,14 @@ const eventSchema = new mongoose.Schema<AllEvents>({
     // Football
     teamA_score: Number,
     teamB_score: Number,
+    // Chess
+    teamA_points: Number,
+    teamB_points: Number,
   },
-  winner: mongoose.SchemaTypes.ObjectId,
+  winner: {
+    team: { type: mongoose.SchemaTypes.ObjectId, ref: "Teams" },
+    participant: String,
+  },
 });
 
 const EventModel = mongoose.model("Events", eventSchema);
