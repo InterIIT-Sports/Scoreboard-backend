@@ -11,4 +11,4 @@ export const deleteTeam = async (id: string) => await TeamModel.findByIdAndDelet
 
 export const getAllTeams = async () => await TeamModel.find<Team>();
 
-export const getTeamID = async (name: string) => (await TeamModel.find({ name }))[0].toString();
+export const getTeamID = async (name: string) => (await TeamModel.findOne({ name }))?.toString();
