@@ -7,13 +7,25 @@ import { AdminController } from './../controllers/AdminController';
 // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
 import { AuthController } from './../controllers/AuthController';
 // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+import { ChessController } from './../controllers/ChessController';
+// WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+import { CricketController } from './../controllers/CricketController';
+// WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
 import { EventController } from './../controllers/EventController';
 // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
 import { FootballController } from './../controllers/FootballController';
 // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
 import { ScheduleController } from './../controllers/ScheduleController';
 // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+import { SquashMenController } from './../controllers/SquashMenController';
+// WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+import { SquashWomenController } from './../controllers/SquashWomenController';
+// WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
 import { TeamControllers } from './../controllers/TeamController';
+// WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+import { TennisMenController } from './../controllers/TennisMenController';
+// WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+import { TennisWomenController } from './../controllers/TennisWomenController';
 import type { RequestHandler, Router } from 'express';
 
 // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
@@ -89,6 +101,28 @@ const models: TsoaRoute.Models = {
         "additionalProperties": false,
     },
     // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+    "ChessScoreUpdateRequest": {
+        "dataType": "refObject",
+        "properties": {
+            "teamA_points": {"dataType":"double","required":true},
+            "teamB_points": {"dataType":"double","required":true},
+        },
+        "additionalProperties": false,
+    },
+    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+    "CricketScoreUpdateRequest": {
+        "dataType": "refObject",
+        "properties": {
+            "teamA_runs": {"dataType":"double","required":true},
+            "teamA_overs": {"dataType":"double","required":true},
+            "teamA_wickets": {"dataType":"double","required":true},
+            "teamB_runs": {"dataType":"double","required":true},
+            "teamB_overs": {"dataType":"double","required":true},
+            "teamB_wickets": {"dataType":"double","required":true},
+        },
+        "additionalProperties": false,
+    },
+    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
     "EventCatagories": {
         "dataType": "refEnum",
         "enums": ["Cricket","Football","Squash_men","Chess","Squash_women","Tennis_women","Tennis_men","Athletics"],
@@ -116,7 +150,7 @@ const models: TsoaRoute.Models = {
             "teams": {"dataType":"array","array":{"dataType":"string"},"required":true},
             "score": {"ref":"FootballScore"},
             "isCompleted": {"dataType":"boolean"},
-            "winner": {"dataType":"nestedObjectLiteral","nestedProperties":{"participant":{"dataType":"string","required":true},"team":{"dataType":"string","required":true}}},
+            "winner": {"dataType":"nestedObjectLiteral","nestedProperties":{"team":{"dataType":"string","required":true}}},
         },
         "additionalProperties": false,
     },
@@ -143,14 +177,160 @@ const models: TsoaRoute.Models = {
             "teams": {"dataType":"array","array":{"dataType":"string"},"required":true},
             "score": {"ref":"ChessScore"},
             "isCompleted": {"dataType":"boolean"},
-            "winner": {"dataType":"nestedObjectLiteral","nestedProperties":{"participant":{"dataType":"string","required":true},"team":{"dataType":"string","required":true}}},
+            "winner": {"dataType":"nestedObjectLiteral","nestedProperties":{"participants":{"dataType":"array","array":{"dataType":"string"},"required":true},"team":{"dataType":"string","required":true}}},
+        },
+        "additionalProperties": false,
+    },
+    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+    "CricketScore": {
+        "dataType": "refObject",
+        "properties": {
+            "teamA_runs": {"dataType":"double","required":true},
+            "teamA_overs": {"dataType":"double","required":true},
+            "teamA_wickets": {"dataType":"double","required":true},
+            "teamB_runs": {"dataType":"double","required":true},
+            "teamB_overs": {"dataType":"double","required":true},
+            "teamB_wickets": {"dataType":"double","required":true},
+        },
+        "additionalProperties": false,
+    },
+    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+    "CricketEvent": {
+        "dataType": "refObject",
+        "properties": {
+            "_id": {"dataType":"string"},
+            "subtitle": {"dataType":"string"},
+            "title": {"dataType":"string","required":true},
+            "event": {"ref":"EventCatagories","required":true},
+            "isStarted": {"dataType":"boolean"},
+            "startTime": {"dataType":"double","required":true},
+            "endTime": {"dataType":"double","required":true},
+            "teams": {"dataType":"array","array":{"dataType":"string"},"required":true},
+            "score": {"ref":"CricketScore"},
+            "isCompleted": {"dataType":"boolean"},
+            "winner": {"dataType":"nestedObjectLiteral","nestedProperties":{"team":{"dataType":"string","required":true}}},
+        },
+        "additionalProperties": false,
+    },
+    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+    "SquashMenScore": {
+        "dataType": "refObject",
+        "properties": {
+            "teamA_points": {"dataType":"double","required":true},
+            "teamB_points": {"dataType":"double","required":true},
+        },
+        "additionalProperties": false,
+    },
+    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+    "SquashMenEvent": {
+        "dataType": "refObject",
+        "properties": {
+            "_id": {"dataType":"string"},
+            "subtitle": {"dataType":"string"},
+            "title": {"dataType":"string","required":true},
+            "event": {"ref":"EventCatagories","required":true},
+            "isStarted": {"dataType":"boolean"},
+            "startTime": {"dataType":"double","required":true},
+            "endTime": {"dataType":"double","required":true},
+            "teams": {"dataType":"array","array":{"dataType":"string"},"required":true},
+            "score": {"ref":"SquashMenScore"},
+            "isCompleted": {"dataType":"boolean"},
+            "winner": {"dataType":"nestedObjectLiteral","nestedProperties":{"participants":{"dataType":"array","array":{"dataType":"string"},"required":true},"team":{"dataType":"string","required":true}}},
+        },
+        "additionalProperties": false,
+    },
+    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+    "SquashWomenScore": {
+        "dataType": "refObject",
+        "properties": {
+            "teamA_points": {"dataType":"double","required":true},
+            "teamB_points": {"dataType":"double","required":true},
+        },
+        "additionalProperties": false,
+    },
+    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+    "SquashWomenEvent": {
+        "dataType": "refObject",
+        "properties": {
+            "_id": {"dataType":"string"},
+            "subtitle": {"dataType":"string"},
+            "title": {"dataType":"string","required":true},
+            "event": {"ref":"EventCatagories","required":true},
+            "isStarted": {"dataType":"boolean"},
+            "startTime": {"dataType":"double","required":true},
+            "endTime": {"dataType":"double","required":true},
+            "teams": {"dataType":"array","array":{"dataType":"string"},"required":true},
+            "score": {"ref":"SquashWomenScore"},
+            "isCompleted": {"dataType":"boolean"},
+            "winner": {"dataType":"nestedObjectLiteral","nestedProperties":{"participants":{"dataType":"array","array":{"dataType":"string"},"required":true},"team":{"dataType":"string","required":true}}},
+        },
+        "additionalProperties": false,
+    },
+    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+    "MatchTypes": {
+        "dataType": "refEnum",
+        "enums": ["Doubles","Singles"],
+    },
+    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+    "TennisMenScore": {
+        "dataType": "refObject",
+        "properties": {
+            "teamA_points": {"dataType":"double","required":true},
+            "teamB_points": {"dataType":"double","required":true},
+        },
+        "additionalProperties": false,
+    },
+    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+    "TennisMenEvent": {
+        "dataType": "refObject",
+        "properties": {
+            "_id": {"dataType":"string"},
+            "subtitle": {"dataType":"string"},
+            "title": {"dataType":"string","required":true},
+            "event": {"ref":"EventCatagories","required":true},
+            "isStarted": {"dataType":"boolean"},
+            "startTime": {"dataType":"double","required":true},
+            "endTime": {"dataType":"double","required":true},
+            "teams": {"dataType":"array","array":{"dataType":"string"},"required":true},
+            "score": {"ref":"TennisMenScore"},
+            "isCompleted": {"dataType":"boolean"},
+            "matchType": {"ref":"MatchTypes","required":true},
+            "winner": {"dataType":"nestedObjectLiteral","nestedProperties":{"participants":{"dataType":"array","array":{"dataType":"string"},"required":true},"team":{"dataType":"string","required":true}}},
+        },
+        "additionalProperties": false,
+    },
+    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+    "TennisWomenScore": {
+        "dataType": "refObject",
+        "properties": {
+            "teamA_points": {"dataType":"double","required":true},
+            "teamB_points": {"dataType":"double","required":true},
+        },
+        "additionalProperties": false,
+    },
+    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+    "TennisWomenEvent": {
+        "dataType": "refObject",
+        "properties": {
+            "_id": {"dataType":"string"},
+            "subtitle": {"dataType":"string"},
+            "title": {"dataType":"string","required":true},
+            "event": {"ref":"EventCatagories","required":true},
+            "isStarted": {"dataType":"boolean"},
+            "startTime": {"dataType":"double","required":true},
+            "endTime": {"dataType":"double","required":true},
+            "teams": {"dataType":"array","array":{"dataType":"string"},"required":true},
+            "score": {"ref":"TennisWomenScore"},
+            "isCompleted": {"dataType":"boolean"},
+            "matchType": {"ref":"MatchTypes","required":true},
+            "winner": {"dataType":"nestedObjectLiteral","nestedProperties":{"participants":{"dataType":"array","array":{"dataType":"string"},"required":true},"team":{"dataType":"string","required":true}}},
         },
         "additionalProperties": false,
     },
     // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
     "AllEvents": {
         "dataType": "refAlias",
-        "type": {"dataType":"union","subSchemas":[{"ref":"FootballEvent"},{"ref":"ChessEvent"}],"validators":{}},
+        "type": {"dataType":"union","subSchemas":[{"ref":"FootballEvent"},{"ref":"ChessEvent"},{"ref":"CricketEvent"},{"ref":"SquashMenEvent"},{"ref":"SquashWomenEvent"},{"ref":"TennisMenEvent"},{"ref":"TennisWomenEvent"}],"validators":{}},
     },
     // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
     "FootballScoreUpdateRequest": {
@@ -185,6 +365,24 @@ const models: TsoaRoute.Models = {
         "additionalProperties": false,
     },
     // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+    "SquashMenScoreUpdateRequest": {
+        "dataType": "refObject",
+        "properties": {
+            "teamA_points": {"dataType":"double","required":true},
+            "teamB_points": {"dataType":"double","required":true},
+        },
+        "additionalProperties": false,
+    },
+    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+    "SquashWomenScoreUpdateRequest": {
+        "dataType": "refObject",
+        "properties": {
+            "teamA_points": {"dataType":"double","required":true},
+            "teamB_points": {"dataType":"double","required":true},
+        },
+        "additionalProperties": false,
+    },
+    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
     "Team": {
         "dataType": "refObject",
         "properties": {
@@ -200,6 +398,24 @@ const models: TsoaRoute.Models = {
         "dataType": "refObject",
         "properties": {
             "name": {"dataType":"string","required":true},
+        },
+        "additionalProperties": false,
+    },
+    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+    "TennisMenScoreUpdateRequest": {
+        "dataType": "refObject",
+        "properties": {
+            "teamA_points": {"dataType":"double","required":true},
+            "teamB_points": {"dataType":"double","required":true},
+        },
+        "additionalProperties": false,
+    },
+    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+    "TennisWomenScoreUpdateRequest": {
+        "dataType": "refObject",
+        "properties": {
+            "teamA_points": {"dataType":"double","required":true},
+            "teamB_points": {"dataType":"double","required":true},
         },
         "additionalProperties": false,
     },
@@ -363,6 +579,58 @@ export function RegisterRoutes(app: Router) {
             }
         });
         // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+        app.put('/events/chess/:id',
+            ...(fetchMiddlewares<RequestHandler>(ChessController)),
+            ...(fetchMiddlewares<RequestHandler>(ChessController.prototype.updateScore)),
+
+            function ChessController_updateScore(request: any, response: any, next: any) {
+            const args = {
+                    id: {"in":"path","name":"id","required":true,"dataType":"string"},
+                    score: {"in":"body","name":"score","required":true,"ref":"ChessScoreUpdateRequest"},
+            };
+
+            // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+
+            let validatedArgs: any[] = [];
+            try {
+                validatedArgs = getValidatedArgs(args, request, response);
+
+                const controller = new ChessController();
+
+
+              const promise = controller.updateScore.apply(controller, validatedArgs as any);
+              promiseHandler(controller, promise, response, undefined, next);
+            } catch (err) {
+                return next(err);
+            }
+        });
+        // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+        app.put('/events/cricket/:id',
+            ...(fetchMiddlewares<RequestHandler>(CricketController)),
+            ...(fetchMiddlewares<RequestHandler>(CricketController.prototype.updateScore)),
+
+            function CricketController_updateScore(request: any, response: any, next: any) {
+            const args = {
+                    id: {"in":"path","name":"id","required":true,"dataType":"string"},
+                    score: {"in":"body","name":"score","required":true,"ref":"CricketScoreUpdateRequest"},
+            };
+
+            // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+
+            let validatedArgs: any[] = [];
+            try {
+                validatedArgs = getValidatedArgs(args, request, response);
+
+                const controller = new CricketController();
+
+
+              const promise = controller.updateScore.apply(controller, validatedArgs as any);
+              promiseHandler(controller, promise, response, undefined, next);
+            } catch (err) {
+                return next(err);
+            }
+        });
+        // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
         app.patch('/events/toggleLive/:id',
             ...(fetchMiddlewares<RequestHandler>(EventController)),
             ...(fetchMiddlewares<RequestHandler>(EventController.prototype.toggleLive)),
@@ -487,6 +755,58 @@ export function RegisterRoutes(app: Router) {
             }
         });
         // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+        app.put('/events/squashmen/:id',
+            ...(fetchMiddlewares<RequestHandler>(SquashMenController)),
+            ...(fetchMiddlewares<RequestHandler>(SquashMenController.prototype.updateScore)),
+
+            function SquashMenController_updateScore(request: any, response: any, next: any) {
+            const args = {
+                    id: {"in":"path","name":"id","required":true,"dataType":"string"},
+                    score: {"in":"body","name":"score","required":true,"ref":"SquashMenScoreUpdateRequest"},
+            };
+
+            // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+
+            let validatedArgs: any[] = [];
+            try {
+                validatedArgs = getValidatedArgs(args, request, response);
+
+                const controller = new SquashMenController();
+
+
+              const promise = controller.updateScore.apply(controller, validatedArgs as any);
+              promiseHandler(controller, promise, response, undefined, next);
+            } catch (err) {
+                return next(err);
+            }
+        });
+        // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+        app.put('/events/squashwomen/:id',
+            ...(fetchMiddlewares<RequestHandler>(SquashWomenController)),
+            ...(fetchMiddlewares<RequestHandler>(SquashWomenController.prototype.updateScore)),
+
+            function SquashWomenController_updateScore(request: any, response: any, next: any) {
+            const args = {
+                    id: {"in":"path","name":"id","required":true,"dataType":"string"},
+                    score: {"in":"body","name":"score","required":true,"ref":"SquashWomenScoreUpdateRequest"},
+            };
+
+            // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+
+            let validatedArgs: any[] = [];
+            try {
+                validatedArgs = getValidatedArgs(args, request, response);
+
+                const controller = new SquashWomenController();
+
+
+              const promise = controller.updateScore.apply(controller, validatedArgs as any);
+              promiseHandler(controller, promise, response, undefined, next);
+            } catch (err) {
+                return next(err);
+            }
+        });
+        // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
         app.get('/admin/teams',
             ...(fetchMiddlewares<RequestHandler>(TeamControllers)),
             ...(fetchMiddlewares<RequestHandler>(TeamControllers.prototype.getAllTeams)),
@@ -555,6 +875,58 @@ export function RegisterRoutes(app: Router) {
 
 
               const promise = controller.deleteTeam.apply(controller, validatedArgs as any);
+              promiseHandler(controller, promise, response, undefined, next);
+            } catch (err) {
+                return next(err);
+            }
+        });
+        // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+        app.put('/events/tennismen/:id',
+            ...(fetchMiddlewares<RequestHandler>(TennisMenController)),
+            ...(fetchMiddlewares<RequestHandler>(TennisMenController.prototype.updateScore)),
+
+            function TennisMenController_updateScore(request: any, response: any, next: any) {
+            const args = {
+                    id: {"in":"path","name":"id","required":true,"dataType":"string"},
+                    score: {"in":"body","name":"score","required":true,"ref":"TennisMenScoreUpdateRequest"},
+            };
+
+            // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+
+            let validatedArgs: any[] = [];
+            try {
+                validatedArgs = getValidatedArgs(args, request, response);
+
+                const controller = new TennisMenController();
+
+
+              const promise = controller.updateScore.apply(controller, validatedArgs as any);
+              promiseHandler(controller, promise, response, undefined, next);
+            } catch (err) {
+                return next(err);
+            }
+        });
+        // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+        app.put('/events/tenniswomen/:id',
+            ...(fetchMiddlewares<RequestHandler>(TennisWomenController)),
+            ...(fetchMiddlewares<RequestHandler>(TennisWomenController.prototype.updateScore)),
+
+            function TennisWomenController_updateScore(request: any, response: any, next: any) {
+            const args = {
+                    id: {"in":"path","name":"id","required":true,"dataType":"string"},
+                    score: {"in":"body","name":"score","required":true,"ref":"TennisWomenScoreUpdateRequest"},
+            };
+
+            // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+
+            let validatedArgs: any[] = [];
+            try {
+                validatedArgs = getValidatedArgs(args, request, response);
+
+                const controller = new TennisWomenController();
+
+
+              const promise = controller.updateScore.apply(controller, validatedArgs as any);
               promiseHandler(controller, promise, response, undefined, next);
             } catch (err) {
                 return next(err);

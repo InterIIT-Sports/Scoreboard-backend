@@ -123,6 +123,62 @@
 				"type": "object",
 				"additionalProperties": false
 			},
+			"ChessScoreUpdateRequest": {
+				"properties": {
+					"teamA_points": {
+						"type": "number",
+						"format": "double"
+					},
+					"teamB_points": {
+						"type": "number",
+						"format": "double"
+					}
+				},
+				"required": [
+					"teamA_points",
+					"teamB_points"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"CricketScoreUpdateRequest": {
+				"properties": {
+					"teamA_runs": {
+						"type": "number",
+						"format": "double"
+					},
+					"teamA_overs": {
+						"type": "number",
+						"format": "double"
+					},
+					"teamA_wickets": {
+						"type": "number",
+						"format": "double"
+					},
+					"teamB_runs": {
+						"type": "number",
+						"format": "double"
+					},
+					"teamB_overs": {
+						"type": "number",
+						"format": "double"
+					},
+					"teamB_wickets": {
+						"type": "number",
+						"format": "double"
+					}
+				},
+				"required": [
+					"teamA_runs",
+					"teamA_overs",
+					"teamA_wickets",
+					"teamB_runs",
+					"teamB_overs",
+					"teamB_wickets"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
 			"EventCatagories": {
 				"enum": [
 					"Cricket",
@@ -193,15 +249,11 @@
 					},
 					"winner": {
 						"properties": {
-							"participant": {
-								"type": "string"
-							},
 							"team": {
 								"type": "string"
 							}
 						},
 						"required": [
-							"participant",
 							"team"
 						],
 						"type": "object"
@@ -274,15 +326,18 @@
 					},
 					"winner": {
 						"properties": {
-							"participant": {
-								"type": "string"
+							"participants": {
+								"items": {
+									"type": "string"
+								},
+								"type": "array"
 							},
 							"team": {
 								"type": "string"
 							}
 						},
 						"required": [
-							"participant",
+							"participants",
 							"team"
 						],
 						"type": "object"
@@ -298,6 +353,454 @@
 				"type": "object",
 				"additionalProperties": false
 			},
+			"CricketScore": {
+				"properties": {
+					"teamA_runs": {
+						"type": "number",
+						"format": "double"
+					},
+					"teamA_overs": {
+						"type": "number",
+						"format": "double"
+					},
+					"teamA_wickets": {
+						"type": "number",
+						"format": "double"
+					},
+					"teamB_runs": {
+						"type": "number",
+						"format": "double"
+					},
+					"teamB_overs": {
+						"type": "number",
+						"format": "double"
+					},
+					"teamB_wickets": {
+						"type": "number",
+						"format": "double"
+					}
+				},
+				"required": [
+					"teamA_runs",
+					"teamA_overs",
+					"teamA_wickets",
+					"teamB_runs",
+					"teamB_overs",
+					"teamB_wickets"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"CricketEvent": {
+				"properties": {
+					"_id": {
+						"type": "string"
+					},
+					"subtitle": {
+						"type": "string"
+					},
+					"title": {
+						"type": "string"
+					},
+					"event": {
+						"$ref": "#/components/schemas/EventCatagories"
+					},
+					"isStarted": {
+						"type": "boolean"
+					},
+					"startTime": {
+						"type": "number",
+						"format": "double"
+					},
+					"endTime": {
+						"type": "number",
+						"format": "double"
+					},
+					"teams": {
+						"items": {
+							"type": "string"
+						},
+						"type": "array"
+					},
+					"score": {
+						"$ref": "#/components/schemas/CricketScore"
+					},
+					"isCompleted": {
+						"type": "boolean"
+					},
+					"winner": {
+						"properties": {
+							"team": {
+								"type": "string"
+							}
+						},
+						"required": [
+							"team"
+						],
+						"type": "object"
+					}
+				},
+				"required": [
+					"title",
+					"event",
+					"startTime",
+					"endTime",
+					"teams"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"SquashMenScore": {
+				"properties": {
+					"teamA_points": {
+						"type": "number",
+						"format": "double"
+					},
+					"teamB_points": {
+						"type": "number",
+						"format": "double"
+					}
+				},
+				"required": [
+					"teamA_points",
+					"teamB_points"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"SquashMenEvent": {
+				"properties": {
+					"_id": {
+						"type": "string"
+					},
+					"subtitle": {
+						"type": "string"
+					},
+					"title": {
+						"type": "string"
+					},
+					"event": {
+						"$ref": "#/components/schemas/EventCatagories"
+					},
+					"isStarted": {
+						"type": "boolean"
+					},
+					"startTime": {
+						"type": "number",
+						"format": "double"
+					},
+					"endTime": {
+						"type": "number",
+						"format": "double"
+					},
+					"teams": {
+						"items": {
+							"type": "string"
+						},
+						"type": "array"
+					},
+					"score": {
+						"$ref": "#/components/schemas/SquashMenScore"
+					},
+					"isCompleted": {
+						"type": "boolean"
+					},
+					"winner": {
+						"properties": {
+							"participants": {
+								"items": {
+									"type": "string"
+								},
+								"type": "array"
+							},
+							"team": {
+								"type": "string"
+							}
+						},
+						"required": [
+							"participants",
+							"team"
+						],
+						"type": "object"
+					}
+				},
+				"required": [
+					"title",
+					"event",
+					"startTime",
+					"endTime",
+					"teams"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"SquashWomenScore": {
+				"properties": {
+					"teamA_points": {
+						"type": "number",
+						"format": "double"
+					},
+					"teamB_points": {
+						"type": "number",
+						"format": "double"
+					}
+				},
+				"required": [
+					"teamA_points",
+					"teamB_points"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"SquashWomenEvent": {
+				"properties": {
+					"_id": {
+						"type": "string"
+					},
+					"subtitle": {
+						"type": "string"
+					},
+					"title": {
+						"type": "string"
+					},
+					"event": {
+						"$ref": "#/components/schemas/EventCatagories"
+					},
+					"isStarted": {
+						"type": "boolean"
+					},
+					"startTime": {
+						"type": "number",
+						"format": "double"
+					},
+					"endTime": {
+						"type": "number",
+						"format": "double"
+					},
+					"teams": {
+						"items": {
+							"type": "string"
+						},
+						"type": "array"
+					},
+					"score": {
+						"$ref": "#/components/schemas/SquashWomenScore"
+					},
+					"isCompleted": {
+						"type": "boolean"
+					},
+					"winner": {
+						"properties": {
+							"participants": {
+								"items": {
+									"type": "string"
+								},
+								"type": "array"
+							},
+							"team": {
+								"type": "string"
+							}
+						},
+						"required": [
+							"participants",
+							"team"
+						],
+						"type": "object"
+					}
+				},
+				"required": [
+					"title",
+					"event",
+					"startTime",
+					"endTime",
+					"teams"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"MatchTypes": {
+				"enum": [
+					"Doubles",
+					"Singles"
+				],
+				"type": "string"
+			},
+			"TennisMenScore": {
+				"properties": {
+					"teamA_points": {
+						"type": "number",
+						"format": "double"
+					},
+					"teamB_points": {
+						"type": "number",
+						"format": "double"
+					}
+				},
+				"required": [
+					"teamA_points",
+					"teamB_points"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"TennisMenEvent": {
+				"properties": {
+					"_id": {
+						"type": "string"
+					},
+					"subtitle": {
+						"type": "string"
+					},
+					"title": {
+						"type": "string"
+					},
+					"event": {
+						"$ref": "#/components/schemas/EventCatagories"
+					},
+					"isStarted": {
+						"type": "boolean"
+					},
+					"startTime": {
+						"type": "number",
+						"format": "double"
+					},
+					"endTime": {
+						"type": "number",
+						"format": "double"
+					},
+					"teams": {
+						"items": {
+							"type": "string"
+						},
+						"type": "array"
+					},
+					"score": {
+						"$ref": "#/components/schemas/TennisMenScore"
+					},
+					"isCompleted": {
+						"type": "boolean"
+					},
+					"matchType": {
+						"$ref": "#/components/schemas/MatchTypes"
+					},
+					"winner": {
+						"properties": {
+							"participants": {
+								"items": {
+									"type": "string"
+								},
+								"type": "array"
+							},
+							"team": {
+								"type": "string"
+							}
+						},
+						"required": [
+							"participants",
+							"team"
+						],
+						"type": "object"
+					}
+				},
+				"required": [
+					"title",
+					"event",
+					"startTime",
+					"endTime",
+					"teams",
+					"matchType"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"TennisWomenScore": {
+				"properties": {
+					"teamA_points": {
+						"type": "number",
+						"format": "double"
+					},
+					"teamB_points": {
+						"type": "number",
+						"format": "double"
+					}
+				},
+				"required": [
+					"teamA_points",
+					"teamB_points"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"TennisWomenEvent": {
+				"properties": {
+					"_id": {
+						"type": "string"
+					},
+					"subtitle": {
+						"type": "string"
+					},
+					"title": {
+						"type": "string"
+					},
+					"event": {
+						"$ref": "#/components/schemas/EventCatagories"
+					},
+					"isStarted": {
+						"type": "boolean"
+					},
+					"startTime": {
+						"type": "number",
+						"format": "double"
+					},
+					"endTime": {
+						"type": "number",
+						"format": "double"
+					},
+					"teams": {
+						"items": {
+							"type": "string"
+						},
+						"type": "array"
+					},
+					"score": {
+						"$ref": "#/components/schemas/TennisWomenScore"
+					},
+					"isCompleted": {
+						"type": "boolean"
+					},
+					"matchType": {
+						"$ref": "#/components/schemas/MatchTypes"
+					},
+					"winner": {
+						"properties": {
+							"participants": {
+								"items": {
+									"type": "string"
+								},
+								"type": "array"
+							},
+							"team": {
+								"type": "string"
+							}
+						},
+						"required": [
+							"participants",
+							"team"
+						],
+						"type": "object"
+					}
+				},
+				"required": [
+					"title",
+					"event",
+					"startTime",
+					"endTime",
+					"teams",
+					"matchType"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
 			"AllEvents": {
 				"anyOf": [
 					{
@@ -305,6 +808,21 @@
 					},
 					{
 						"$ref": "#/components/schemas/ChessEvent"
+					},
+					{
+						"$ref": "#/components/schemas/CricketEvent"
+					},
+					{
+						"$ref": "#/components/schemas/SquashMenEvent"
+					},
+					{
+						"$ref": "#/components/schemas/SquashWomenEvent"
+					},
+					{
+						"$ref": "#/components/schemas/TennisMenEvent"
+					},
+					{
+						"$ref": "#/components/schemas/TennisWomenEvent"
 					}
 				]
 			},
@@ -350,6 +868,42 @@
 				},
 				"required": [
 					"events"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"SquashMenScoreUpdateRequest": {
+				"properties": {
+					"teamA_points": {
+						"type": "number",
+						"format": "double"
+					},
+					"teamB_points": {
+						"type": "number",
+						"format": "double"
+					}
+				},
+				"required": [
+					"teamA_points",
+					"teamB_points"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"SquashWomenScoreUpdateRequest": {
+				"properties": {
+					"teamA_points": {
+						"type": "number",
+						"format": "double"
+					},
+					"teamB_points": {
+						"type": "number",
+						"format": "double"
+					}
+				},
+				"required": [
+					"teamA_points",
+					"teamB_points"
 				],
 				"type": "object",
 				"additionalProperties": false
@@ -405,6 +959,42 @@
 				},
 				"required": [
 					"name"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"TennisMenScoreUpdateRequest": {
+				"properties": {
+					"teamA_points": {
+						"type": "number",
+						"format": "double"
+					},
+					"teamB_points": {
+						"type": "number",
+						"format": "double"
+					}
+				},
+				"required": [
+					"teamA_points",
+					"teamB_points"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"TennisWomenScoreUpdateRequest": {
+				"properties": {
+					"teamA_points": {
+						"type": "number",
+						"format": "double"
+					},
+					"teamB_points": {
+						"type": "number",
+						"format": "double"
+					}
+				},
+				"required": [
+					"teamA_points",
+					"teamB_points"
 				],
 				"type": "object",
 				"additionalProperties": false
@@ -691,6 +1281,76 @@
 				}
 			}
 		},
+		"/events/chess/{id}": {
+			"put": {
+				"operationId": "UpdateScore",
+				"responses": {
+					"204": {
+						"description": "No content"
+					}
+				},
+				"tags": [
+					"Events",
+					"Chess"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/ChessScoreUpdateRequest"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/events/cricket/{id}": {
+			"put": {
+				"operationId": "UpdateScore",
+				"responses": {
+					"204": {
+						"description": "No content"
+					}
+				},
+				"tags": [
+					"Events",
+					"Cricket"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/CricketScoreUpdateRequest"
+							}
+						}
+					}
+				}
+			}
+		},
 		"/events/toggleLive/{id}": {
 			"patch": {
 				"operationId": "ToggleLive",
@@ -810,6 +1470,56 @@
 																"$ref": "#/components/schemas/Required_any_"
 															}
 														]
+													},
+													{
+														"allOf": [
+															{
+																"$ref": "#/components/schemas/CricketEvent"
+															},
+															{
+																"$ref": "#/components/schemas/Required_any_"
+															}
+														]
+													},
+													{
+														"allOf": [
+															{
+																"$ref": "#/components/schemas/SquashMenEvent"
+															},
+															{
+																"$ref": "#/components/schemas/Required_any_"
+															}
+														]
+													},
+													{
+														"allOf": [
+															{
+																"$ref": "#/components/schemas/SquashWomenEvent"
+															},
+															{
+																"$ref": "#/components/schemas/Required_any_"
+															}
+														]
+													},
+													{
+														"allOf": [
+															{
+																"$ref": "#/components/schemas/TennisMenEvent"
+															},
+															{
+																"$ref": "#/components/schemas/Required_any_"
+															}
+														]
+													},
+													{
+														"allOf": [
+															{
+																"$ref": "#/components/schemas/TennisWomenEvent"
+															},
+															{
+																"$ref": "#/components/schemas/Required_any_"
+															}
+														]
 													}
 												]
 											}
@@ -847,6 +1557,76 @@
 						"application/json": {
 							"schema": {
 								"$ref": "#/components/schemas/UpdateExistingEventsRequest"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/events/squashmen/{id}": {
+			"put": {
+				"operationId": "UpdateScore",
+				"responses": {
+					"204": {
+						"description": "No content"
+					}
+				},
+				"tags": [
+					"Events",
+					"SquashMen"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/SquashMenScoreUpdateRequest"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/events/squashwomen/{id}": {
+			"put": {
+				"operationId": "UpdateScore",
+				"responses": {
+					"204": {
+						"description": "No content"
+					}
+				},
+				"tags": [
+					"Events",
+					"SquashWomen"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/SquashWomenScoreUpdateRequest"
 							}
 						}
 					}
@@ -927,6 +1707,76 @@
 						}
 					}
 				]
+			}
+		},
+		"/events/tennismen/{id}": {
+			"put": {
+				"operationId": "UpdateScore",
+				"responses": {
+					"204": {
+						"description": "No content"
+					}
+				},
+				"tags": [
+					"Events",
+					"TennisMen"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/TennisMenScoreUpdateRequest"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/events/tenniswomen/{id}": {
+			"put": {
+				"operationId": "UpdateScore",
+				"responses": {
+					"204": {
+						"description": "No content"
+					}
+				},
+				"tags": [
+					"Events",
+					"TennisWomen"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/TennisWomenScoreUpdateRequest"
+							}
+						}
+					}
+				}
 			}
 		}
 	},

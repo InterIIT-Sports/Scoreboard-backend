@@ -12,13 +12,21 @@ const eventSchema = new mongoose.Schema<AllEvents>({
   teams: [{ type: mongoose.SchemaTypes.ObjectId, ref: "Teams" }],
 
   subtitle: String,
+  matchType: String,
   score: {
     // Football
     teamA_score: Number,
     teamB_score: Number,
-    // Chess
+    // Chess, squash (men and women), tennis (men and women)
     teamA_points: Number,
     teamB_points: Number,
+    // Cricket
+    teamA_runs: Number,
+    teamA_overs: Number,
+    teamA_wickets: Number,
+    teamB_runs: Number,
+    teamB_overs: Number,
+    teamB_wickets: Number,
   },
   winner: {
     team: { type: mongoose.SchemaTypes.ObjectId, ref: "Teams" },
