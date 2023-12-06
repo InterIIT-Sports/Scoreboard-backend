@@ -13,6 +13,7 @@ import { createSquashMenDefaultScore } from "../types/SquashMenEvent";
 import { createSquashWomenDefaultScore } from "../types/SquashWomenEvent";
 import { createTennisMenDefaultScore } from "../types/TennisMenEvent";
 import { createTennisWomenDefaultScore } from "../types/TennisWomenEvent";
+import { createAthleticsDefaultScore } from "../types/AthleticsEvent";
 
 export const getEventDefaultScore = (eventCatagory: EventCatagories) => {
   switch (eventCatagory) {
@@ -31,7 +32,7 @@ export const getEventDefaultScore = (eventCatagory: EventCatagories) => {
     case EventCatagories.TENNIS_MEN:
       return createTennisMenDefaultScore;
     case EventCatagories.ATHLETICS:
-      return () => {};
+      return createAthleticsDefaultScore;
   }
 };
 
