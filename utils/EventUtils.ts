@@ -8,6 +8,9 @@ import { SocketServer } from "../types/SocketServer";
 import { createFootballDefaultScore } from "../types/FootballEvent";
 import { createChessDefaultScore } from "../types/ChessEvent";
 import { getTeamID } from "./TeamUtils";
+import { createCricketDefaultScore } from "../types/CricketEvent";
+import { createSquashMenDefaultScore } from "../types/SquashMenEvent";
+import { createSquashWomenDefaultScore } from "../types/SquashWomenEvent";
 
 export const getEventDefaultScore = (eventCatagory: EventCatagories) => {
   switch (eventCatagory) {
@@ -16,8 +19,11 @@ export const getEventDefaultScore = (eventCatagory: EventCatagories) => {
     case EventCatagories.CHESS:
       return createChessDefaultScore;
     case EventCatagories.CRICKET:
+      return createCricketDefaultScore;
     case EventCatagories.SQUASH_MEN:
+      return createSquashMenDefaultScore;
     case EventCatagories.SQUASH_WOMEN:
+      return createSquashWomenDefaultScore;
     case EventCatagories.TENNIS_WOMEN:
     case EventCatagories.TENNIS_MEN:
     case EventCatagories.ATHLETICS:

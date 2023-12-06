@@ -22,7 +22,7 @@ const eventSchema = new mongoose.Schema<AllEvents>({
   },
   winner: {
     team: { type: mongoose.SchemaTypes.ObjectId, ref: "Teams" },
-    participant: String,
+    participants: [String],
   },
 });
 

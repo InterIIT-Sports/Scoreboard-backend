@@ -2,6 +2,9 @@ import * as jwt from "jsonwebtoken";
 import express from "express";
 
 import FootballRoutes from "./FootballRoutes";
+import ChessRoutes from "./ChessRoutes";
+import SquashMenRoutes from "./SquashMenRoutes";
+import SquashWomenRoutes from "./SquashMenRoutes";
 import AuthenticatedRequest from "../requests/AuthenticatedRequest";
 import { User } from "../types/User";
 import { EventController } from "../controllers/EventController";
@@ -35,6 +38,9 @@ router.get("/", async (_, res) => {
 });
 
 router.use("/football", FootballRoutes);
+router.use("/chess", ChessRoutes);
+router.use("/squashmen", SquashMenRoutes);
+router.use("/squashwomen", SquashWomenRoutes);
 
 router.patch("/toggleLive/:id", async (req, res) => {
   await new EventController().toggleLive(req.params.id);

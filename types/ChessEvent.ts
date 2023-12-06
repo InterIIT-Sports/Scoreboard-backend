@@ -3,7 +3,7 @@ import Event from "./Event";
 export default interface ChessEvent extends Event<ChessScore> {
   winner?: {
     team: string;
-    participant: string;
+    participants: string[];
   };
 }
 
