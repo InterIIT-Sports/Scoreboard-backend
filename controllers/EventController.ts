@@ -1,6 +1,6 @@
-import { Body, Example, Get, Patch, Path, Put, Response, Route, Tags } from "tsoa";
+import { Body, Example, Get, Patch, Path, Post, Put, Response, Route, Tags } from "tsoa";
 
-import { readEvents, toggleEventStarted, updateScore } from "../utils/EventUtils";
+import { readEvents, setWinner, toggleEventStarted, updateScore } from "../utils/EventUtils";
 import TennisMenScoreUpdateRequest from "../requests/TennisMenScoreUpdateRequest";
 import TennisWomenScoreUpdateRequest from "../requests/TennisWomenScoreUpdateRequest";
 import ChessScoreUpdateRequest from "../requests/ChessScoreUpdateRequest";
@@ -8,6 +8,7 @@ import SquashMenScoreUpdateRequest from "../requests/SquashMenScoreUpdateRequest
 import SquashWomenScoreUpdateRequest from "../requests/SquashWomenScoreUpdateRequest";
 import FootballScoreUpdateRequest from "../requests/FootballScoreUpdateRequest";
 import { AllScores } from "../types/AllEvents";
+import { Winner } from "../types/Event";
 
 @Route("events")
 @Tags("Events")
@@ -180,5 +181,17 @@ export class EventController {
   @Response(204)
   public async updateScore(@Path("id") id: string, @Body() score: AllScores) {
     return await updateScore(id, score);
+  }
+
+  /**
+   * Sets the winner of an event.
+   *
+   * @param id - The ID of the event.
+   * @param winner - The winner object containing the team and participants.
+   */
+  @Post("/:id/winner")
+  @Response(204)
+  public async setWinner(@Path("id") id: string, @Body() winner: Winner) {
+    await setWinner(id, winner.team, winner.participants);
   }
 }

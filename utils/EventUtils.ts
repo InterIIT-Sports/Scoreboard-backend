@@ -15,6 +15,7 @@ import { createTennisMenDefaultScore } from "../types/TennisMenEvent";
 import { createTennisWomenDefaultScore } from "../types/TennisWomenEvent";
 import { createAthleticsDefaultScore } from "../types/AthleticsEvent";
 import { CantStartEventBeforeTime, CantStopEvenBeforeTime, EventCompleted, EventNotFound, EventScoreDoesntExist } from "./EventErrors";
+import Participant from "../types/Participant";
 
 export const getEventDefaultScore = (eventCatagory: EventCatagories) => {
   switch (eventCatagory) {
@@ -103,5 +104,5 @@ export const updateExistingEvents = async (events: AllEvents[]) => {
   events.forEach(async event => addEvent(event.event, { ...event, teams: await Promise.all(event.teams.map(async team => await getTeamID(team))) }));
 };
 
-export const setWinner = async (eventID: string, winningTeamID: string, participant?: string) =>
+export const setWinner = async (eventID: string, winningTeamID: string, participant?: Participant[]) =>
   EventModel.findByIdAndUpdate(eventID, { winner: { team: new mongoose.Types.ObjectId(winningTeamID), participant } });

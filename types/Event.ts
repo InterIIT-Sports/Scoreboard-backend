@@ -14,10 +14,12 @@ export default interface Event<T extends Score> {
   teams: string[]; // list of teamIDs who are compeating
   participants?: Participant[][];
 
-  winner?: {
-    team: string;
-    participants?: Participant[];
-  };
+  winner?: Winner;
 }
 
 export interface Score {}
+
+export interface Winner {
+  team: string;
+  participants?: Participant[];
+}

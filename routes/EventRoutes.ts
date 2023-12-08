@@ -60,4 +60,9 @@ router.put("/updateScore/:id", async (req: AuthenticatedRequest, res) => {
   res.sendStatus(204);
 });
 
+router.post("/:id/winner", async (req, res) => {
+  await new EventController().setWinner(req.params.id, req.body);
+  res.sendStatus(204);
+});
+
 export default router;
