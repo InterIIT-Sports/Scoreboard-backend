@@ -20,6 +20,6 @@ export default interface Event<T extends Score> {
 export interface Score {}
 
 export interface Winner {
-  team: string;
+  team?: string;
   participants?: Participant[];
 }

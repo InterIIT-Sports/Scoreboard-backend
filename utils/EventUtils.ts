@@ -13,9 +13,10 @@ import { createSquashMenDefaultScore } from "../types/SquashMenEvent";
 import { createSquashWomenDefaultScore } from "../types/SquashWomenEvent";
 import { createTennisMenDefaultScore } from "../types/TennisMenEvent";
 import { createTennisWomenDefaultScore } from "../types/TennisWomenEvent";
-import { createAthleticsDefaultScore } from "../types/AthleticsEvent";
-import { CantStartEventBeforeTime, CantStopEvenBeforeTime, EventCompleted, EventNotFound, EventScoreDoesntExist } from "./EventErrors";
+import AthleticsEvent, { createAthleticsDefaultScore } from "../types/AthleticsEvent";
+import { CantStartEventBeforeTime, CantStopEvenBeforeTime, EventCompleted, EventNotFound, EventScoreDoesntExist, ParticipantsNotProvided } from "./EventErrors";
 import Participant from "../types/Participant";
+import { isOrderedAscending } from "./AthleticEventUtils";
 
 export const getEventDefaultScore = (eventCatagory: EventCatagories) => {
   switch (eventCatagory) {
@@ -83,7 +84,15 @@ export const toggleEventStarted = async (id: string) => {
   }
 
   event.isStarted = !event.isStarted;
-  SocketServer.io.sockets.emit("eventStartOrEnd", JSON.stringify({ eventID: event._id, isStarted: event.isStarted, winner: event.winner, isCompleted: event.isCompleted }));
+  SocketServer.io.sockets.emit(
+    "eventStartOrEnd",
+    JSON.stringify({
+      eventID: event._id,
+      isStarted: event.isStarted,
+      winner: event.winner,
+      isCompleted: event.isCompleted,
+    })
+  );
   return await EventModel.findByIdAndUpdate(id, event);
 };
 
@@ -104,5 +113,17 @@ export const updateExistingEvents = async (events: AllEvents[]) => {
   events.forEach(async event => addEvent(event.event, { ...event, teams: await Promise.all(event.teams.map(async team => await getTeamID(team))) }));
 };
 
-export const setWinner = async (eventID: string, winningTeamID: string, participant?: Participant[]) =>
-  EventModel.findByIdAndUpdate(eventID, { winner: { team: new mongoose.Types.ObjectId(winningTeamID), participant } });
+export const setWinner = async (eventID: string, winningTeamID?: string, participants?: Participant[]) => {
+  let event = (await getEventByID(eventID)) as AthleticsEvent;
+  if (!event) throw EventNotFound;
+
+  if (event.event === EventCatagories.ATHLETICS) {
+    if (!participants) throw ParticipantsNotProvided;
+
+    participants.sort((a, b) => (!isOrderedAscending(event.athleticsEventType) ? b.distance! - a.distance! : a.time! - b.time!));
+  }
+
+  return await EventModel.findByIdAndUpdate(eventID, {
+    winner: { team: !!winningTeamID ? new mongoose.Types.ObjectId(winningTeamID) : undefined, participants },
+  });
+};

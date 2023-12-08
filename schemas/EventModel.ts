@@ -52,7 +52,6 @@ const eventSchema = new mongoose.Schema<AllEventsUnion>({
 
   // Athletics only
   athleticsEventType: String,
-  sortAscending: Boolean,
 });
 
 const EventModel = mongoose.model("Events", eventSchema);
