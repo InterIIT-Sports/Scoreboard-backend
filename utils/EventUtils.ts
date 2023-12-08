@@ -14,7 +14,7 @@ import { createSquashWomenDefaultScore } from "../types/SquashWomenEvent";
 import { createTennisMenDefaultScore } from "../types/TennisMenEvent";
 import { createTennisWomenDefaultScore } from "../types/TennisWomenEvent";
 import AthleticsEvent, { createAthleticsDefaultScore } from "../types/AthleticsEvent";
-import { CantStartEventBeforeTime, CantStopEvenBeforeTime, EventCompleted, EventNotFound, EventScoreDoesntExist, ParticipantsNotProvided } from "./EventErrors";
+import { CantStartEventBeforeTime, CantStopEvenBeforeTime, EventCompleted, EventNotFound, EventNotStarted, EventScoreDoesntExist, ParticipantsNotProvided } from "./EventErrors";
 import Participant from "../types/Participant";
 import { isOrderedAscending } from "./AthleticEventUtils";
 
@@ -100,7 +100,9 @@ export const markEventAsCompleted = async (id: string) => await EventModel.findB
 
 export const updateScore = async (id: string, score: any) => {
   const event = await getEventByID<AllEvents, AllScores>(id);
-  if (event && event.isStarted) SocketServer.io.sockets.in(event._id!.toString()).emit(`scoreUpdate/${event._id!.toString()}`, JSON.stringify(score));
+  if (!event) throw EventNotFound;
+  if (!event.isStarted) throw EventNotStarted;
+  SocketServer.io.sockets.in(event._id!.toString()).emit(`scoreUpdate/${event._id!.toString()}`, JSON.stringify(score));
   await EventModel.findByIdAndUpdate(id, { score });
 };
 

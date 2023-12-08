@@ -19,6 +19,7 @@ export class EventController {
    */
   @Patch("toggleLive/:id")
   @Response(204)
+  @Response(400, "If you try to start or close a event before time or start a completed event, event doesn't exist")
   public async toggleLive(@Path("id") id: string) {
     await toggleEventStarted(id);
   }

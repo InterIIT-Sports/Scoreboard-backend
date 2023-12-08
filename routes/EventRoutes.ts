@@ -50,19 +50,32 @@ router.use("/tennismen", TennisMenRoutes);
 router.use("/tenniswomen", TennisWomenRoutes);
 
 router.patch("/toggleLive/:id", async (req, res) => {
-  await new EventController().toggleLive(req.params.id);
-  res.sendStatus(204);
+  try {
+    await new EventController().toggleLive(req.params.id);
+    res.sendStatus(204);
+  } catch (error) {
+    // res.status(400).json({ message: error.message });
+    res.sendStatus(400);
+  }
 });
 
 router.put("/updateScore/:id", async (req: AuthenticatedRequest, res) => {
-  await saveHistory(req.params.id, (await getEventByID<AllEvents, AllScores>(req.params.id))?.score, req.body, req.user?.name as string);
-  await new EventController().updateScore(req.params.id, req.body);
-  res.sendStatus(204);
+  try {
+    await new EventController().updateScore(req.params.id, req.body);
+    await saveHistory(req.params.id, (await getEventByID<AllEvents, AllScores>(req.params.id))?.score, req.body, req.user?.name as string);
+    res.sendStatus(204);
+  } catch (error) {
+    res.sendStatus(400);
+  }
 });
 
 router.post("/:id/winner", async (req, res) => {
-  await new EventController().setWinner(req.params.id, req.body);
-  res.sendStatus(204);
+  try {
+    await new EventController().setWinner(req.params.id, req.body);
+    res.sendStatus(204);
+  } catch {
+    res.sendStatus(404);
+  }
 });
 
 export default router;
