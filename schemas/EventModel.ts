@@ -1,8 +1,8 @@
 import mongoose from "mongoose";
 
-import AllEvents from "../types/AllEvents";
+import { AllEventsUnion } from "../types/AllEvents";
 
-const eventSchema = new mongoose.Schema<AllEvents>({
+const eventSchema = new mongoose.Schema<AllEventsUnion>({
   title: { type: String, required: true },
   endTime: { type: Number, required: true },
   startTime: { type: Number, required: true },
@@ -10,6 +10,16 @@ const eventSchema = new mongoose.Schema<AllEvents>({
   isStarted: { type: Boolean, required: true },
   isCompleted: { type: Boolean, required: true },
   teams: [{ type: mongoose.SchemaTypes.ObjectId, ref: "Teams" }],
+  participants: [
+    [
+      {
+        name: String,
+        team: String,
+        distance: Number,
+        time: Number,
+      },
+    ],
+  ],
 
   subtitle: String,
   matchType: String,
@@ -39,6 +49,10 @@ const eventSchema = new mongoose.Schema<AllEvents>({
       },
     ],
   },
+
+  // Athletics only
+  athleticsEventType: String,
+  sortAscending: Boolean,
 });
 
 const EventModel = mongoose.model("Events", eventSchema);

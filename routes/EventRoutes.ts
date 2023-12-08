@@ -8,10 +8,10 @@ import SquashWomenRoutes from "./SquashMenRoutes";
 import TennisMenRoutes from "./TennisMenRoutes";
 import TennisWomenRoutes from "./TennisMenRoutes";
 import AuthenticatedRequest from "../requests/AuthenticatedRequest";
+import AllEvents, { AllScores } from "../types/AllEvents";
 import { User } from "../types/User";
 import { EventController } from "../controllers/EventController";
 import { saveHistory } from "../utils/HistoryUtils";
-import AllEvents, { AllScores } from "../types/AllEvents";
 import { getEventByID } from "../utils/EventUtils";
 
 const router = express.Router();
