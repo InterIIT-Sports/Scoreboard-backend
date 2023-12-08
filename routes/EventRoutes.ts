@@ -5,9 +5,14 @@ import FootballRoutes from "./FootballRoutes";
 import ChessRoutes from "./ChessRoutes";
 import SquashMenRoutes from "./SquashMenRoutes";
 import SquashWomenRoutes from "./SquashMenRoutes";
+import TennisMenRoutes from "./TennisMenRoutes";
+import TennisWomenRoutes from "./TennisMenRoutes";
 import AuthenticatedRequest from "../requests/AuthenticatedRequest";
 import { User } from "../types/User";
 import { EventController } from "../controllers/EventController";
+import { saveHistory } from "../utils/HistoryUtils";
+import AllEvents, { AllScores } from "../types/AllEvents";
+import { getEventByID } from "../utils/EventUtils";
 
 const router = express.Router();
 
@@ -41,9 +46,17 @@ router.use("/football", FootballRoutes);
 router.use("/chess", ChessRoutes);
 router.use("/squashmen", SquashMenRoutes);
 router.use("/squashwomen", SquashWomenRoutes);
+router.use("/tennismen", TennisMenRoutes);
+router.use("/tenniswomen", TennisWomenRoutes);
 
 router.patch("/toggleLive/:id", async (req, res) => {
   await new EventController().toggleLive(req.params.id);
+  res.sendStatus(204);
+});
+
+router.put("/updateScore/:id", async (req: AuthenticatedRequest, res) => {
+  await saveHistory(req.params.id, (await getEventByID<AllEvents, AllScores>(req.params.id))?.score, req.body, req.user?.name as string);
+  await new EventController().updateScore(req.params.id, req.body);
   res.sendStatus(204);
 });
 

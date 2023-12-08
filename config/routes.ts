@@ -328,9 +328,45 @@ const models: TsoaRoute.Models = {
         "additionalProperties": false,
     },
     // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+    "AthleticsEventTypes": {
+        "dataType": "refEnum",
+        "enums": ["5000m (M)","1500m (M)","1500m (W)","800m (M)","800m (W)","400m (M)","400m (W)","200m (M)","200m (W)","100m (M)","100m (W)","4x100m (M)","4x100m (W)","4x400m (M)","4x400m (W)","110m Hurdles (M)","400m Hurdles (M)","Hammer Throw (M)","Discus Throw (M)","Discus Throw (W)","Pole Vault (M)","Shot Put (M)","Shot Put (W)","Triple Jump (M)","Javelin Throw (M)","Javelin Throw (W)","High Jump (M)","High Jump (W)","Long Jump (M)","Long Jump (W)"],
+    },
+    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+    "AthleticsEventScore": {
+        "dataType": "refObject",
+        "properties": {
+        },
+        "additionalProperties": false,
+    },
+    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+    "AthleticsEvent": {
+        "dataType": "refObject",
+        "properties": {
+            "_id": {"dataType":"string"},
+            "subtitle": {"dataType":"string"},
+            "title": {"dataType":"string","required":true},
+            "event": {"ref":"EventCatagories","required":true},
+            "isStarted": {"dataType":"boolean"},
+            "startTime": {"dataType":"double","required":true},
+            "endTime": {"dataType":"double","required":true},
+            "teams": {"dataType":"array","array":{"dataType":"string"},"required":true},
+            "score": {"ref":"AthleticsEventScore"},
+            "isCompleted": {"dataType":"boolean"},
+            "athleticsEventType": {"ref":"AthleticsEventTypes","required":true},
+            "sortAscending": {"dataType":"boolean","required":true},
+        },
+        "additionalProperties": false,
+    },
+    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
     "AllEvents": {
         "dataType": "refAlias",
-        "type": {"dataType":"union","subSchemas":[{"ref":"FootballEvent"},{"ref":"ChessEvent"},{"ref":"CricketEvent"},{"ref":"SquashMenEvent"},{"ref":"SquashWomenEvent"},{"ref":"TennisMenEvent"},{"ref":"TennisWomenEvent"}],"validators":{}},
+        "type": {"dataType":"union","subSchemas":[{"ref":"FootballEvent"},{"ref":"ChessEvent"},{"ref":"CricketEvent"},{"ref":"SquashMenEvent"},{"ref":"SquashWomenEvent"},{"ref":"TennisMenEvent"},{"ref":"TennisWomenEvent"},{"ref":"AthleticsEvent"}],"validators":{}},
+    },
+    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+    "AllScores": {
+        "dataType": "refAlias",
+        "type": {"dataType":"union","subSchemas":[{"ref":"FootballScore"},{"ref":"ChessScore"},{"ref":"CricketScore"},{"ref":"SquashMenScore"},{"ref":"SquashWomenScore"},{"ref":"TennisMenScore"},{"ref":"TennisWomenScore"},{"ref":"AthleticsEventScore"}],"validators":{}},
     },
     // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
     "FootballScoreUpdateRequest": {
@@ -680,6 +716,32 @@ export function RegisterRoutes(app: Router) {
             }
         });
         // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+        app.put('/events/:id',
+            ...(fetchMiddlewares<RequestHandler>(EventController)),
+            ...(fetchMiddlewares<RequestHandler>(EventController.prototype.updateScore)),
+
+            function EventController_updateScore(request: any, response: any, next: any) {
+            const args = {
+                    id: {"in":"path","name":"id","required":true,"dataType":"string"},
+                    score: {"in":"body","name":"score","required":true,"ref":"AllScores"},
+            };
+
+            // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+
+            let validatedArgs: any[] = [];
+            try {
+                validatedArgs = getValidatedArgs(args, request, response);
+
+                const controller = new EventController();
+
+
+              const promise = controller.updateScore.apply(controller, validatedArgs as any);
+              promiseHandler(controller, promise, response, undefined, next);
+            } catch (err) {
+                return next(err);
+            }
+        });
+        // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
         app.put('/events/football/:id',
             ...(fetchMiddlewares<RequestHandler>(FootballController)),
             ...(fetchMiddlewares<RequestHandler>(FootballController.prototype.updateScore)),
@@ -831,6 +893,31 @@ export function RegisterRoutes(app: Router) {
             }
         });
         // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+        app.get('/admin/teams/:name',
+            ...(fetchMiddlewares<RequestHandler>(TeamControllers)),
+            ...(fetchMiddlewares<RequestHandler>(TeamControllers.prototype.getTeamByName)),
+
+            function TeamControllers_getTeamByName(request: any, response: any, next: any) {
+            const args = {
+                    name: {"in":"path","name":"name","required":true,"dataType":"string"},
+            };
+
+            // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+
+            let validatedArgs: any[] = [];
+            try {
+                validatedArgs = getValidatedArgs(args, request, response);
+
+                const controller = new TeamControllers();
+
+
+              const promise = controller.getTeamByName.apply(controller, validatedArgs as any);
+              promiseHandler(controller, promise, response, undefined, next);
+            } catch (err) {
+                return next(err);
+            }
+        });
+        // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
         app.post('/admin/teams',
             ...(fetchMiddlewares<RequestHandler>(TeamControllers)),
             ...(fetchMiddlewares<RequestHandler>(TeamControllers.prototype.addTeam)),
@@ -875,6 +962,32 @@ export function RegisterRoutes(app: Router) {
 
 
               const promise = controller.deleteTeam.apply(controller, validatedArgs as any);
+              promiseHandler(controller, promise, response, undefined, next);
+            } catch (err) {
+                return next(err);
+            }
+        });
+        // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+        app.patch('/admin/teams/:name/:medal',
+            ...(fetchMiddlewares<RequestHandler>(TeamControllers)),
+            ...(fetchMiddlewares<RequestHandler>(TeamControllers.prototype.addMedal)),
+
+            function TeamControllers_addMedal(request: any, response: any, next: any) {
+            const args = {
+                    medal: {"in":"path","name":"medal","required":true,"dataType":"string"},
+                    name: {"in":"path","name":"name","required":true,"dataType":"string"},
+            };
+
+            // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+
+            let validatedArgs: any[] = [];
+            try {
+                validatedArgs = getValidatedArgs(args, request, response);
+
+                const controller = new TeamControllers();
+
+
+              const promise = controller.addMedal.apply(controller, validatedArgs as any);
               promiseHandler(controller, promise, response, undefined, next);
             } catch (err) {
                 return next(err);

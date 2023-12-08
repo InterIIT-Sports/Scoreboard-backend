@@ -1,16 +1,31 @@
-import { Example, Get, Patch, Path, Response, Route, Tags } from "tsoa";
+import { Body, Example, Get, Patch, Path, Put, Response, Route, Tags } from "tsoa";
 
-import { readEvents, toggleEventStarted } from "../utils/EventUtils";
+import { readEvents, toggleEventStarted, updateScore } from "../utils/EventUtils";
+import TennisMenScoreUpdateRequest from "../requests/TennisMenScoreUpdateRequest";
+import TennisWomenScoreUpdateRequest from "../requests/TennisWomenScoreUpdateRequest";
+import ChessScoreUpdateRequest from "../requests/ChessScoreUpdateRequest";
+import SquashMenScoreUpdateRequest from "../requests/SquashMenScoreUpdateRequest";
+import SquashWomenScoreUpdateRequest from "../requests/SquashWomenScoreUpdateRequest";
+import FootballScoreUpdateRequest from "../requests/FootballScoreUpdateRequest";
+import { AllScores } from "../types/AllEvents";
 
 @Route("events")
 @Tags("Events")
 export class EventController {
+  /**
+   * Toggles the live status of an event.
+   * @param id - The ID of the event to toggle.
+   */
   @Patch("toggleLive/:id")
   @Response(204)
   public async toggleLive(@Path("id") id: string) {
     await toggleEventStarted(id);
   }
 
+  /**
+   * Retrieves all events.
+   * @returns {Promise<Event[]>} A promise that resolves to an array of events.
+   */
   @Get("/")
   @Example([
     {
@@ -153,5 +168,17 @@ export class EventController {
   ])
   public async getAllEvents() {
     return await readEvents();
+  }
+
+  /**
+   * Updates the score for a specific event.
+   * @param id - The ID of the event.
+   * @param score - The updated score for the event.
+   * @returns A promise that resolves to the updated score.
+   */
+  @Put("/:id")
+  @Response(204)
+  public async updateScore(@Path("id") id: string, @Body() score: AllScores) {
+    return await updateScore(id, score);
   }
 }

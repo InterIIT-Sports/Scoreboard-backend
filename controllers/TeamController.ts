@@ -14,6 +14,11 @@ export class TeamControllers {
     return await getAllTeams();
   }
 
+  /**
+   * Retrieves a team by its name.
+   * @param name The name of the team.
+   * @returns The team with the specified name.
+   */
   @Get("/:name")
   public async getTeamByName(@Path("name") name: string) {
     return await getTeamByName(name);
@@ -38,6 +43,12 @@ export class TeamControllers {
     await deleteTeam(id);
   }
 
+  /**
+   * Adds a medal to a team.
+   *
+   * @param medal - The type of medal to add.
+   * @param name - The name of the team.
+   */
   @Patch("/:name/:medal")
   @Response(204)
   public async addMedal(@Path("medal") medal: string, @Path("name") name: string) {

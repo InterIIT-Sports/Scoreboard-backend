@@ -801,6 +801,102 @@
 				"type": "object",
 				"additionalProperties": false
 			},
+			"AthleticsEventTypes": {
+				"enum": [
+					"5000m (M)",
+					"1500m (M)",
+					"1500m (W)",
+					"800m (M)",
+					"800m (W)",
+					"400m (M)",
+					"400m (W)",
+					"200m (M)",
+					"200m (W)",
+					"100m (M)",
+					"100m (W)",
+					"4x100m (M)",
+					"4x100m (W)",
+					"4x400m (M)",
+					"4x400m (W)",
+					"110m Hurdles (M)",
+					"400m Hurdles (M)",
+					"Hammer Throw (M)",
+					"Discus Throw (M)",
+					"Discus Throw (W)",
+					"Pole Vault (M)",
+					"Shot Put (M)",
+					"Shot Put (W)",
+					"Triple Jump (M)",
+					"Javelin Throw (M)",
+					"Javelin Throw (W)",
+					"High Jump (M)",
+					"High Jump (W)",
+					"Long Jump (M)",
+					"Long Jump (W)"
+				],
+				"type": "string"
+			},
+			"AthleticsEventScore": {
+				"properties": {},
+				"type": "object",
+				"additionalProperties": false
+			},
+			"AthleticsEvent": {
+				"properties": {
+					"_id": {
+						"type": "string"
+					},
+					"subtitle": {
+						"type": "string"
+					},
+					"title": {
+						"type": "string"
+					},
+					"event": {
+						"$ref": "#/components/schemas/EventCatagories"
+					},
+					"isStarted": {
+						"type": "boolean"
+					},
+					"startTime": {
+						"type": "number",
+						"format": "double"
+					},
+					"endTime": {
+						"type": "number",
+						"format": "double"
+					},
+					"teams": {
+						"items": {
+							"type": "string"
+						},
+						"type": "array"
+					},
+					"score": {
+						"$ref": "#/components/schemas/AthleticsEventScore"
+					},
+					"isCompleted": {
+						"type": "boolean"
+					},
+					"athleticsEventType": {
+						"$ref": "#/components/schemas/AthleticsEventTypes"
+					},
+					"sortAscending": {
+						"type": "boolean"
+					}
+				},
+				"required": [
+					"title",
+					"event",
+					"startTime",
+					"endTime",
+					"teams",
+					"athleticsEventType",
+					"sortAscending"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
 			"AllEvents": {
 				"anyOf": [
 					{
@@ -823,6 +919,37 @@
 					},
 					{
 						"$ref": "#/components/schemas/TennisWomenEvent"
+					},
+					{
+						"$ref": "#/components/schemas/AthleticsEvent"
+					}
+				]
+			},
+			"AllScores": {
+				"anyOf": [
+					{
+						"$ref": "#/components/schemas/FootballScore"
+					},
+					{
+						"$ref": "#/components/schemas/ChessScore"
+					},
+					{
+						"$ref": "#/components/schemas/CricketScore"
+					},
+					{
+						"$ref": "#/components/schemas/SquashMenScore"
+					},
+					{
+						"$ref": "#/components/schemas/SquashWomenScore"
+					},
+					{
+						"$ref": "#/components/schemas/TennisMenScore"
+					},
+					{
+						"$ref": "#/components/schemas/TennisWomenScore"
+					},
+					{
+						"$ref": "#/components/schemas/AthleticsEventScore"
 					}
 				]
 			},
@@ -1289,13 +1416,16 @@
 						"description": "No content"
 					}
 				},
+				"description": "Updates the score for a chess game.",
 				"tags": [
 					"Events",
 					"Chess"
 				],
+				"deprecated": true,
 				"security": [],
 				"parameters": [
 					{
+						"description": "- The ID of the chess game.",
 						"in": "path",
 						"name": "id",
 						"required": true,
@@ -1305,11 +1435,13 @@
 					}
 				],
 				"requestBody": {
+					"description": "- The updated score for the chess game.",
 					"required": true,
 					"content": {
 						"application/json": {
 							"schema": {
-								"$ref": "#/components/schemas/ChessScoreUpdateRequest"
+								"$ref": "#/components/schemas/ChessScoreUpdateRequest",
+								"description": "- The updated score for the chess game."
 							}
 						}
 					}
@@ -1324,13 +1456,16 @@
 						"description": "No content"
 					}
 				},
+				"description": "Updates the score for a cricket match.",
 				"tags": [
 					"Events",
 					"Cricket"
 				],
+				"deprecated": true,
 				"security": [],
 				"parameters": [
 					{
+						"description": "- The ID of the match.",
 						"in": "path",
 						"name": "id",
 						"required": true,
@@ -1340,11 +1475,13 @@
 					}
 				],
 				"requestBody": {
+					"description": "- The updated score.",
 					"required": true,
 					"content": {
 						"application/json": {
 							"schema": {
-								"$ref": "#/components/schemas/CricketScoreUpdateRequest"
+								"$ref": "#/components/schemas/CricketScoreUpdateRequest",
+								"description": "- The updated score."
 							}
 						}
 					}
@@ -1359,12 +1496,14 @@
 						"description": "No content"
 					}
 				},
+				"description": "Toggles the live status of an event.",
 				"tags": [
 					"Events"
 				],
 				"security": [],
 				"parameters": [
 					{
+						"description": "- The ID of the event to toggle.",
 						"in": "path",
 						"name": "id",
 						"required": true,
@@ -1380,7 +1519,7 @@
 				"operationId": "GetAllEvents",
 				"responses": {
 					"200": {
-						"description": "Ok",
+						"description": "A promise that resolves to an array of events.",
 						"content": {
 							"application/json": {
 								"schema": {
@@ -1560,11 +1699,50 @@
 						}
 					}
 				},
+				"description": "Retrieves all events.",
 				"tags": [
 					"Events"
 				],
 				"security": [],
 				"parameters": []
+			}
+		},
+		"/events/{id}": {
+			"put": {
+				"operationId": "UpdateScore",
+				"responses": {
+					"204": {
+						"description": "No content"
+					}
+				},
+				"description": "Updates the score for a specific event.",
+				"tags": [
+					"Events"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"description": "- The ID of the event.",
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"description": "- The updated score for the event.",
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/AllScores",
+								"description": "- The updated score for the event."
+							}
+						}
+					}
+				}
 			}
 		},
 		"/events/football/{id}": {
@@ -1579,6 +1757,7 @@
 					"Events",
 					"Football"
 				],
+				"deprecated": true,
 				"security": [],
 				"parameters": [
 					{
@@ -1687,6 +1866,16 @@
 																"$ref": "#/components/schemas/Required_any_"
 															}
 														]
+													},
+													{
+														"allOf": [
+															{
+																"$ref": "#/components/schemas/AthleticsEvent"
+															},
+															{
+																"$ref": "#/components/schemas/Required_any_"
+															}
+														]
 													}
 												]
 											}
@@ -1742,6 +1931,7 @@
 					"Events",
 					"SquashMen"
 				],
+				"deprecated": true,
 				"security": [],
 				"parameters": [
 					{
@@ -1777,6 +1967,7 @@
 					"Events",
 					"SquashWomen"
 				],
+				"deprecated": true,
 				"security": [],
 				"parameters": [
 					{
@@ -1850,6 +2041,47 @@
 				}
 			}
 		},
+		"/admin/teams/{name}": {
+			"get": {
+				"operationId": "GetTeamByName",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"allOf": [
+										{
+											"$ref": "#/components/schemas/Document_any.any.any_"
+										},
+										{
+											"$ref": "#/components/schemas/Team"
+										},
+										{
+											"$ref": "#/components/schemas/Required_any_"
+										}
+									]
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Teams"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "name",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
 		"/admin/teams/{id}": {
 			"delete": {
 				"operationId": "DeleteTeam",
@@ -1876,6 +2108,38 @@
 				]
 			}
 		},
+		"/admin/teams/{name}/{medal}": {
+			"patch": {
+				"operationId": "AddMedal",
+				"responses": {
+					"204": {
+						"description": "No content"
+					}
+				},
+				"tags": [
+					"Teams"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "medal",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "path",
+						"name": "name",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
 		"/events/tennismen/{id}": {
 			"put": {
 				"operationId": "UpdateScore",
@@ -1888,6 +2152,7 @@
 					"Events",
 					"TennisMen"
 				],
+				"deprecated": true,
 				"security": [],
 				"parameters": [
 					{
@@ -1923,6 +2188,7 @@
 					"Events",
 					"TennisWomen"
 				],
+				"deprecated": true,
 				"security": [],
 				"parameters": [
 					{
