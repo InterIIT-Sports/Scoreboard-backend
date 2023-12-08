@@ -1,7 +1,7 @@
-import { Body, Delete, Get, Path, Post, Route, Tags } from "tsoa";
+import { Body, Delete, Get, Patch, Path, Post, Response, Route, Tags } from "tsoa";
 
 import CreateTeamRequest from "../requests/CreateTeamRequest";
-import { addTeam, deleteTeam, getAllTeams } from "../utils/TeamUtils";
+import { addTeam, deleteTeam, getAllTeams, getTeamByName } from "../utils/TeamUtils";
 
 @Route("admin/teams")
 @Tags("Teams")
@@ -12,6 +12,11 @@ export class TeamControllers {
   @Get("")
   public async getAllTeams() {
     return await getAllTeams();
+  }
+
+  @Get("/:name")
+  public async getTeamByName(@Path("name") name: string) {
+    return await getTeamByName(name);
   }
 
   /**
@@ -31,5 +36,11 @@ export class TeamControllers {
   @Delete("/:id")
   public async deleteTeam(@Path("id") id: string) {
     await deleteTeam(id);
+  }
+
+  @Patch("/:name/:medal")
+  @Response(204)
+  public async addMedal(@Path("medal") medal: string, @Path("name") name: string) {
+    await this.addMedal(medal, name);
   }
 }

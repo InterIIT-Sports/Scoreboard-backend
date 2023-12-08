@@ -71,7 +71,7 @@ export const updateScore = async (id: string, score: any) => {
   await EventModel.findByIdAndUpdate(id, { score });
 };
 
-export const deleteNotCompletedEvents = async () => await EventModel.deleteMany({ isCompleted: false });
+export const deleteNotCompletedEvents = async () => await EventModel.deleteMany({ isCompleted: false, isStarted: false });
 
 export const getNotCompletedEvents = async () => await EventModel.find().where("isCompleted").equals(false);
 

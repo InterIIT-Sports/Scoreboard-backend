@@ -5,6 +5,7 @@ import Team from "../types/Teams";
 const teamSchema = new Schema<Team>({
   name: {
     type: String,
+    unique: true,
     required: true,
   },
   medals: {
