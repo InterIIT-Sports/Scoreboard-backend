@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 
 import EventCatagories from "../types/EventCategories";
 import EventModel from "../schemas/EventModel";
-import AllEvents, { AllScores } from "../types/AllEvents";
+import AllEvents, { AllScores, AllScoresExceptCricketAndAthletics } from "../types/AllEvents";
 import Event, { Score } from "../types/Event";
 import { SocketServer } from "../types/SocketServer";
 import { createFootballDefaultScore } from "../types/FootballEvent";
@@ -14,6 +14,7 @@ import { createSquashWomenDefaultScore } from "../types/SquashWomenEvent";
 import { createTennisMenDefaultScore } from "../types/TennisMenEvent";
 import { createTennisWomenDefaultScore } from "../types/TennisWomenEvent";
 import { createAthleticsDefaultScore } from "../types/AthleticsEvent";
+import { EventCompleted, EventNotFound, EventScoreDoesntExist } from "./EventErrors";
 
 export const getEventDefaultScore = (eventCatagory: EventCatagories) => {
   switch (eventCatagory) {
@@ -57,10 +58,28 @@ export const getLiveEvents = async () => await EventModel.find<AllEvents>().wher
 export const getEventByID = async <T extends Event<U>, U extends Score>(id: string) => await EventModel.findById<T>(id);
 
 export const toggleEventStarted = async (id: string) => {
-  const event = await getEventByID<AllEvents, AllScores>(id);
-  if (event?.isStarted) await markEventAsCompleted(id);
-  SocketServer.io.sockets.emit("eventStartOrEnd", JSON.stringify({ eventID: event?._id, isStarted: !event?.isStarted }));
-  return await EventModel.findByIdAndUpdate(id, { isStarted: !event?.isStarted });
+  let event = await getEventByID<AllEvents, AllScores>(id);
+  if (!event) throw EventNotFound;
+  // if (event.isCompleted) throw EventCompleted;
+  if (event.isStarted) {
+    event.isCompleted = true;
+    if (event.event !== EventCatagories.ATHLETICS && event.event !== EventCatagories.CRICKET) {
+      if (!event.score) throw EventScoreDoesntExist;
+
+      let winningTeamIndex = 0;
+      let score = event.score as AllScoresExceptCricketAndAthletics;
+      if (score.teamA_points < score.teamB_points) winningTeamIndex = 1;
+
+      event.winner = { team: event.teams[winningTeamIndex] };
+      if (!!event.participants) {
+        event.winner = { ...event.winner, participants: event.participants[winningTeamIndex] };
+      }
+    }
+  }
+
+  event.isStarted = !event.isStarted;
+  SocketServer.io.sockets.emit("eventStartOrEnd", JSON.stringify({ eventID: event._id, isStarted: event.isStarted, winner: event.winner, isCompleted: event.isCompleted }));
+  return await EventModel.findByIdAndUpdate(id, event);
 };
 
 export const markEventAsCompleted = async (id: string) => await EventModel.findByIdAndUpdate(id, { isCompleted: true });

@@ -9,9 +9,9 @@ export default interface Event<T extends Score> {
   isStarted?: boolean;
   startTime: number;
   endTime: number;
-  teams: string[]; // list of teamIDs who are compeating
   score?: T;
   isCompleted?: boolean;
+  teams: string[]; // list of teamIDs who are compeating
   participants?: Participant[][];
 
   winner?: {
