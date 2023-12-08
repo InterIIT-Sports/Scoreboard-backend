@@ -1,14 +1,10 @@
 import Event from "./Event";
 
-export default interface FootballEvent extends Event<FootballScore> {
-  winner?: {
-    team: string;
-  };
-}
+export default interface FootballEvent extends Event<FootballScore> {}
 
 export interface FootballScore {
-  teamA_score: number;
-  teamB_score: number;
+  teamA_points: number;
+  teamB_points: number;
 }
 
-export const createFootballDefaultScore = (): FootballScore => ({ teamA_score: 0, teamB_score: 0 });
+export const createFootballDefaultScore = (): FootballScore => ({ teamA_points: 0, teamB_points: 0 });

@@ -1,10 +1,6 @@
 import Event from "./Event";
 
-export default interface CricketEvent extends Event<CricketScore> {
-  winner?: {
-    team: string;
-  };
-}
+export default interface CricketEvent extends Event<CricketScore> {}
 
 export interface CricketScore {
   teamA_runs: number;

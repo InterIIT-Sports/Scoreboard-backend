@@ -1,11 +1,6 @@
 import Event from "./Event";
 
-export default interface SquashMenEvent extends Event<SquashMenScore> {
-  winner?: {
-    team: string;
-    participants: string[];
-  };
-}
+export default interface SquashMenEvent extends Event<SquashMenScore> {}
 
 export interface SquashMenScore {
   teamA_points: number;

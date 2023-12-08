@@ -1753,6 +1753,7 @@
 						"description": "No content"
 					}
 				},
+				"description": "Updates the score for a football match.",
 				"tags": [
 					"Events",
 					"Football"
@@ -1761,6 +1762,7 @@
 				"security": [],
 				"parameters": [
 					{
+						"description": "- The ID of the football match.",
 						"in": "path",
 						"name": "id",
 						"required": true,
@@ -1770,11 +1772,13 @@
 					}
 				],
 				"requestBody": {
+					"description": "- The updated score for the match.",
 					"required": true,
 					"content": {
 						"application/json": {
 							"schema": {
-								"$ref": "#/components/schemas/FootballScoreUpdateRequest"
+								"$ref": "#/components/schemas/FootballScoreUpdateRequest",
+								"description": "- The updated score for the match."
 							}
 						}
 					}
@@ -1786,7 +1790,7 @@
 				"operationId": "GetNotCompletedEvents",
 				"responses": {
 					"200": {
-						"description": "Ok",
+						"description": "The list of not completed events.",
 						"content": {
 							"application/json": {
 								"schema": {
@@ -1887,6 +1891,7 @@
 						}
 					}
 				},
+				"description": "Retrieves the list of not completed events.",
 				"tags": [
 					"Admin",
 					"Schedule"
@@ -1901,6 +1906,7 @@
 						"description": "No content"
 					}
 				},
+				"description": "Updates existing events.",
 				"tags": [
 					"Admin",
 					"Schedule"
@@ -1927,6 +1933,7 @@
 						"description": "No content"
 					}
 				},
+				"description": "Updates the score for a Squash Men match.",
 				"tags": [
 					"Events",
 					"SquashMen"
@@ -1935,6 +1942,7 @@
 				"security": [],
 				"parameters": [
 					{
+						"description": "- The ID of the match.",
 						"in": "path",
 						"name": "id",
 						"required": true,
@@ -1944,11 +1952,13 @@
 					}
 				],
 				"requestBody": {
+					"description": "- The updated score for the match.",
 					"required": true,
 					"content": {
 						"application/json": {
 							"schema": {
-								"$ref": "#/components/schemas/SquashMenScoreUpdateRequest"
+								"$ref": "#/components/schemas/SquashMenScoreUpdateRequest",
+								"description": "- The updated score for the match."
 							}
 						}
 					}
@@ -1963,6 +1973,7 @@
 						"description": "No content"
 					}
 				},
+				"description": "Updates the score for a Squash Women match.",
 				"tags": [
 					"Events",
 					"SquashWomen"
@@ -1971,6 +1982,7 @@
 				"security": [],
 				"parameters": [
 					{
+						"description": "- The ID of the match.",
 						"in": "path",
 						"name": "id",
 						"required": true,
@@ -1980,11 +1992,13 @@
 					}
 				],
 				"requestBody": {
+					"description": "- The updated score for the match.",
 					"required": true,
 					"content": {
 						"application/json": {
 							"schema": {
-								"$ref": "#/components/schemas/SquashWomenScoreUpdateRequest"
+								"$ref": "#/components/schemas/SquashWomenScoreUpdateRequest",
+								"description": "- The updated score for the match."
 							}
 						}
 					}
@@ -2046,7 +2060,7 @@
 				"operationId": "GetTeamByName",
 				"responses": {
 					"200": {
-						"description": "Ok",
+						"description": "The team with the specified name.",
 						"content": {
 							"application/json": {
 								"schema": {
@@ -2066,12 +2080,14 @@
 						}
 					}
 				},
+				"description": "Retrieves a team by its name.",
 				"tags": [
 					"Teams"
 				],
 				"security": [],
 				"parameters": [
 					{
+						"description": "The name of the team.",
 						"in": "path",
 						"name": "name",
 						"required": true,
@@ -2116,12 +2132,14 @@
 						"description": "No content"
 					}
 				},
+				"description": "Adds a medal to a team.",
 				"tags": [
 					"Teams"
 				],
 				"security": [],
 				"parameters": [
 					{
+						"description": "- The type of medal to add.",
 						"in": "path",
 						"name": "medal",
 						"required": true,
@@ -2130,6 +2148,7 @@
 						}
 					},
 					{
+						"description": "- The name of the team.",
 						"in": "path",
 						"name": "name",
 						"required": true,
@@ -2148,6 +2167,7 @@
 						"description": "No content"
 					}
 				},
+				"description": "Updates the score for a tennis men's match.",
 				"tags": [
 					"Events",
 					"TennisMen"
@@ -2156,6 +2176,7 @@
 				"security": [],
 				"parameters": [
 					{
+						"description": "- The ID of the match.",
 						"in": "path",
 						"name": "id",
 						"required": true,
@@ -2165,11 +2186,13 @@
 					}
 				],
 				"requestBody": {
+					"description": "- The updated score for the match.",
 					"required": true,
 					"content": {
 						"application/json": {
 							"schema": {
-								"$ref": "#/components/schemas/TennisMenScoreUpdateRequest"
+								"$ref": "#/components/schemas/TennisMenScoreUpdateRequest",
+								"description": "- The updated score for the match."
 							}
 						}
 					}
@@ -2184,6 +2207,7 @@
 						"description": "No content"
 					}
 				},
+				"description": "Updates the score for a tennis women's match.",
 				"tags": [
 					"Events",
 					"TennisWomen"
@@ -2192,6 +2216,7 @@
 				"security": [],
 				"parameters": [
 					{
+						"description": "- The ID of the match.",
 						"in": "path",
 						"name": "id",
 						"required": true,
@@ -2201,11 +2226,13 @@
 					}
 				],
 				"requestBody": {
+					"description": "- The updated score for the match.",
 					"required": true,
 					"content": {
 						"application/json": {
 							"schema": {
-								"$ref": "#/components/schemas/TennisWomenScoreUpdateRequest"
+								"$ref": "#/components/schemas/TennisWomenScoreUpdateRequest",
+								"description": "- The updated score for the match."
 							}
 						}
 					}

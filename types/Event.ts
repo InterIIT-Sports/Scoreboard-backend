@@ -1,4 +1,5 @@
 import EventCatagories from "./EventCategories";
+import Participant from "./Participant";
 
 export default interface Event<T extends Score> {
   _id?: string;
@@ -11,6 +12,12 @@ export default interface Event<T extends Score> {
   teams: string[]; // list of teamIDs who are compeating
   score?: T;
   isCompleted?: boolean;
+  participants?: Participant[][];
+
+  winner?: {
+    team: string;
+    participants?: Participant[];
+  };
 }
 
 export interface Score {}

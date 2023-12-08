@@ -3,10 +3,6 @@ import MatchTypes from "./MatchTypes";
 
 export default interface TennisMenEvent extends Event<TennisMenScore> {
   matchType: MatchTypes;
-  winner?: {
-    team: string;
-    participants: string[];
-  };
 }
 
 export interface TennisMenScore {
