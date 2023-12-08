@@ -14,7 +14,7 @@ import { createSquashWomenDefaultScore } from "../types/SquashWomenEvent";
 import { createTennisMenDefaultScore } from "../types/TennisMenEvent";
 import { createTennisWomenDefaultScore } from "../types/TennisWomenEvent";
 import { createAthleticsDefaultScore } from "../types/AthleticsEvent";
-import { EventCompleted, EventNotFound, EventScoreDoesntExist } from "./EventErrors";
+import { CantStartEventBeforeTime, CantStopEvenBeforeTime, EventCompleted, EventNotFound, EventScoreDoesntExist } from "./EventErrors";
 
 export const getEventDefaultScore = (eventCatagory: EventCatagories) => {
   switch (eventCatagory) {
@@ -60,7 +60,11 @@ export const getEventByID = async <T extends Event<U>, U extends Score>(id: stri
 export const toggleEventStarted = async (id: string) => {
   let event = await getEventByID<AllEvents, AllScores>(id);
   if (!event) throw EventNotFound;
-  // if (event.isCompleted) throw EventCompleted;
+  if (event.isCompleted) throw EventCompleted;
+
+  if (!event.isStarted && event.startTime - Date.now() <= 1000 * 10 * 60) throw CantStartEventBeforeTime;
+  if (event.isStarted && event.startTime - Date.now() <= 0) throw CantStopEvenBeforeTime;
+
   if (event.isStarted) {
     event.isCompleted = true;
     if (event.event !== EventCatagories.ATHLETICS && event.event !== EventCatagories.CRICKET) {
