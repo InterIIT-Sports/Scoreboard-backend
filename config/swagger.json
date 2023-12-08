@@ -194,19 +194,58 @@
 			},
 			"FootballScore": {
 				"properties": {
-					"teamA_score": {
+					"teamA_points": {
 						"type": "number",
 						"format": "double"
 					},
-					"teamB_score": {
+					"teamB_points": {
 						"type": "number",
 						"format": "double"
 					}
 				},
 				"required": [
-					"teamA_score",
-					"teamB_score"
+					"teamA_points",
+					"teamB_points"
 				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"Participant": {
+				"properties": {
+					"name": {
+						"type": "string"
+					},
+					"team": {
+						"type": "string"
+					},
+					"distance": {
+						"type": "number",
+						"format": "double"
+					},
+					"time": {
+						"type": "number",
+						"format": "double"
+					}
+				},
+				"required": [
+					"name",
+					"team"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"Winner": {
+				"properties": {
+					"team": {
+						"type": "string"
+					},
+					"participants": {
+						"items": {
+							"$ref": "#/components/schemas/Participant"
+						},
+						"type": "array"
+					}
+				},
 				"type": "object",
 				"additionalProperties": false
 			},
@@ -235,28 +274,29 @@
 						"type": "number",
 						"format": "double"
 					},
-					"teams": {
-						"items": {
-							"type": "string"
-						},
-						"type": "array"
-					},
 					"score": {
 						"$ref": "#/components/schemas/FootballScore"
 					},
 					"isCompleted": {
 						"type": "boolean"
 					},
-					"winner": {
-						"properties": {
-							"team": {
-								"type": "string"
-							}
+					"teams": {
+						"items": {
+							"type": "string"
 						},
-						"required": [
-							"team"
-						],
-						"type": "object"
+						"type": "array"
+					},
+					"participants": {
+						"items": {
+							"items": {
+								"$ref": "#/components/schemas/Participant"
+							},
+							"type": "array"
+						},
+						"type": "array"
+					},
+					"winner": {
+						"$ref": "#/components/schemas/Winner"
 					}
 				},
 				"required": [
@@ -312,35 +352,29 @@
 						"type": "number",
 						"format": "double"
 					},
-					"teams": {
-						"items": {
-							"type": "string"
-						},
-						"type": "array"
-					},
 					"score": {
 						"$ref": "#/components/schemas/ChessScore"
 					},
 					"isCompleted": {
 						"type": "boolean"
 					},
-					"winner": {
-						"properties": {
-							"participants": {
-								"items": {
-									"type": "string"
-								},
-								"type": "array"
-							},
-							"team": {
-								"type": "string"
-							}
+					"teams": {
+						"items": {
+							"type": "string"
 						},
-						"required": [
-							"participants",
-							"team"
-						],
-						"type": "object"
+						"type": "array"
+					},
+					"participants": {
+						"items": {
+							"items": {
+								"$ref": "#/components/schemas/Participant"
+							},
+							"type": "array"
+						},
+						"type": "array"
+					},
+					"winner": {
+						"$ref": "#/components/schemas/Winner"
 					}
 				},
 				"required": [
@@ -416,28 +450,29 @@
 						"type": "number",
 						"format": "double"
 					},
-					"teams": {
-						"items": {
-							"type": "string"
-						},
-						"type": "array"
-					},
 					"score": {
 						"$ref": "#/components/schemas/CricketScore"
 					},
 					"isCompleted": {
 						"type": "boolean"
 					},
-					"winner": {
-						"properties": {
-							"team": {
-								"type": "string"
-							}
+					"teams": {
+						"items": {
+							"type": "string"
 						},
-						"required": [
-							"team"
-						],
-						"type": "object"
+						"type": "array"
+					},
+					"participants": {
+						"items": {
+							"items": {
+								"$ref": "#/components/schemas/Participant"
+							},
+							"type": "array"
+						},
+						"type": "array"
+					},
+					"winner": {
+						"$ref": "#/components/schemas/Winner"
 					}
 				},
 				"required": [
@@ -493,35 +528,29 @@
 						"type": "number",
 						"format": "double"
 					},
-					"teams": {
-						"items": {
-							"type": "string"
-						},
-						"type": "array"
-					},
 					"score": {
 						"$ref": "#/components/schemas/SquashMenScore"
 					},
 					"isCompleted": {
 						"type": "boolean"
 					},
-					"winner": {
-						"properties": {
-							"participants": {
-								"items": {
-									"type": "string"
-								},
-								"type": "array"
-							},
-							"team": {
-								"type": "string"
-							}
+					"teams": {
+						"items": {
+							"type": "string"
 						},
-						"required": [
-							"participants",
-							"team"
-						],
-						"type": "object"
+						"type": "array"
+					},
+					"participants": {
+						"items": {
+							"items": {
+								"$ref": "#/components/schemas/Participant"
+							},
+							"type": "array"
+						},
+						"type": "array"
+					},
+					"winner": {
+						"$ref": "#/components/schemas/Winner"
 					}
 				},
 				"required": [
@@ -577,35 +606,29 @@
 						"type": "number",
 						"format": "double"
 					},
-					"teams": {
-						"items": {
-							"type": "string"
-						},
-						"type": "array"
-					},
 					"score": {
 						"$ref": "#/components/schemas/SquashWomenScore"
 					},
 					"isCompleted": {
 						"type": "boolean"
 					},
-					"winner": {
-						"properties": {
-							"participants": {
-								"items": {
-									"type": "string"
-								},
-								"type": "array"
-							},
-							"team": {
-								"type": "string"
-							}
+					"teams": {
+						"items": {
+							"type": "string"
 						},
-						"required": [
-							"participants",
-							"team"
-						],
-						"type": "object"
+						"type": "array"
+					},
+					"participants": {
+						"items": {
+							"items": {
+								"$ref": "#/components/schemas/Participant"
+							},
+							"type": "array"
+						},
+						"type": "array"
+					},
+					"winner": {
+						"$ref": "#/components/schemas/Winner"
 					}
 				},
 				"required": [
@@ -668,38 +691,32 @@
 						"type": "number",
 						"format": "double"
 					},
-					"teams": {
-						"items": {
-							"type": "string"
-						},
-						"type": "array"
-					},
 					"score": {
 						"$ref": "#/components/schemas/TennisMenScore"
 					},
 					"isCompleted": {
 						"type": "boolean"
 					},
-					"matchType": {
-						"$ref": "#/components/schemas/MatchTypes"
+					"teams": {
+						"items": {
+							"type": "string"
+						},
+						"type": "array"
+					},
+					"participants": {
+						"items": {
+							"items": {
+								"$ref": "#/components/schemas/Participant"
+							},
+							"type": "array"
+						},
+						"type": "array"
 					},
 					"winner": {
-						"properties": {
-							"participants": {
-								"items": {
-									"type": "string"
-								},
-								"type": "array"
-							},
-							"team": {
-								"type": "string"
-							}
-						},
-						"required": [
-							"participants",
-							"team"
-						],
-						"type": "object"
+						"$ref": "#/components/schemas/Winner"
+					},
+					"matchType": {
+						"$ref": "#/components/schemas/MatchTypes"
 					}
 				},
 				"required": [
@@ -756,38 +773,32 @@
 						"type": "number",
 						"format": "double"
 					},
-					"teams": {
-						"items": {
-							"type": "string"
-						},
-						"type": "array"
-					},
 					"score": {
 						"$ref": "#/components/schemas/TennisWomenScore"
 					},
 					"isCompleted": {
 						"type": "boolean"
 					},
-					"matchType": {
-						"$ref": "#/components/schemas/MatchTypes"
+					"teams": {
+						"items": {
+							"type": "string"
+						},
+						"type": "array"
+					},
+					"participants": {
+						"items": {
+							"items": {
+								"$ref": "#/components/schemas/Participant"
+							},
+							"type": "array"
+						},
+						"type": "array"
 					},
 					"winner": {
-						"properties": {
-							"participants": {
-								"items": {
-									"type": "string"
-								},
-								"type": "array"
-							},
-							"team": {
-								"type": "string"
-							}
-						},
-						"required": [
-							"participants",
-							"team"
-						],
-						"type": "object"
+						"$ref": "#/components/schemas/Winner"
+					},
+					"matchType": {
+						"$ref": "#/components/schemas/MatchTypes"
 					}
 				},
 				"required": [
@@ -866,23 +877,32 @@
 						"type": "number",
 						"format": "double"
 					},
-					"teams": {
-						"items": {
-							"type": "string"
-						},
-						"type": "array"
-					},
 					"score": {
 						"$ref": "#/components/schemas/AthleticsEventScore"
 					},
 					"isCompleted": {
 						"type": "boolean"
 					},
+					"teams": {
+						"items": {
+							"type": "string"
+						},
+						"type": "array"
+					},
+					"participants": {
+						"items": {
+							"items": {
+								"$ref": "#/components/schemas/Participant"
+							},
+							"type": "array"
+						},
+						"type": "array"
+					},
+					"winner": {
+						"$ref": "#/components/schemas/Winner"
+					},
 					"athleticsEventType": {
 						"$ref": "#/components/schemas/AthleticsEventTypes"
-					},
-					"sortAscending": {
-						"type": "boolean"
 					}
 				},
 				"required": [
@@ -891,8 +911,7 @@
 					"startTime",
 					"endTime",
 					"teams",
-					"athleticsEventType",
-					"sortAscending"
+					"athleticsEventType"
 				],
 				"type": "object",
 				"additionalProperties": false
@@ -1494,6 +1513,9 @@
 				"responses": {
 					"204": {
 						"description": "No content"
+					},
+					"400": {
+						"description": "If you try to start or close a event before time or start a completed event, event doesn't exist"
 					}
 				},
 				"description": "Toggles the live status of an event.",
@@ -1745,6 +1767,44 @@
 				}
 			}
 		},
+		"/events/{id}/winner": {
+			"post": {
+				"operationId": "SetWinner",
+				"responses": {
+					"204": {
+						"description": "No content"
+					}
+				},
+				"description": "Sets the winner of an event.",
+				"tags": [
+					"Events"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"description": "- The ID of the event.",
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"description": "- The winner object containing the team and participants.",
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/Winner",
+								"description": "- The winner object containing the team and participants."
+							}
+						}
+					}
+				}
+			}
+		},
 		"/events/football/{id}": {
 			"put": {
 				"operationId": "UpdateScore",
@@ -1800,88 +1860,31 @@
 												"$ref": "#/components/schemas/Document_any.any.any_"
 											},
 											{
-												"anyOf": [
-													{
-														"allOf": [
-															{
-																"$ref": "#/components/schemas/FootballEvent"
-															},
-															{
-																"$ref": "#/components/schemas/Required_any_"
-															}
-														]
-													},
-													{
-														"allOf": [
-															{
-																"$ref": "#/components/schemas/ChessEvent"
-															},
-															{
-																"$ref": "#/components/schemas/Required_any_"
-															}
-														]
-													},
-													{
-														"allOf": [
-															{
-																"$ref": "#/components/schemas/CricketEvent"
-															},
-															{
-																"$ref": "#/components/schemas/Required_any_"
-															}
-														]
-													},
-													{
-														"allOf": [
-															{
-																"$ref": "#/components/schemas/SquashMenEvent"
-															},
-															{
-																"$ref": "#/components/schemas/Required_any_"
-															}
-														]
-													},
-													{
-														"allOf": [
-															{
-																"$ref": "#/components/schemas/SquashWomenEvent"
-															},
-															{
-																"$ref": "#/components/schemas/Required_any_"
-															}
-														]
-													},
-													{
-														"allOf": [
-															{
-																"$ref": "#/components/schemas/TennisMenEvent"
-															},
-															{
-																"$ref": "#/components/schemas/Required_any_"
-															}
-														]
-													},
-													{
-														"allOf": [
-															{
-																"$ref": "#/components/schemas/TennisWomenEvent"
-															},
-															{
-																"$ref": "#/components/schemas/Required_any_"
-															}
-														]
-													},
-													{
-														"allOf": [
-															{
-																"$ref": "#/components/schemas/AthleticsEvent"
-															},
-															{
-																"$ref": "#/components/schemas/Required_any_"
-															}
-														]
-													}
-												]
+												"$ref": "#/components/schemas/FootballEvent"
+											},
+											{
+												"$ref": "#/components/schemas/ChessEvent"
+											},
+											{
+												"$ref": "#/components/schemas/CricketEvent"
+											},
+											{
+												"$ref": "#/components/schemas/SquashMenEvent"
+											},
+											{
+												"$ref": "#/components/schemas/SquashWomenEvent"
+											},
+											{
+												"$ref": "#/components/schemas/TennisMenEvent"
+											},
+											{
+												"$ref": "#/components/schemas/TennisWomenEvent"
+											},
+											{
+												"$ref": "#/components/schemas/AthleticsEvent"
+											},
+											{
+												"$ref": "#/components/schemas/Required_any_"
 											}
 										]
 									},

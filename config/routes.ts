@@ -131,8 +131,28 @@ const models: TsoaRoute.Models = {
     "FootballScore": {
         "dataType": "refObject",
         "properties": {
-            "teamA_score": {"dataType":"double","required":true},
-            "teamB_score": {"dataType":"double","required":true},
+            "teamA_points": {"dataType":"double","required":true},
+            "teamB_points": {"dataType":"double","required":true},
+        },
+        "additionalProperties": false,
+    },
+    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+    "Participant": {
+        "dataType": "refObject",
+        "properties": {
+            "name": {"dataType":"string","required":true},
+            "team": {"dataType":"string","required":true},
+            "distance": {"dataType":"double"},
+            "time": {"dataType":"double"},
+        },
+        "additionalProperties": false,
+    },
+    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+    "Winner": {
+        "dataType": "refObject",
+        "properties": {
+            "team": {"dataType":"string"},
+            "participants": {"dataType":"array","array":{"dataType":"refObject","ref":"Participant"}},
         },
         "additionalProperties": false,
     },
@@ -147,10 +167,11 @@ const models: TsoaRoute.Models = {
             "isStarted": {"dataType":"boolean"},
             "startTime": {"dataType":"double","required":true},
             "endTime": {"dataType":"double","required":true},
-            "teams": {"dataType":"array","array":{"dataType":"string"},"required":true},
             "score": {"ref":"FootballScore"},
             "isCompleted": {"dataType":"boolean"},
-            "winner": {"dataType":"nestedObjectLiteral","nestedProperties":{"team":{"dataType":"string","required":true}}},
+            "teams": {"dataType":"array","array":{"dataType":"string"},"required":true},
+            "participants": {"dataType":"array","array":{"dataType":"array","array":{"dataType":"refObject","ref":"Participant"}}},
+            "winner": {"ref":"Winner"},
         },
         "additionalProperties": false,
     },
@@ -174,10 +195,11 @@ const models: TsoaRoute.Models = {
             "isStarted": {"dataType":"boolean"},
             "startTime": {"dataType":"double","required":true},
             "endTime": {"dataType":"double","required":true},
-            "teams": {"dataType":"array","array":{"dataType":"string"},"required":true},
             "score": {"ref":"ChessScore"},
             "isCompleted": {"dataType":"boolean"},
-            "winner": {"dataType":"nestedObjectLiteral","nestedProperties":{"participants":{"dataType":"array","array":{"dataType":"string"},"required":true},"team":{"dataType":"string","required":true}}},
+            "teams": {"dataType":"array","array":{"dataType":"string"},"required":true},
+            "participants": {"dataType":"array","array":{"dataType":"array","array":{"dataType":"refObject","ref":"Participant"}}},
+            "winner": {"ref":"Winner"},
         },
         "additionalProperties": false,
     },
@@ -205,10 +227,11 @@ const models: TsoaRoute.Models = {
             "isStarted": {"dataType":"boolean"},
             "startTime": {"dataType":"double","required":true},
             "endTime": {"dataType":"double","required":true},
-            "teams": {"dataType":"array","array":{"dataType":"string"},"required":true},
             "score": {"ref":"CricketScore"},
             "isCompleted": {"dataType":"boolean"},
-            "winner": {"dataType":"nestedObjectLiteral","nestedProperties":{"team":{"dataType":"string","required":true}}},
+            "teams": {"dataType":"array","array":{"dataType":"string"},"required":true},
+            "participants": {"dataType":"array","array":{"dataType":"array","array":{"dataType":"refObject","ref":"Participant"}}},
+            "winner": {"ref":"Winner"},
         },
         "additionalProperties": false,
     },
@@ -232,10 +255,11 @@ const models: TsoaRoute.Models = {
             "isStarted": {"dataType":"boolean"},
             "startTime": {"dataType":"double","required":true},
             "endTime": {"dataType":"double","required":true},
-            "teams": {"dataType":"array","array":{"dataType":"string"},"required":true},
             "score": {"ref":"SquashMenScore"},
             "isCompleted": {"dataType":"boolean"},
-            "winner": {"dataType":"nestedObjectLiteral","nestedProperties":{"participants":{"dataType":"array","array":{"dataType":"string"},"required":true},"team":{"dataType":"string","required":true}}},
+            "teams": {"dataType":"array","array":{"dataType":"string"},"required":true},
+            "participants": {"dataType":"array","array":{"dataType":"array","array":{"dataType":"refObject","ref":"Participant"}}},
+            "winner": {"ref":"Winner"},
         },
         "additionalProperties": false,
     },
@@ -259,10 +283,11 @@ const models: TsoaRoute.Models = {
             "isStarted": {"dataType":"boolean"},
             "startTime": {"dataType":"double","required":true},
             "endTime": {"dataType":"double","required":true},
-            "teams": {"dataType":"array","array":{"dataType":"string"},"required":true},
             "score": {"ref":"SquashWomenScore"},
             "isCompleted": {"dataType":"boolean"},
-            "winner": {"dataType":"nestedObjectLiteral","nestedProperties":{"participants":{"dataType":"array","array":{"dataType":"string"},"required":true},"team":{"dataType":"string","required":true}}},
+            "teams": {"dataType":"array","array":{"dataType":"string"},"required":true},
+            "participants": {"dataType":"array","array":{"dataType":"array","array":{"dataType":"refObject","ref":"Participant"}}},
+            "winner": {"ref":"Winner"},
         },
         "additionalProperties": false,
     },
@@ -291,11 +316,12 @@ const models: TsoaRoute.Models = {
             "isStarted": {"dataType":"boolean"},
             "startTime": {"dataType":"double","required":true},
             "endTime": {"dataType":"double","required":true},
-            "teams": {"dataType":"array","array":{"dataType":"string"},"required":true},
             "score": {"ref":"TennisMenScore"},
             "isCompleted": {"dataType":"boolean"},
+            "teams": {"dataType":"array","array":{"dataType":"string"},"required":true},
+            "participants": {"dataType":"array","array":{"dataType":"array","array":{"dataType":"refObject","ref":"Participant"}}},
+            "winner": {"ref":"Winner"},
             "matchType": {"ref":"MatchTypes","required":true},
-            "winner": {"dataType":"nestedObjectLiteral","nestedProperties":{"participants":{"dataType":"array","array":{"dataType":"string"},"required":true},"team":{"dataType":"string","required":true}}},
         },
         "additionalProperties": false,
     },
@@ -319,11 +345,12 @@ const models: TsoaRoute.Models = {
             "isStarted": {"dataType":"boolean"},
             "startTime": {"dataType":"double","required":true},
             "endTime": {"dataType":"double","required":true},
-            "teams": {"dataType":"array","array":{"dataType":"string"},"required":true},
             "score": {"ref":"TennisWomenScore"},
             "isCompleted": {"dataType":"boolean"},
+            "teams": {"dataType":"array","array":{"dataType":"string"},"required":true},
+            "participants": {"dataType":"array","array":{"dataType":"array","array":{"dataType":"refObject","ref":"Participant"}}},
+            "winner": {"ref":"Winner"},
             "matchType": {"ref":"MatchTypes","required":true},
-            "winner": {"dataType":"nestedObjectLiteral","nestedProperties":{"participants":{"dataType":"array","array":{"dataType":"string"},"required":true},"team":{"dataType":"string","required":true}}},
         },
         "additionalProperties": false,
     },
@@ -350,11 +377,12 @@ const models: TsoaRoute.Models = {
             "isStarted": {"dataType":"boolean"},
             "startTime": {"dataType":"double","required":true},
             "endTime": {"dataType":"double","required":true},
-            "teams": {"dataType":"array","array":{"dataType":"string"},"required":true},
             "score": {"ref":"AthleticsEventScore"},
             "isCompleted": {"dataType":"boolean"},
+            "teams": {"dataType":"array","array":{"dataType":"string"},"required":true},
+            "participants": {"dataType":"array","array":{"dataType":"array","array":{"dataType":"refObject","ref":"Participant"}}},
+            "winner": {"ref":"Winner"},
             "athleticsEventType": {"ref":"AthleticsEventTypes","required":true},
-            "sortAscending": {"dataType":"boolean","required":true},
         },
         "additionalProperties": false,
     },
@@ -736,6 +764,32 @@ export function RegisterRoutes(app: Router) {
 
 
               const promise = controller.updateScore.apply(controller, validatedArgs as any);
+              promiseHandler(controller, promise, response, undefined, next);
+            } catch (err) {
+                return next(err);
+            }
+        });
+        // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+        app.post('/events/:id/winner',
+            ...(fetchMiddlewares<RequestHandler>(EventController)),
+            ...(fetchMiddlewares<RequestHandler>(EventController.prototype.setWinner)),
+
+            function EventController_setWinner(request: any, response: any, next: any) {
+            const args = {
+                    id: {"in":"path","name":"id","required":true,"dataType":"string"},
+                    winner: {"in":"body","name":"winner","required":true,"ref":"Winner"},
+            };
+
+            // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+
+            let validatedArgs: any[] = [];
+            try {
+                validatedArgs = getValidatedArgs(args, request, response);
+
+                const controller = new EventController();
+
+
+              const promise = controller.setWinner.apply(controller, validatedArgs as any);
               promiseHandler(controller, promise, response, undefined, next);
             } catch (err) {
                 return next(err);
