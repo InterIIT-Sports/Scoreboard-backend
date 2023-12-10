@@ -13,6 +13,7 @@ import { addEvent, readEvents, setWinner } from "./utils/EventUtils";
 import FootballEvent, { FootballScore, createFootballDefaultScore } from "./types/FootballEvent";
 import EventCatagories from "./types/EventCategories";
 import ChessEvent, { ChessScore } from "./types/ChessEvent";
+import { EventController } from "./controllers/EventController";
 
 config();
 
@@ -22,6 +23,11 @@ app.use(express.json());
 app.use(cors(CorsConfig));
 app.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerConfig));
 
+app.use((req, res, next) => {
+  console.log(`${req.ip} requested: ${req.url}`);
+  next();
+});
+
 app.get("/", (req, res) => {
   res.send("Hello");
 });
@@ -30,9 +36,16 @@ app.use("/auth", AuthRoutes);
 app.use("/admin", AdminRoutes);
 app.use("/events", EventRoutes);
 
-createAndStartServer(app).then(async () => console.log(await readEvents()));
+createAndStartServer(app);
+// .then(() =>
+//   new EventController().setWinner("657587eb472deab4723148ec", {
+//     participants: [
+//       { name: "karan", team: "IITGN", time: 14 },
+//       { name: "something", team: "IITB", time: 12 },
+//     ],
+//   })
+// );
 // .then(() => setWinner("656f1154c223ae2deba7cc4a", "655e4dbdbddc0c9ed41ad774"));
-
 // addEvent<ChessEvent, ChessScore>(EventCatagories.CHESS, {
 //   endTime: Date.now(),
 //   startTime: Date.now(),
