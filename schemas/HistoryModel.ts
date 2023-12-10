@@ -17,11 +17,31 @@ const HistoryItemSchema = new mongoose.Schema<HistoryItem<AllScores>>({
     // Football
     teamA_score: Number,
     teamB_score: Number,
+    // Chess, squash (men and women), tennis (men and women)
+    teamA_points: Number,
+    teamB_points: Number,
+    // Cricket
+    teamA_runs: Number,
+    teamA_overs: Number,
+    teamA_wickets: Number,
+    teamB_runs: Number,
+    teamB_overs: Number,
+    teamB_wickets: Number,
   },
   currentScore: {
     // Football
     teamA_score: Number,
     teamB_score: Number,
+    // Chess, squash (men and women), tennis (men and women)
+    teamA_points: Number,
+    teamB_points: Number,
+    // Cricket
+    teamA_runs: Number,
+    teamA_overs: Number,
+    teamA_wickets: Number,
+    teamB_runs: Number,
+    teamB_overs: Number,
+    teamB_wickets: Number,
   },
 
   timestamp: {

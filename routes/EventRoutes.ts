@@ -64,8 +64,8 @@ router.patch("/toggleLive/:id", async (req, res) => {
 
 router.put("/updateScore/:id", async (req: AuthenticatedRequest, res) => {
   try {
-    await new EventController().updateScore(req.params.id, req.body);
     await saveHistory(req.params.id, (await getEventByID<AllEvents, AllScores>(req.params.id))?.score, req.body, req.user?.name as string);
+    await new EventController().updateScore(req.params.id, req.body);
     res.sendStatus(204);
   } catch (error: any) {
     res.status(400).json({ message: error.message });
