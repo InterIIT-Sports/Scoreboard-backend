@@ -12,6 +12,7 @@ import EventRoutes from "./routes/EventRoutes";
 import { addEvent, readEvents, setWinner } from "./utils/EventUtils";
 import FootballEvent, { FootballScore, createFootballDefaultScore } from "./types/FootballEvent";
 import EventCatagories from "./types/EventCategories";
+import ChessEvent, { ChessScore } from "./types/ChessEvent";
 
 config();
 
@@ -32,11 +33,10 @@ app.use("/events", EventRoutes);
 createAndStartServer(app).then(async () => console.log(await readEvents()));
 // .then(() => setWinner("656f1154c223ae2deba7cc4a", "655e4dbdbddc0c9ed41ad774"));
 
-// addEvent<FootballEvent, FootballScore>(EventCatagories.FOOTBALL, {
+// addEvent<ChessEvent, ChessScore>(EventCatagories.CHESS, {
 //   endTime: Date.now(),
 //   startTime: Date.now(),
-//   event: EventCatagories.FOOTBALL,
-//   roomID: EventCatagories.FOOTBALL,
+//   event: EventCatagories.CHESS,
 //   teams: ["655e4dbdbddc0c9ed41ad774", "655e4dc8992db97369908276"],
 //   title: "Test football match",
 // });

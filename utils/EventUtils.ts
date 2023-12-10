@@ -64,9 +64,8 @@ export const toggleEventStarted = async (id: string) => {
   if (!event) throw EventNotFound;
   if (event.isCompleted) throw EventCompleted;
 
-  if (!event.isStarted && event.startTime - Date.now() <= 1000 * 10 * 60) throw CantStartEventBeforeTime;
-  if (event.isStarted && event.startTime - Date.now() <= 0) throw CantStopEvenBeforeTime;
-
+  if (!event.isStarted && event.startTime - Date.now() > 1000 * 10 * 60) throw CantStartEventBeforeTime;
+  if (event.isStarted && event.startTime - Date.now() > 0) throw CantStopEvenBeforeTime;
   if (event.isStarted) {
     event.isCompleted = true;
     if (event.event !== EventCatagories.ATHLETICS && event.event !== EventCatagories.CRICKET) {
