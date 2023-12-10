@@ -80,6 +80,30 @@
 				"type": "object",
 				"additionalProperties": false
 			},
+			"HistoryItem_any_": {
+				"properties": {
+					"eventID": {
+						"type": "string"
+					},
+					"userName": {
+						"type": "string"
+					},
+					"prevScore": {},
+					"currentScore": {},
+					"timestamp": {
+						"type": "number",
+						"format": "double"
+					}
+				},
+				"required": [
+					"eventID",
+					"userName",
+					"prevScore",
+					"currentScore"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
 			"LoginWithUsernameAndPasswordRequest": {
 				"properties": {
 					"username": {
@@ -1279,6 +1303,32 @@
 						}
 					}
 				}
+			}
+		},
+		"/admin/logs": {
+			"get": {
+				"operationId": "GetScoreChangeLogs",
+				"responses": {
+					"200": {
+						"description": "A promise that resolves with the score change logs.",
+						"content": {
+							"application/json": {
+								"schema": {
+									"items": {
+										"$ref": "#/components/schemas/HistoryItem_any_"
+									},
+									"type": "array"
+								}
+							}
+						}
+					}
+				},
+				"description": "Retrieves the score change logs.",
+				"tags": [
+					"Admin"
+				],
+				"security": [],
+				"parameters": []
 			}
 		},
 		"/auth/loginWithUsernameAndPassword": {

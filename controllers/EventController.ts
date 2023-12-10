@@ -178,7 +178,7 @@ export class EventController {
    * @param score - The updated score for the event.
    * @returns A promise that resolves to the updated score.
    */
-  @Put("/:id")
+  @Put("/updateScore/:id")
   @Response(204)
   public async updateScore(@Path("id") id: string, @Body() score: AllScores) {
     return await updateScore(id, score);
