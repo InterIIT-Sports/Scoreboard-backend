@@ -1780,6 +1780,39 @@
 			}
 		},
 		"/events/{id}": {
+			"get": {
+				"operationId": "GetEventById",
+				"responses": {
+					"200": {
+						"description": "The event with the specified ID.",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/AllEvents"
+								}
+							}
+						}
+					}
+				},
+				"description": "Retrieves an event by its ID.",
+				"tags": [
+					"Events"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"description": "The ID of the event.",
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/events/updateScore/{id}": {
 			"put": {
 				"operationId": "UpdateScore",
 				"responses": {

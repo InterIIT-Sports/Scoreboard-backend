@@ -7,7 +7,7 @@ import ChessScoreUpdateRequest from "../requests/ChessScoreUpdateRequest";
 import SquashMenScoreUpdateRequest from "../requests/SquashMenScoreUpdateRequest";
 import SquashWomenScoreUpdateRequest from "../requests/SquashWomenScoreUpdateRequest";
 import FootballScoreUpdateRequest from "../requests/FootballScoreUpdateRequest";
-import { AllScores } from "../types/AllEvents";
+import AllEvents, { AllScores } from "../types/AllEvents";
 import { Winner } from "../types/Event";
 
 @Route("events")
@@ -179,7 +179,7 @@ export class EventController {
    */
   @Get("/:id")
   public async getEventById(@Path("id") id: string) {
-    return await getEventByID(id);
+    return await getEventByID<AllEvents, AllScores>(id);
   }
 
   /**
