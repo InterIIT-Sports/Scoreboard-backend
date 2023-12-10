@@ -7,7 +7,7 @@ import Event, { Score } from "../types/Event";
 import { SocketServer } from "../types/SocketServer";
 import { createFootballDefaultScore } from "../types/FootballEvent";
 import { createChessDefaultScore } from "../types/ChessEvent";
-import { getTeamID } from "./TeamUtils";
+import { getTeamById, getTeamID } from "./TeamUtils";
 import { createCricketDefaultScore } from "../types/CricketEvent";
 import { createSquashMenDefaultScore } from "../types/SquashMenEvent";
 import { createSquashWomenDefaultScore } from "../types/SquashWomenEvent";
@@ -88,7 +88,7 @@ export const toggleEventStarted = async (id: string) => {
     JSON.stringify({
       eventID: event._id,
       isStarted: event.isStarted,
-      winner: event.winner,
+      winner: { ...event.winner, team: await getTeamById(event.winner?.team!) },
       isCompleted: event.isCompleted,
     })
   );
