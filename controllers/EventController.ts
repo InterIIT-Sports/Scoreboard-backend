@@ -1,6 +1,6 @@
 import { Body, Example, Get, Patch, Path, Post, Put, Response, Route, Tags } from "tsoa";
 
-import { readEvents, setWinner, toggleEventStarted, updateScore } from "../utils/EventUtils";
+import { getEventByID, readEvents, setWinner, toggleEventStarted, updateScore } from "../utils/EventUtils";
 import TennisMenScoreUpdateRequest from "../requests/TennisMenScoreUpdateRequest";
 import TennisWomenScoreUpdateRequest from "../requests/TennisWomenScoreUpdateRequest";
 import ChessScoreUpdateRequest from "../requests/ChessScoreUpdateRequest";
@@ -170,6 +170,16 @@ export class EventController {
   ])
   public async getAllEvents() {
     return await readEvents();
+  }
+
+  /**
+   * Retrieves an event by its ID.
+   * @param id The ID of the event.
+   * @returns The event with the specified ID.
+   */
+  @Get("/:id")
+  public async getEventById(@Path("id") id: string) {
+    return await getEventByID(id);
   }
 
   /**

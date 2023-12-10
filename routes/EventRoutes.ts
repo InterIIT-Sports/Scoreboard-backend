@@ -42,6 +42,10 @@ router.get("/", async (_, res) => {
   res.json(await new EventController().getAllEvents());
 });
 
+router.get("/:id", async (req, res) => {
+  res.json(await new EventController().getEventById(req.params.id));
+});
+
 router.use("/football", FootballRoutes);
 router.use("/chess", ChessRoutes);
 router.use("/squashmen", SquashMenRoutes);
