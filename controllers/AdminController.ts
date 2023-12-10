@@ -2,6 +2,7 @@ import { Body, Delete, Get, Post, Res, Response, Route, Tags } from "tsoa";
 import DeleteUserRequest from "../requests/DeleteUserRequest";
 import { createUserWithUsernameAndPassword, deleteUser, getAllUsers } from "../utils/AuthUtils";
 import CreateUserWithUsernameAndPasswordRequest from "../requests/CreateUserWithUsernameAndPasswordRequest";
+import { getScoreChangeLogs } from "../utils/HistoryUtils";
 
 @Route("admin")
 @Tags("Admin")
@@ -32,5 +33,14 @@ export class AdminController {
   @Response(403, "Username already exists")
   public async createUserWithUsernameAndPassword(@Body() { name, username, password, role }: CreateUserWithUsernameAndPasswordRequest) {
     return await createUserWithUsernameAndPassword(name, username, password, role);
+  }
+
+  /**
+   * Retrieves the score change logs.
+   * @returns {Promise<any>} A promise that resolves with the score change logs.
+   */
+  @Get("logs")
+  public async getScoreChangeLogs() {
+    return await getScoreChangeLogs();
   }
 }

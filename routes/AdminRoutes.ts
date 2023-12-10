@@ -59,4 +59,8 @@ router.post("/createUserWithUsernameAndPassword", async (req, res) => {
   }
 });
 
+router.get("/logs", async (req, res) => {
+  res.json(await new AdminController().getScoreChangeLogs());
+});
+
 export default router;
