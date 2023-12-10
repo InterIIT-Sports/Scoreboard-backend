@@ -53,9 +53,8 @@ router.patch("/toggleLive/:id", async (req, res) => {
   try {
     await new EventController().toggleLive(req.params.id);
     res.sendStatus(204);
-  } catch (error) {
-    // res.status(400).json({ message: error.message });
-    res.sendStatus(400);
+  } catch (error: any) {
+    res.status(400).json({ message: error.message });
   }
 });
 
@@ -64,8 +63,8 @@ router.put("/updateScore/:id", async (req: AuthenticatedRequest, res) => {
     await new EventController().updateScore(req.params.id, req.body);
     await saveHistory(req.params.id, (await getEventByID<AllEvents, AllScores>(req.params.id))?.score, req.body, req.user?.name as string);
     res.sendStatus(204);
-  } catch (error) {
-    res.sendStatus(400);
+  } catch (error: any) {
+    res.status(400).json({ message: error.message });
   }
 });
 
