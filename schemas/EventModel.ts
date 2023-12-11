@@ -52,6 +52,8 @@ const eventSchema = new mongoose.Schema<AllEventsUnion>({
 
   // Athletics only
   athleticsEventType: String,
+  // cricket only
+  eventLink: String,
 });
 
 const EventModel = mongoose.model("Events", eventSchema);
