@@ -244,6 +244,7 @@ const models: TsoaRoute.Models = {
             "teams": {"dataType":"array","array":{"dataType":"string"},"required":true},
             "participants": {"dataType":"array","array":{"dataType":"array","array":{"dataType":"refObject","ref":"Participant"}}},
             "winner": {"ref":"Winner"},
+            "eventLink": {"dataType":"string","required":true},
         },
         "additionalProperties": false,
     },

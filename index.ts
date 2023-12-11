@@ -9,11 +9,7 @@ import { CorsConfig } from "./config/CorsConfig";
 import swaggerConfig from "./config/swagger.json";
 import { createAndStartServer } from "./utils/ServerUtils";
 import EventRoutes from "./routes/EventRoutes";
-import { addEvent, readEvents, setWinner } from "./utils/EventUtils";
-import FootballEvent, { FootballScore, createFootballDefaultScore } from "./types/FootballEvent";
-import EventCatagories from "./types/EventCategories";
-import ChessEvent, { ChessScore } from "./types/ChessEvent";
-import { EventController } from "./controllers/EventController";
+import path from "path";
 
 config();
 
@@ -22,19 +18,24 @@ const app = express();
 app.use(express.json());
 app.use(cors(CorsConfig));
 app.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerConfig));
+app.use(express.static(path.join(__dirname, "../../Scoreboard-Frontend/build")));
 
 app.use((req, res, next) => {
   console.log(`${req.ip} requested: ${req.url}`);
   next();
 });
 
-app.get("/", (req, res) => {
-  res.send("Hello");
-});
+// app.get("/", (req, res) => {
+//   res.send("Hello");
+// });
 
 app.use("/auth", AuthRoutes);
 app.use("/admin", AdminRoutes);
 app.use("/events", EventRoutes);
+
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "../../Scoreboard-Frontend/build/index.html"));
+});
 
 createAndStartServer(app);
 // .then(() =>

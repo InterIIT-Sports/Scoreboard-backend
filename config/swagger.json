@@ -497,6 +497,9 @@
 					},
 					"winner": {
 						"$ref": "#/components/schemas/Winner"
+					},
+					"eventLink": {
+						"type": "string"
 					}
 				},
 				"required": [
@@ -504,7 +507,8 @@
 					"event",
 					"startTime",
 					"endTime",
-					"teams"
+					"teams",
+					"eventLink"
 				],
 				"type": "object",
 				"additionalProperties": false
