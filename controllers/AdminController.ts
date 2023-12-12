@@ -4,7 +4,7 @@ import { createUserWithUsernameAndPassword, deleteUser, getAllUsers } from "../u
 import CreateUserWithUsernameAndPasswordRequest from "../requests/CreateUserWithUsernameAndPasswordRequest";
 import { getScoreChangeLogs } from "../utils/HistoryUtils";
 
-@Route("admin")
+@Route("api/admin")
 @Tags("Admin")
 export class AdminController {
   /**

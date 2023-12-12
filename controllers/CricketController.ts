@@ -3,7 +3,7 @@ import { Body, Deprecated, Path, Put, Response, Route, Tags } from "tsoa";
 import CricketScoreUpdateRequest from "../requests/CricketScoreUpdateRequest";
 import { updateScore } from "../utils/EventUtils";
 
-@Route("events/cricket")
+@Route("api/events/cricket")
 @Tags("Events", "Cricket")
 export class CricketController {
   /**

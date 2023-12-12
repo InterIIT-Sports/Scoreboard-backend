@@ -10,7 +10,7 @@ import FootballScoreUpdateRequest from "../requests/FootballScoreUpdateRequest";
 import AllEvents, { AllScores } from "../types/AllEvents";
 import { Winner } from "../types/Event";
 
-@Route("events")
+@Route("api/events")
 @Tags("Events")
 export class EventController {
   /**

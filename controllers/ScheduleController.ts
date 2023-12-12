@@ -2,7 +2,7 @@ import { Body, Get, Patch, Response, Route, Tags } from "tsoa";
 import { getNotCompletedEvents, updateExistingEvents } from "../utils/EventUtils";
 import UpdateExistingEventsRequest from "../requests/UpdateExistingEventsRequest";
 
-@Route("admin/schedule")
+@Route("api/admin/schedule")
 @Tags("Admin", "Schedule")
 export class ScheduleController {
   /**

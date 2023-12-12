@@ -3,7 +3,7 @@ import { Body, Delete, Get, Patch, Path, Post, Response, Route, Tags } from "tso
 import CreateTeamRequest from "../requests/CreateTeamRequest";
 import { addTeam, deleteTeam, getAllTeams, getTeamByName } from "../utils/TeamUtils";
 
-@Route("admin/teams")
+@Route("api/admin/teams")
 @Tags("Teams")
 export class TeamControllers {
   /**

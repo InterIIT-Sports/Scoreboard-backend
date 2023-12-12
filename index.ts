@@ -17,7 +17,7 @@ const app = express();
 
 app.use(express.json());
 app.use(cors(CorsConfig));
-app.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerConfig));
+app.use("/api/docs", swaggerUi.serve, swaggerUi.setup(swaggerConfig));
 app.use(express.static(path.join(__dirname, "../client/build")));
 
 app.use((req, res, next) => {
@@ -29,9 +29,9 @@ app.use((req, res, next) => {
 //   res.send("Hello");
 // });
 
-app.use("/auth", AuthRoutes);
-app.use("/admin", AdminRoutes);
-app.use("/events", EventRoutes);
+app.use("/api/auth", AuthRoutes);
+app.use("/api/admin", AdminRoutes);
+app.use("/api/events", EventRoutes);
 
 app.get("*", (req, res) => {
   res.sendFile(path.join(__dirname, "../client/build/index.html"));

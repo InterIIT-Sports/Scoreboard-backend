@@ -3,7 +3,7 @@ import { Body, Deprecated, Path, Put, Response, Route, Tags } from "tsoa";
 import SquashWomenScoreUpdateRequest from "../requests/SquashWomenScoreUpdateRequest";
 import { updateScore } from "../utils/EventUtils";
 
-@Route("events/squashwomen")
+@Route("api/events/squashwomen")
 @Tags("Events", "SquashWomen")
 export class SquashWomenController {
   /**

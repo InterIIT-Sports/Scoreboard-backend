@@ -9,7 +9,7 @@ import { getAccessToken, getRefreshToken, loginWithUsernameAndPassword, revokeRe
 import { Unauthorised } from "../utils/AuthErrors";
 import { User } from "../types/User";
 
-@Route("auth")
+@Route("api/auth")
 @Tags("Authentication")
 export class AuthController {
   /**
