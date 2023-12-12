@@ -65,7 +65,6 @@ export const toggleEventStarted = async (id: string) => {
   if (event.isCompleted) throw EventCompleted;
 
   if (!event.isStarted && event.startTime - Date.now() > 1000 * 15 * 60) throw CantStartEventBeforeTime;
-  if (event.isStarted && event.endTime - Date.now() > 0) throw CantStopEvenBeforeTime;
   if (event.isStarted) {
     event.isCompleted = true;
     if (event.event !== EventCatagories.ATHLETICS && event.event !== EventCatagories.CRICKET) {
@@ -73,10 +72,11 @@ export const toggleEventStarted = async (id: string) => {
 
       let winningTeamIndex = 0;
       let score = event.score as AllScoresExceptCricketAndAthletics;
+      if (score.teamA_points === score.teamB_points) winningTeamIndex = -1;
       if (score.teamA_points < score.teamB_points) winningTeamIndex = 1;
 
-      event.winner = { team: event.teams[winningTeamIndex] };
-      if (!!event.participants) {
+      if (winningTeamIndex !== -1) event.winner = { team: event.teams[winningTeamIndex] };
+      if (!!event.participants && winningTeamIndex !== -1) {
         event.winner = { ...event.winner, participants: event.participants[winningTeamIndex] };
       }
     }
